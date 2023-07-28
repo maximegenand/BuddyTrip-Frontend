@@ -9,6 +9,7 @@ import EventScreen from './screens/EventScreen'
 import TripScreen from './screens/TripScreen'
 import ProfilScreen from './screens/ProfilScreen'
 import DocumentScreen from './screens/DocumentScreen'
+import ChatScreen from './screens/ChatScreen'
 
 import { Provider } from 'react-redux';
 import { configureStore, combineReducers, getDefaultMiddleware } from '@reduxjs/toolkit';
@@ -49,6 +50,8 @@ const TabNavigator = () => {
           iconName = 'file';
         } else if (route.name === 'Profil') {
           iconName = 'user'
+        } else if (route.name ==='Chat') {
+          iconName = 'comment'
         }
 
         return <FontAwesome name={iconName} size={size} color={color} />;
@@ -58,6 +61,7 @@ const TabNavigator = () => {
       headerShown: false,
     })}>
       <Tab.Screen name="Trip" component={TripScreen} />
+      <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Document" component={DocumentScreen} />
       <Tab.Screen name="Profil" component={ProfilScreen} />
     </Tab.Navigator>
@@ -71,6 +75,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="AllTrips" component={AllTripsScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>

@@ -1,6 +1,7 @@
 import React from "react";
 import {View, TouchableOpacity, StyleSheet, Text} from 'react-native';
-import globalStyles from '../GlobalCss'
+import { globalStyles } from '../styles/Global'
+import { styles } from '../styles/Event_styles'
 
 export default function EventScreen() {
     return (
@@ -11,7 +12,3 @@ export default function EventScreen() {
     </View>
     );
 }
-
-const styles = StyleSheet.create({
-
-});
