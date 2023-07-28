@@ -1,11 +1,11 @@
 import React from "react";
 import { View, TouchableOpacity, StyleSheet, Text } from 'react-native';
-import globalStyles from '../GlobalCss'
+import { globalStyles, colors } from '../GlobalCss';
 
 
 export default function RegisterScreen({ navigation }) {
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.navigate('TabNavigator')}>
         <Text>RegisterScreen</Text>
       </TouchableOpacity>
@@ -15,6 +15,6 @@ export default function RegisterScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'red',
+    backgroundColor: colors.button
   }
 });
