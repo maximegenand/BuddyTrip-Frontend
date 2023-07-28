@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     fleche_left : {
         width: Dimensions.get('window').width * 0.16,
         height: Dimensions.get('window').height * 0.08,
-        borderRadius: '70',
+        borderRadius: 70,
         backgroundColor: colors.button,
         display: 'flex',
         justifyContent: 'center',
