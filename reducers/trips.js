@@ -10,8 +10,8 @@ const initialState = {
             picture: "https://img.freepik.com/photos-gratuite/portrait-homme-blanc-isole_53876-40306.jpg?w=900&t=st=1690554398~exp=1690554998~hmac=be6a913bf58c9dd234f651a692863dd0f6226ec13a4905152d3430d925c4fd9c",
         },
         name: "Rome les mecs",
-        dateStart: "2023-07-24T00:00:00.000+00:00",
-        dateEnd: "2023-08-02T00:00:00.000+00:00",
+        dateStart: "2023-07-24T00:00:00.000Z",
+        dateEnd: "2023-08-02T00:00:00.000Z",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         participants: [
             { tokenUser: "qsdmqlksdmsldfiojensdflksd", username: "John" },
@@ -26,8 +26,8 @@ const initialState = {
             username: "Barbie",
         },
         name: "Titre long de 50 caractères pour gérer l'affichage",
-        dateStart: "2023-09-15T00:00:00.000+00:00",
-        dateEnd: "2023-09-30T00:00:00.000+00:00",
+        dateStart: "2023-09-15T00:00:00.000Z",
+        dateEnd: "2023-09-30T00:00:00.000Z",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         participants: [
             { tokenUser: "qsdmqlksdmsldfiojensdflksd", username: "John" },
