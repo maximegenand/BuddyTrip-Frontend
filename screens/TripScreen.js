@@ -4,20 +4,15 @@ import { globalStyles, colors } from '../styles/Global'
 import { styles } from '../styles/Trip_styles'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from "expo-status-bar";
+import BoutonAdd from '../components/BoutonAdd';
+import  Header  from '../components/Header';
+import Event from '../components/Event'
+
 
 export default function TripScreen() {
   return (
     <View style={styles.container}>
-        <View style={styles.header}>
-            <View style={styles.header_Left}>
-            <FontAwesome style={styles.fleche} name="arrow-left" size={30} color={colors.background_beige}/>
-             <View>
-                <Text style={styles.name}>Rome les mecs</Text>
-                <Text style={styles.buddys}>Adrien, crackito, prout, max ...</Text>
-             </View>
-            </View>
-             <FontAwesome style={styles.bell} name="bell" size={30} color={colors.background_beige}/>
-        </View>
+        <Header/>
     <View style={styles.planning}>
         <View style={styles.calendrier}>
             <View style={styles.fleche_left}>
@@ -31,10 +26,9 @@ export default function TripScreen() {
         <FontAwesome name="arrow-right" size={30} color={colors.background_beige}/>
             </View>
         </View>
-        <View style={styles.event}>
-        </View>
+        <Event/>
     </View>
-
+    <BoutonAdd/>
     </View>
   );
 }
