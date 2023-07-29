@@ -5,7 +5,7 @@ import { styles } from '../styles/Trip_styles'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { StatusBar } from "expo-status-bar";
 import BoutonAdd from '../components/BoutonAdd';
-import  Header  from '../components/Header';
+// import  Header  from '../components/Header';
 import Event from '../components/Event'
 
 

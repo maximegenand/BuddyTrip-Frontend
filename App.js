@@ -1,3 +1,4 @@
+import { GLOBAL_COLOR } from './styles/globals';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 // Import Navigation
@@ -8,12 +9,13 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 // Import Screens
-import RegisterScreen from './screens/RegisterScreen';
-import AllTripsScreen from './screens/AllTripsScreen';
+import SigninScreen from './screens/SigninScreen';
+import SignupScreen from './screens/SignupScreen';
+import HomeScreen from './screens/HomeScreen';
 import EventScreen from './screens/EventScreen';
 import TripScreen from './screens/TripScreen';
 import ProfilScreen from './screens/ProfilScreen';
-import DocumentScreen from './screens/DocumentScreen';
+import DocumentsScreen from './screens/DocumentsScreen';
 import ChatScreen from './screens/ChatScreen';
 
 // Import Redux persist
@@ -29,26 +31,20 @@ const TabNavigator = () => {
     <Tab.Navigator screenOptions={({ route }) => ({
       tabBarIcon: ({ color, size }) => {
         let iconName = '';
-
-        if (route.name === 'Trip') {
-          iconName = 'home';
-        } else if (route.name === 'Document') {
-          iconName = 'file';
-        } else if (route.name === 'Profil') {
-          iconName = 'user'
-        } else if (route.name ==='Chat') {
-          iconName = 'comment'
-        }
+        if      (route.name === 'Trip')       iconName = 'home';
+        else if (route.name === 'Documents')  iconName = 'file';
+        else if (route.name === 'Profil')     iconName = 'user';
+        else if (route.name === 'Chat')       iconName = 'comment';
 
         return <FontAwesome name={iconName} size={size} color={color} />;
       },
-      tabBarActiveTintColor: '#E9671F',
+      tabBarActiveTintColor: GLOBAL_COLOR.SECONDARY,
       tabBarInactiveTintColor: '#b2b2b2',
       headerShown: false,
     })}>
       <Tab.Screen name="Trip" component={TripScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
-      <Tab.Screen name="Document" component={DocumentScreen} />
+      <Tab.Screen name="Documents" component={DocumentsScreen} />
       <Tab.Screen name="Profil" component={ProfilScreen} />
     </Tab.Navigator>
   );
@@ -60,9 +56,11 @@ export default function App() {
       <PersistGate persistor={persistor}>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="AllTrips" component={AllTripsScreen} />
+          <Stack.Screen name="Signin" component={SigninScreen} />
+          <Stack.Screen name="Signup" component={SignupScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          <Stack.Screen name="Event" component={EventScreen} />
         </Stack.Navigator>
       </NavigationContainer>
       </PersistGate>
