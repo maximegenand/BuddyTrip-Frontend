@@ -1,16 +1,15 @@
 import { useRef, useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Button } from 'react-native';
+import { View, Text, TouchableOpacity, Button, ScrollView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 // Import styles
-import { globalsStyles, GLOBAL_COLOR } from '../styles/globals';
+import { globalsStyles, GLOBAL_COLOR } from '../styles/globals'
 import styles from "../styles/TripStyles";
 
 //Import components
-import Header  from '../components/Header';
-import BoutonAdd from '../components/BoutonAdd';
+import Header from '../components/Header';
 import Event from '../components/Event'
-
+import BoutonAdd from '../components/BoutonAdd'
 //Import modules
 
 // Import redux
@@ -38,23 +37,29 @@ export default function TripScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Header />
+      <Header navigation={navigation}/>
       <View style={styles.planning}>
+        <View style={styles.calendrierEvent}>
         <View style={styles.calendrier}>
           <View style={styles.fleche_left}>
-            <FontAwesome name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY}/>
+            <FontAwesome name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
           </View>
           <View style={styles.day}>
             <Text style={styles.jour}>Aujourd'hui</Text>
             <Text style={styles.date}>23 juillet 1999</Text>
           </View>
           <View style={styles.fleche_left}>
-            <FontAwesome name="arrow-right" size={30} color={GLOBAL_COLOR.TERTIARY}/>
+            <FontAwesome name="arrow-right" size={30} color={GLOBAL_COLOR.TERTIARY} />
           </View>
+          </View>
+          <ScrollView style={styles.events}>
+        <Event onPress={() => navigation.navigate('Event')}/>
+        <Event onPress={() => navigation.navigate('Event')}/>
+        <Event onPress={() => navigation.navigate('Event')}/>
+        </ScrollView>
+      <BoutonAdd onPress={() => navigation.navigate('EventScreen')} style={styles.boutonAdd}/>
         </View>
-        <Event />
       </View>
-      <BoutonAdd/>
     </View>
   );
 }

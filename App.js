@@ -17,6 +17,7 @@ import TripScreen from './screens/TripScreen';
 import ProfilScreen from './screens/ProfilScreen';
 import DocumentsScreen from './screens/DocumentsScreen';
 import ChatScreen from './screens/ChatScreen';
+import NewEventScreen from './screens/NewEventScreen';
 
 // Import Redux persist
 import { Provider } from 'react-redux';

@@ -18,9 +18,10 @@ export default styles = StyleSheet.create({
         borderRadius: 10,
     },
     calendrier : {
+        width : screenWidth,
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
         alignItems : 'center',
         margin: 10,
     },
@@ -43,8 +44,18 @@ export default styles = StyleSheet.create({
         alignItems: 'center',
     },
     planning : {
+        height : screenHeight * 0.79,
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    calendrierEvent : {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
-    }
+        alignItems: 'center',
+        position :'relative'
+    },
+    events : {
+        overflow :'scroll',
+    },
 });

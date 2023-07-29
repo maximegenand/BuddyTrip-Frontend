@@ -8,7 +8,7 @@ export default function Event() {
     <View style={styles.container}>
         <View style={styles.date}>
           <Text style={styles.hour}>13H00</Text>
-          <FontAwesome name="car" size={30} color={GLOBAL_COLOR.TERTIARY} />
+          <FontAwesome style={styles.car} name="car" size={30} color={GLOBAL_COLOR.TERTIARY} />
           <Text style={styles.hour}>18H00</Text>
         </View>
         <View style={styles.ou}>
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,
+    margin: 5
   },
   date : {
     display: 'flex',
@@ -57,5 +58,9 @@ const styles = StyleSheet.create({
   createur : {
     color: GLOBAL_COLOR.TERTIARY,
     marginBottom : 50,
+  },
+  car : {
+    marginTop: 5,
+    marginBottom: 5
   }
 });

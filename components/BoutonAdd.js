@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     container : {
       width: 90,
       height: 90,
-      borderRadius: '50%',
+      borderRadius: 100,
       backgroundColor: GLOBAL_COLOR.PRIMARY,
       display: 'flex',
       justifyContent: 'center',
