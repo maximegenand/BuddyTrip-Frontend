@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         height : screenHeight * 0.13,
         backgroundColor : GLOBAL_COLOR.PRIMARY,
         display: 'flex',
-        flexDirection : 'row',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         
