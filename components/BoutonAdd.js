@@ -1,14 +1,11 @@
-import React from "react";
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
-import { Dimensions } from "react-native";
-import { colors } from "../styles/Global";
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from "react-native";
+import { GLOBAL_COLOR } from '../styles/globals';
 
-export default function TripScreen() {
+export default function BoutonAdd() {
   return (
     <TouchableOpacity style={styles.container}>
-    <Text style={styles.plus}>+</Text>
-</TouchableOpacity>
+      <Text style={styles.plus}>+</Text>
+    </TouchableOpacity>
   );
 }
 
@@ -17,7 +14,7 @@ const styles = StyleSheet.create({
       width: 90,
       height: 90,
       borderRadius: '50%',
-      backgroundColor: colors.button,
+      backgroundColor: GLOBAL_COLOR.PRIMARY,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -25,6 +22,6 @@ const styles = StyleSheet.create({
     plus: {
       fontWeight: 'bold',
       fontSize: 50,
-      color: colors.background_beige
+      color: GLOBAL_COLOR.TERTIARY,
     },
 });
