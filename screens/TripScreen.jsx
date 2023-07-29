@@ -7,7 +7,7 @@ import { globalsStyles, GLOBAL_COLOR } from '../styles/globals';
 import styles from "../styles/TripStyles";
 
 //Import components
-// import Header  from '../components/Header';
+import Header  from '../components/Header';
 import BoutonAdd from '../components/BoutonAdd';
 import Event from '../components/Event'
 
