@@ -2,48 +2,11 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { GLOBAL_COLOR } from './globals';
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
-export default styles = StyleSheet.create({
+const styles = StyleSheet.create({
     container : {
-       width: screenWidth,
-       height: screenHeight,
-       backgroundColor: GLOBAL_COLOR.TERTIARY,
-    },
-    header : {
         width: screenWidth,
-        height: screenHeight * 0.13,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        
-    },
-    header_Left : {
-        display: 'flex',
-        flexDirection: 'row',
-        marginLeft: 10,
-    },
-    name: {
-        fontWeight: 'bold',
-        color: GLOBAL_COLOR.TERTIARY,
-    },
-    buddys : {
-        color: GLOBAL_COLOR.TERTIARY,
-    },
-    fleche : {
-        marginRight: 10
-    },
-    bell : {
-        marginRight: 10
-    },
-    fleche_left : {
-        width: screenWidth * 0.16,
-        height: screenHeight * 0.08,
-        borderRadius: 70,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
+        height: screenHeight,
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
     day : {
         width: screenWidth * 0.5,
@@ -70,4 +33,21 @@ export default styles = StyleSheet.create({
     date : {
         color: GLOBAL_COLOR.TERTIARY,
     },
+    fleche_left : {
+        width: screenWidth * 0.16,
+        height: screenHeight * 0.08,
+        borderRadius: 70,
+        backgroundColor: GLOBAL_COLOR.PRIMARY,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    planning : {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
+
+
+export { styles };

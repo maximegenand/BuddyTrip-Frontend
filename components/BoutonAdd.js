@@ -1,6 +1,7 @@
 import React from "react";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Dimensions } from "react-native";
+const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 import { colors } from "../styles/Global";
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 

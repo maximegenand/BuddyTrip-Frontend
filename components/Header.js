@@ -2,6 +2,7 @@ import React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Dimensions } from "react-native";
 import { colors } from "../styles/Global";
+const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function TripScreen() {
@@ -26,13 +27,13 @@ export default function TripScreen() {
 
 const styles = StyleSheet.create({
     header : {
-        width : Dimensions.get('window').width,
-        height : Dimensions.get('window').height * 0.13,
-        backgroundColor : colors.button,
+        width: screenWidth,
+        height: screenHeight * 0.13,
+        backgroundColor: GLOBAL_COLOR.PRIMARY,
         display: 'flex',
-        flexDirection : 'row',
+        flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
         
     },
     header_Left : {
@@ -42,10 +43,10 @@ const styles = StyleSheet.create({
     },
     name: {
         fontWeight: 'bold',
-        color: colors.background_beige,
+        color: GLOBAL_COLOR.TERTIARY,
     },
     buddys : {
-        color : colors.background_beige
+        color: GLOBAL_COLOR.TERTIARY,
     },
     fleche : {
         marginRight: 10
