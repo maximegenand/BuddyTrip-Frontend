@@ -1,6 +1,9 @@
 import { GLOBAL_COLOR } from './styles/globals';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+// Import des Fonts Google : https://github.com/expo/google-fonts/tree/master/font-packages
+import { useFonts, MontserratAlternates_600SemiBold_Italic } from '@expo-google-fonts/montserrat-alternates';
+
 // Import Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -52,6 +55,14 @@ const TabNavigator = () => {
 };
 
 export default function App() {
+  // Initialisation des fonts Google
+  let [fontsLoaded] = useFonts({
+    'Montserrat-Alternates-SemiBold-Italic': MontserratAlternates_600SemiBold_Italic,
+  });
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
