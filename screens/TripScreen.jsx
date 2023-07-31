@@ -15,46 +15,24 @@ import BoutonAdd from "../components/BoutonAdd";
 
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
-import {} from "../redux/reducers/user";
-import {} from "../redux/reducers/trips";
-import {} from "../redux/reducers/events";
+import {  } from '../redux/reducers/user';
+import {  } from '../redux/reducers/trips';
+import {  } from '../redux/reducers/events';
 
-export default function TripScreen({ navigation }) {
+export default function TripScreen({ route, navigation }) {
+
   // 1. Redux storage
-  const user = useSelector((state) => state.user.value);
-  const trips = useSelector((state) => state.trips.value);
-  const events = useSelector((state) => state.events.value);
-  const dispatch = useDispatch();
-
+  const user = useSelector(state => state.user.value);
+  const trips = useSelector(state => state.trips.value);
+  const events = useSelector(state => state.events.value);
+  const dispatch = useDispatch(); 
+  const tokenTripFromRoute = route.params.token
   // 2. UseEffect, UseState, UseRef
 
-  const startDate = new Date(trips[0].dateStart);
-  const today = new Date();
-  let initialDate = startDate;
-
-  if (startDate < today) {
-    initialDate = today;
-  }
-  const [currentDate, setCurrentDate] = useState(initialDate);
-  // État local pour conserver la date actuellement affichée
-
-  const onNextDate = () => {
-    // Fonction pour afficher la date suivante
-    const nextDate = addDays(currentDate, 1);
-    setCurrentDate(nextDate);
-  };
-
-  const onPreviousDate = () => {
-    // Fonction pour afficher la date précédente
-    const previousDate = addDays(currentDate, -1);
-    setCurrentDate(previousDate);
-  };
 
   // 3. Functions
 
-  const dateStart = (
-    <Text style={styles.date}> {format(currentDate, "dd/MM/yyyy")}</Text>
-  );
+
   // 4. Return Component
 
   return (
@@ -98,5 +76,6 @@ export default function TripScreen({ navigation }) {
         </View>
       </View>
     </View>
+      
   );
 }

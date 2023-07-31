@@ -46,7 +46,7 @@ const TabNavigator = () => {
       tabBarInactiveTintColor: '#b2b2b2',
       headerShown: false,
     })}>
-      <Tab.Screen name="Trip" component={TripScreen} />
+      <Tab.Screen name="Trip" component={TripScreen}/>
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Documents" component={DocumentsScreen} />
       <Tab.Screen name="Profil" component={ProfilScreen} />
