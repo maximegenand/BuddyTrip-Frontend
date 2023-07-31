@@ -1,74 +1,64 @@
-import { View, Text, TextInput, TouchableOpacity, StatusBar, Platform } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Platform } from "react-native";
 import HeaderNav from "../components/HeaderNewTrip";
-import DatePicker from "react-native-datepicker";
+import { useState } from "react";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 import styles from "../styles/NewTripStyles";
 
 export default function NewTripScreen({ navigation }) {
-  const [selectedDate1, setSelectedDate1] = useState(new Date());
-  const [selectedDate2, setSelectedDate2] = useState(new Date());
-  const [tripName, setTripName] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [showStartDatePicker, setShowStartDatePicker] = useState(false);
+  const [showEndDatePicker, setShowEndDatePicker] = useState(false);
+
+  const handleStartDateChange = (event, selectedDate) => {
+    setShowStartDatePicker(Platform.OS === "ios");
+    if (selectedDate) {
+      setStartDate(selectedDate);
+    }
+  };
+
+  const handleEndDateChange = (event, selectedDate) => {
+    setShowEndDatePicker(Platform.OS === "ios");
+    if (selectedDate) {
+      setEndDate(selectedDate);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
-      <HeaderNav />
+      {HeaderNav}
       <View style={styles.forms}>
         <View style={styles.form}>
-          <TextInput
-            style={styles.input}
-            placeholder="Name"
-            value={tripName}
-            onChangeText={(text) => setTripName(text)}
-          />
+          <TextInput style={styles.input} placeholder="Name" placeholderTextColor={GLOBAL_COLOR.TERTIARY} />
         </View>
         <View style={styles.form}>
-          <DatePicker
-            style={styles.datePicker}
-            date={selectedDate1}
-            mode="date"
-            placeholder="Select date 1"
-            format="YYYY-MM-DD"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateInput: {
-                borderWidth: 0,
-                alignItems: "flex-start",
-                paddingLeft: Platform.OS === "ios" ? 4 : 0,
-              },
-              dateText: {
-                fontSize: 16,
-                color: "#000",
-              },
-            }}
-            onDateChange={(date) => setSelectedDate1(date)}
-          />
+          <TouchableOpacity onPress={() => setShowStartDatePicker(true)}>
+            <Text>Start Date: {startDate.toDateString()}</Text>
+          </TouchableOpacity>
+          {showStartDatePicker && (
+            <DateTimePicker
+              value={startDate}
+              mode="date"
+              display={Platform.OS === "ios" ? "spinner" : "default"}
+              onChange={handleStartDateChange}
+            />
+          )}
         </View>
         <View style={styles.form}>
-          <DatePicker
-            style={styles.datePicker}
-            date={selectedDate2}
-            mode="date"
-            placeholder="Select date 2"
-            format="YYYY-MM-DD"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateInput: {
-                borderWidth: 0,
-                alignItems: "flex-start",
-                paddingLeft: Platform.OS === "ios" ? 4 : 0,
-              },
-              dateText: {
-                fontSize: 16,
-                color: "#000",
-              },
-            }}
-            onDateChange={(date) => setSelectedDate2(date)}
-          />
+          <TouchableOpacity onPress={() => setShowEndDatePicker(true)}>
+            <Text>End Date: {endDate.toDateString()}</Text>
+          </TouchableOpacity>
+          {showEndDatePicker && (
+            <DateTimePicker
+              value={endDate}
+              mode="date"
+              display={Platform.OS === "ios" ? "spinner" : "default"}
+              onChange={handleEndDateChange}
+            />
+          )}
         </View>
         <TouchableOpacity>
           <Text>Add Trip</Text>
