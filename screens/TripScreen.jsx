@@ -28,10 +28,32 @@ export default function TripScreen({ route, navigation }) {
   const dispatch = useDispatch(); 
   const tokenTripFromRoute = route.params.token
   // 2. UseEffect, UseState, UseRef
-
+  const startDate = new Date(trips[0].dateStart);
+  const today = new Date();
+  let initialDate = startDate;
+  const found = trips.find(element=> element.tokenTrip === tokenTripFromRoute)
 
   // 3. Functions
+  if (startDate < today) {
+    initialDate = today;
+  }
+  const [currentDate, setCurrentDate] = useState(initialDate);
+  // État local pour conserver la date actuellement affichée
 
+  const onNextDate = () => {
+    // Fonction pour afficher la date suivante
+    const nextDate = addDays(currentDate, 1);
+    setCurrentDate(nextDate);
+  };
+
+  const onPreviousDate = () => {
+    // Fonction pour afficher la date précédente
+    const previousDate = addDays(currentDate, -1);
+    setCurrentDate(previousDate);
+  };
+  const dateStart = (
+    <Text style={styles.date}> {format(currentDate, "dd/MM/yyyy")}</Text>
+  );
 
   // 4. Return Component
 
