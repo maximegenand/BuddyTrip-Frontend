@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Button, ScrollView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from '../styles/globals'
 import styles from "../styles/TripStyles";
@@ -18,20 +19,21 @@ import {  } from '../redux/reducers/user';
 import {  } from '../redux/reducers/trips';
 import {  } from '../redux/reducers/events';
 
-
-export default function TripScreen({ navigation }) {
+export default function TripScreen({ route, navigation }) {
 
   // 1. Redux storage
   const user = useSelector(state => state.user.value);
   const trips = useSelector(state => state.trips.value);
   const events = useSelector(state => state.events.value);
-  const dispatch = useDispatch();
-
+  const dispatch = useDispatch(); 
+  const tokenTripFromRoute = route.params.token
   // 2. UseEffect, UseState, UseRef
-
+  const [tokenTrip, setTokenTrip] = useState('')
+  useEffect(() => {
+    setTokenTrip(tokenTripFromRoute)
+  }, []);
 
   // 3. Functions
-
 
   // 4. Return Component
 
@@ -61,5 +63,6 @@ export default function TripScreen({ navigation }) {
         </View>
       </View>
     </View>
+      
   );
 }
