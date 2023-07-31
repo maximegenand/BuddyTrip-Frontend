@@ -13,6 +13,7 @@ import BoutonAdd from '../components/BoutonAdd';
 
 //Import modules
 import { screenPeriod } from '../modules/dates';
+import { useNavigation } from '@react-navigation/native';
 
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
@@ -31,12 +32,19 @@ export default function HomeScreen({ navigation }) {
 
   // 2. UseEffect, UseState, UseRef
 
-
+  
   // 3. Functions
+  const navigationTokenTrip = useNavigation();
+
+    const handlePressTokenTrip = (tokenTrip) => {
+      const dataToSend = tokenTrip
+      navigation.navigate('TabNavigator', { screen: 'Trip', params: { token: tokenTrip } });
+    };
+  
 
   // Fonction d'affichage de la liste des Trips
   const tripList = trips.map(trip => (
-    <TouchableOpacity style={styles.tripContainer} key={trip.tokenTrip} onPress={() => navigation.navigate('TabNavigator')}>
+    <TouchableOpacity style={styles.tripContainer} key={trip.tokenTrip} onPress={() => handlePressTokenTrip(trip.tokenTrip)}>
       <Text style={styles.tripTitle}>{trip.name}</Text>
       <View style={styles.tripSubContainer}>
         <Text style={styles.tripParticipants}>{trip.participants.length} participants</Text>
@@ -44,6 +52,7 @@ export default function HomeScreen({ navigation }) {
       </View>
     </TouchableOpacity>
   ));
+
 
   // 4. Return Component
   return (
