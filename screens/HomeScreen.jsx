@@ -9,9 +9,10 @@ import styles from "../styles/HomeStyles";
 //Import components
 import SvgLogo from '../components/svg/SvgLogo';
 import SvgUser from '../components/svg/SvgUser';
+import BoutonAdd from '../components/BoutonAdd';
 
 //Import modules
-import BoutonAdd from '../components/BoutonAdd';
+import { screenPeriod } from '../modules/dates';
 
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
@@ -39,7 +40,7 @@ export default function HomeScreen({ navigation }) {
       <Text style={styles.tripTitle}>{trip.name}</Text>
       <View style={styles.tripSubContainer}>
         <Text style={styles.tripParticipants}>{trip.participants.length} participants</Text>
-        <Text style={styles.tripDate}>du ?? au ?? juillet</Text>
+        <Text style={styles.tripDate}>{screenPeriod([trip.dateStart, trip.dateEnd])}</Text>
       </View>
     </TouchableOpacity>
   ));
