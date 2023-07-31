@@ -12,6 +12,7 @@ export default function Form(props) {
        onChangeText={props.onChangeText} 
        value={props.value}
        style={styles.input}
+       styles={props.style}
         />
     </View>
   );
