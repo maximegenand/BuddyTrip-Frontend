@@ -4,10 +4,16 @@ const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
     container : {
-        height: screenHeight,
-        width: screenWidth,
-        backgroundColor : GLOBAL_COLOR.SECONDARY
+      height: Dimensions.get("screen").height,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor : GLOBAL_COLOR.SECONDARY
     },
+    // container : {
+    //     height: screenHeight,
+    //     width: screenWidth,
+    //     backgroundColor : GLOBAL_COLOR.SECONDARY
+    // },
     header: {
         height: screenHeight * 0.11,
         width : screenWidth,
@@ -45,7 +51,7 @@ export default styles = StyleSheet.create({
     descritpion : {
         backgroundColor: GLOBAL_COLOR.TERTIARY,
         width : screenWidth * 0.8,
-        height : screenHeight * 0.20,
+        height : screenHeight * 0.1,
         borderRadius: 5,
         marginBottom: 20,
     },
@@ -70,5 +76,38 @@ export default styles = StyleSheet.create({
         marginBottom: 20,
         borderBottomColor: GLOBAL_COLOR.PRIMARY,
         borderBottomWidth: StyleSheet.hairlineWidth,                                     
+    },
+    inputDesc : {
+        borderBottomWidth: 1,
+        borderBottomColor : GLOBAL_COLOR.SECONDARY,
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
+        fontSize: 15,
+        margin: 10
+    },
+    containerInputDesc: {
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
+        width : screenWidth * 0.8,
+        height : screenHeight * 0.06,
+        display: 'flex',
+        justifyContent: 'center',
+        borderRadius: 5,
+        marginBottom: 10,
+        marginTop: 10
+    },
+    enregistrer : {
+        width: screenWidth * 0.3,
+        backgroundColor: GLOBAL_COLOR.PRIMARY,
+        padding: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
+        borderRadius: 5,
+        alignItems: 'center'
+    }, 
+    enregistrerWord : {
+        color : GLOBAL_COLOR.TERTIARY
+    }, 
+    variable : {
+        height: screenHeight * 0.51,
+        display: 'flex',
     }
 });
