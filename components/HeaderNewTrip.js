@@ -1,5 +1,6 @@
 import { View, StyleSheet, Text, Dimensions, TouchableOpacity } from "react-native";
 import { GLOBAL_COLOR } from "../styles/globals";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 export default function HeaderNav({ navigation }) {

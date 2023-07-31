@@ -29,7 +29,7 @@ export default function NewTripScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {HeaderNav}
+      <HeaderNav navigation={navigation} style={styles.header}/>
       <View style={styles.forms}>
         <View style={styles.form}>
           <TextInput style={styles.input} placeholder="Name" placeholderTextColor={GLOBAL_COLOR.TERTIARY} />
