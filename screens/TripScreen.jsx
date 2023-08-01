@@ -66,7 +66,7 @@ const eventsList = allEvents.map((event, i) => (
     <Event
       key={event.tokenEvent}
       event={event}
-      handlePress={() => navigation.navigate('Event', { screen: 'Event', params: { tokenEvent: event.tokenEven } })}
+      handlePress={() => navigation.navigate('Event', { screen: 'Event', params: { tokenEvent: event.tokenEvent } })}
        // Passer l'information 'found' au composant Event car les événements sont trouvés
     />
   ))
