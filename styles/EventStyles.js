@@ -78,13 +78,14 @@ export default styles = StyleSheet.create({
     } ,
     desc : {
         maxWidth: 500,
-        wordWrap: 'break-word',
+        // wordWrap: 'break-word',
         color: GLOBAL_COLOR.SECONDARY,
         fontSize: 17,
     },
     infos : {
         marginTop: 15,
         height : '71%',
+        width: '85%',
     },
     textInfos : {
         marginBottom: 5,
@@ -101,7 +102,7 @@ export default styles = StyleSheet.create({
         marginBottom: 10
     },
     interetTextList : {
-        fontSize: 15,
+        fontSize: 17,
         color: GLOBAL_COLOR.SECONDARY,
         marginBottom: 10
     }
