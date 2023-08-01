@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Button, ScrollView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { addDays, format, compareDesc } from "date-fns";
+import { BACK_URL } from '@env';
 
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
@@ -11,29 +12,50 @@ import styles from "../styles/TripStyles";
 import Header from "../components/Header";
 import Event from "../components/Event";
 import BoutonAdd from "../components/BoutonAdd";
+
 //Import modules
+import { formatDate, formatPeriod } from '../modules/dates';
 
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
 import {  } from '../redux/reducers/user';
-import {  } from '../redux/reducers/trips';
-import {  } from '../redux/reducers/events';
+import { updateTrip } from '../redux/reducers/trips';
+import { addAllEvents } from '../redux/reducers/events';
 
 
 export default function TripScreen({ route, navigation }) {
   // On récupère la valeur du tokenTrip
-  const tokenTrip = route.params.token;
+  const tokenTrip = route.params.tokenTrip;
+
 
   // 1. Redux storage
   const user = useSelector(state => state.user.value);
   const trips = useSelector(state => state.trips.value);
   const events = useSelector(state => state.events.value);
-  const dispatch = useDispatch(); 
-
+  const dispatch = useDispatch();
 
 
   // 2. UseEffect, UseState, UseRef
 
+  // On récupère le trip dans le backend avec les events et infos, puis on sauvegarde dans le redux storage
+  // console.log('TRIP Rerender : '+tokenTrip);
+  useEffect(() => {
+    (async () => {
+      //console.log('Trip useEffect')
+      try {
+        const tripFetch = await fetch(`${BACK_URL}/trips/${tokenTrip}?token=${user.token}`);
+        const data = await tripFetch.json();
+
+        // On enregistre les infos dans le reducer si tout s'est bien déroulé
+        if(data.result) {
+          dispatch(updateTrip(data.trip));
+          dispatch(addAllEvents(data.events));
+        };
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    })();
+  }, []);
 
   // On récupère les infos du trip et des events que l'on souhaite afficher
   const trip = trips.find(element=> element.tokenTrip === tokenTrip);
@@ -67,7 +89,7 @@ export default function TripScreen({ route, navigation }) {
   const dateScreen = (
     <View style={styles.day}>
       <Text style={styles.jour}>Aujourd'hui</Text>
-      <Text style={styles.date}>{format(currentDate, "dd/MM/yyyy")} </Text>
+      <Text style={styles.date}>{formatDate(currentDate, true)} </Text>
     </View>
   );
 
