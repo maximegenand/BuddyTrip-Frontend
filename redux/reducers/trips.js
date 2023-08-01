@@ -42,9 +42,11 @@ export const tripsSlice = createSlice({
   name: 'trips',
   initialState,
   reducers: {
-
+    addAllTrips: (state, action) => {
+      state.value = action.payload;
+    },
   },
 });
 
-export const { } = tripsSlice.actions;
+export const { addAllTrips } = tripsSlice.actions;
 export default tripsSlice.reducer;
