@@ -58,7 +58,7 @@ export default function HomeScreen({ navigation }) {
 
     const handlePressTokenTrip = (tokenTrip) => {
       const dataToSend = tokenTrip
-      navigation.navigate('TabNavigator', { screen: 'Trip', params: { token: tokenTrip } });
+      navigation.navigate('TabNavigator', { screen: 'Trip', params: { tokenTrip: tokenTrip } });
     };
   
 
