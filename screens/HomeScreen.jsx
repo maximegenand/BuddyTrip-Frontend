@@ -7,13 +7,13 @@ import { BACK_URL } from '@env';
 import { globalsStyles, GLOBAL_COLOR } from '../styles/globals'
 import styles from "../styles/HomeStyles";
 
-// //Import components
-// import SvgLogo from '../components/svg/SvgLogo';
-// import SvgUser from '../components/svg/SvgUser';
+//Import components
+import SvgLogo from '../components/svg/SvgLogo';
+import SvgUser from '../components/svg/SvgUser';
 import BoutonAdd from '../components/BoutonAdd';
 
 //Import modules
-import { screenPeriod } from '../modules/dates';
+import { formatPeriod } from '../modules/dates';
 import { useNavigation } from '@react-navigation/native';
 
 // Import redux
@@ -34,10 +34,11 @@ export default function HomeScreen({ navigation }) {
   // 2. UseEffect, UseState, UseRef
 
   // On récupère la liste des trips dans le backend et on sauvegarde dans le redux storage
+  // console.log('HOME Rerender')
   useEffect(() => {
     (async () => {
+      // console.log('HOME useEffect')
       try {
-        console.log(user.token);
         const tripsFetch = await fetch(`${BACK_URL}/trips/next?token=${user.token}`);
         const data = await tripsFetch.json();
 
@@ -67,7 +68,7 @@ export default function HomeScreen({ navigation }) {
       <Text style={styles.tripTitle}>{trip.name}</Text>
       <View style={styles.tripSubContainer}>
         <Text style={styles.tripParticipants}>{trip.participants.length} participants</Text>
-        <Text style={styles.tripDate}>{screenPeriod([trip.dateStart, trip.dateEnd])}</Text>
+        <Text style={styles.tripDate}>{formatPeriod([new Date(trip.dateStart), new Date(trip.dateEnd)])}</Text>
       </View>
     </TouchableOpacity>
   ));
