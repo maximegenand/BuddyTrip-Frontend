@@ -4,21 +4,46 @@ const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: screenWidth,
+        height: screenHeight,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
+    content: {
+        flex:1,
+        justifyContent: 'center',
         alignItems: 'center',
-        height: 67,
-        paddingHorizontal: 10,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
+        padding: 100,
+    },
+    input :{
+        fontWeight: "bold",
+        fontSize: 20,
+        borderRadius: 10,
+        backgroundColor: '#f2f2f2',
+        paddingHorizontal: 15, // Ajouter un espace intérieur horizontal pour améliorer l'apparence
+        paddingVertical: 5,
+        fontStyle: 'italic',
     },
     forms :{
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    form: {flex: 1}
+    form: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    dates:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textmain :{
+        fontWeight: "bold",
+        fontSize: 20,
+    },
+    btnAdd: {
+        fontSize: 20,
+
+    }
 })
