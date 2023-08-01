@@ -29,17 +29,20 @@ export default function TripScreen({ route, navigation }) {
   const dispatch = useDispatch(); 
   const tokenTripFromRoute = route.params.token
   console.log('tokenTripFromRoute', tokenTripFromRoute);
+
+
   // 2. UseEffect, UseState, UseRef
   const startDate = new Date(trips[0].dateStart);
   const today = new Date();
   let initialDate = startDate;
-  const foundTrip = trips.find(element=> element.tokenTrip === tokenTripFromRoute)
-  console.log('trip found', foundTrip);
+  const foundTrip = trips.find(element=> element.tokenTrip === route.params.token)
+  console.log('trip found', foundTrip.name);
+
+
   // 3. Functions
   if (startDate < today) {
     initialDate = today;
   }
-
   const [currentDate, setCurrentDate] = useState(initialDate);
   // État local pour conserver la date actuellement affichée
 
@@ -58,11 +61,12 @@ export default function TripScreen({ route, navigation }) {
     <Text style={styles.date}> {format(currentDate, "dd/MM/yyyy")}</Text>
   );
 const allEvents = events.filter((event) => event.tokenTrip === foundTrip.tokenTrip) // Filtrer les événements correspondant au tokenTrip
-
+console.log('all events :', allEvents.map(e => e.name));
 const eventsList = allEvents.map((event, i) => (
-    <Event key={event.tokenEvent}
-   event= {event}
-      onPress={() => navigation.navigate("Event")}
+    <Event
+      key={event.tokenEvent}
+      event={event}
+      handlePress={() => navigation.navigate('Event', { screen: 'Event', params: { tokenEvent: event.tokenEven } })}
        // Passer l'information 'found' au composant Event car les événements sont trouvés
     />
   ))
@@ -101,7 +105,7 @@ const eventsList = allEvents.map((event, i) => (
             {eventsList}
           </ScrollView>
           <BoutonAdd
-            onPress={() => navigation.navigate("EventScreen")}
+            onPress={() => navigation.navigate("Event")}
             style={styles.boutonAdd}
           />
         </View>
