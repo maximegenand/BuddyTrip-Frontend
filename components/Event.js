@@ -4,9 +4,9 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 import { addDays, format } from "date-fns";
 
-export default function Event({event}) {
+export default function Event({ event, handlePress }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
         <View style={styles.date}>
           <Text style={styles.hour}>{format(new Date(event.timeStart), "hh:mm")}</Text>
           <FontAwesome style={styles.car} name="car" size={30} color={GLOBAL_COLOR.TERTIARY} />
@@ -17,7 +17,7 @@ export default function Event({event}) {
           <Text style={styles.participants}>{event.participants.length} participants : {event.participants.map(e => e.username)}</Text>
         </View>
         <Text style={styles.createur}>{event.user.username}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
