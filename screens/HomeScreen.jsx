@@ -7,9 +7,9 @@ import { BACK_URL } from '@env';
 import { globalsStyles, GLOBAL_COLOR } from '../styles/globals'
 import styles from "../styles/HomeStyles";
 
-//Import components
-import SvgLogo from '../components/svg/SvgLogo';
-import SvgUser from '../components/svg/SvgUser';
+// //Import components
+// import SvgLogo from '../components/svg/SvgLogo';
+// import SvgUser from '../components/svg/SvgUser';
 import BoutonAdd from '../components/BoutonAdd';
 
 //Import modules

@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Button, ScrollView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { addDays, format } from "date-fns";
+import { addDays, format, compareDesc } from "date-fns";
 
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
@@ -21,55 +21,67 @@ import {  } from '../redux/reducers/events';
 
 
 export default function TripScreen({ route, navigation }) {
+  // On récupère la valeur du tokenTrip
+  const tokenTrip = route.params.token;
 
   // 1. Redux storage
   const user = useSelector(state => state.user.value);
   const trips = useSelector(state => state.trips.value);
   const events = useSelector(state => state.events.value);
   const dispatch = useDispatch(); 
-  const tokenTripFromRoute = route.params.token
-  console.log('tokenTripFromRoute', tokenTripFromRoute);
+
 
 
   // 2. UseEffect, UseState, UseRef
-  const startDate = new Date(trips[0].dateStart);
-  const today = new Date();
-  let initialDate = startDate;
-  const foundTrip = trips.find(element=> element.tokenTrip === route.params.token)
-  console.log('trip found', foundTrip.name);
 
 
-  // 3. Functions
-  if (startDate < today) {
-    initialDate = today;
-  }
-  const [currentDate, setCurrentDate] = useState(initialDate);
-  // État local pour conserver la date actuellement affichée
+  // On récupère les infos du trip et des events que l'on souhaite afficher
+  const trip = trips.find(element=> element.tokenTrip === tokenTrip);
+  const eventsTrip = events.filter((event) => event.tokenTrip === trip.tokenTrip);
 
+  // Déclaration des dates au bon format
+  const dateStart = new Date(trip.dateStart);
+  const dateEnd = new Date(trip.dateEnd);
+
+  // Initialisation de la date d'affichage par défault
+  const [currentDate, setCurrentDate] = useState(new Date());
+  useEffect(() => {
+    if (compareDesc(currentDate, dateStart) === 1) {
+      setCurrentDate(dateStart);
+    }
+  }, []);
+
+  // Fonction pour afficher la date suivante
   const onNextDate = () => {
-    // Fonction pour afficher la date suivante
     const nextDate = addDays(currentDate, 1);
     setCurrentDate(nextDate);
   };
 
+  // Fonction pour afficher la date précédente
   const onPreviousDate = () => {
-    // Fonction pour afficher la date précédente
     const previousDate = addDays(currentDate, -1);
     setCurrentDate(previousDate);
   };
-  const dateStart = (
-    <Text style={styles.date}> {format(currentDate, "dd/MM/yyyy")}</Text>
+
+  // Affichage de la date actuelle
+  const dateScreen = (
+    <View style={styles.day}>
+      <Text style={styles.jour}>Aujourd'hui</Text>
+      <Text style={styles.date}>{format(currentDate, "dd/MM/yyyy")} </Text>
+    </View>
   );
-const allEvents = events.filter((event) => event.tokenTrip === foundTrip.tokenTrip) // Filtrer les événements correspondant au tokenTrip
-console.log('all events :', allEvents.map(e => e.name));
-const eventsList = allEvents.map((event, i) => (
+
+  // Affichage des events
+  const eventsScreen = eventsTrip.map((event) => (
     <Event
       key={event.tokenEvent}
       event={event}
       handlePress={() => navigation.navigate('Event', { screen: 'Event', params: { tokenEvent: event.tokenEvent } })}
-       // Passer l'information 'found' au composant Event car les événements sont trouvés
     />
-  ))
+  ));
+
+
+
   // 4. Return Component
 
   return (
@@ -78,31 +90,24 @@ const eventsList = allEvents.map((event, i) => (
       <View style={styles.planning}>
         <View style={styles.calendrierEvent}>
           <View style={styles.calendrier}>
-            <View style={styles.fleche_left}>
-              <TouchableOpacity onPress={onPreviousDate}>
-                <FontAwesome
-                  name="arrow-left"
-                  size={30}
-                  color={GLOBAL_COLOR.TERTIARY}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.day}>
-              <Text style={styles.jour}>Aujourd'hui</Text>
-              <Text style={styles.date}>{dateStart} </Text>
-            </View>
-            <View style={styles.fleche_left}>
-              <TouchableOpacity onPress={onNextDate}>
-                <FontAwesome
-                  name="arrow-right"
-                  size={30}
-                  color={GLOBAL_COLOR.TERTIARY}
-                />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity style={styles.fleche_left} onPress={onPreviousDate}>
+              <FontAwesome
+                name="arrow-left"
+                size={30}
+                color={GLOBAL_COLOR.TERTIARY}
+              />
+            </TouchableOpacity>
+            {dateScreen}
+            <TouchableOpacity style={styles.fleche_left} onPress={onNextDate}>
+              <FontAwesome
+                name="arrow-right"
+                size={30}
+                color={GLOBAL_COLOR.TERTIARY}
+              />
+            </TouchableOpacity>
           </View>
           <ScrollView style={styles.events}>
-            {eventsList}
+            {eventsScreen}
           </ScrollView>
           <BoutonAdd
             onPress={() => navigation.navigate("Event")}
