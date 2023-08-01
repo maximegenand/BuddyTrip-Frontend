@@ -39,6 +39,7 @@ export default function TripScreen({ route, navigation }) {
   if (startDate < today) {
     initialDate = today;
   }
+
   const [currentDate, setCurrentDate] = useState(initialDate);
   // État local pour conserver la date actuellement affichée
 
@@ -57,12 +58,13 @@ export default function TripScreen({ route, navigation }) {
     <Text style={styles.date}> {format(currentDate, "dd/MM/yyyy")}</Text>
   );
 const allEvents = events.filter((event) => event.tokenTrip === foundTrip.tokenTrip) // Filtrer les événements correspondant au tokenTrip
-console.log('all events :', allEvents);
+
 const eventsList = allEvents.map((event, i) => (
-    <Event key={i}
+    <Event key={event.tokenEvent}
+   event= {event}
       onPress={() => navigation.navigate("Event")}
        // Passer l'information 'found' au composant Event car les événements sont trouvés
-    >{event.name}</Event>
+    />
   ))
   // 4. Return Component
 
