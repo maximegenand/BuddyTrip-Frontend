@@ -29,12 +29,16 @@ export default function TripScreen({ route, navigation }) {
   const dispatch = useDispatch(); 
   const tokenTripFromRoute = route.params.token
   console.log('tokenTripFromRoute', tokenTripFromRoute);
+
+
   // 2. UseEffect, UseState, UseRef
   const startDate = new Date(trips[0].dateStart);
   const today = new Date();
   let initialDate = startDate;
-  const foundTrip = trips.find(element=> element.tokenTrip === tokenTripFromRoute)
-  console.log('trip found', foundTrip);
+  const foundTrip = trips.find(element=> element.tokenTrip === route.params.token)
+  console.log('trip found', foundTrip.name);
+
+
   // 3. Functions
   if (startDate < today) {
     initialDate = today;
@@ -57,12 +61,13 @@ export default function TripScreen({ route, navigation }) {
     <Text style={styles.date}> {format(currentDate, "dd/MM/yyyy")}</Text>
   );
 const allEvents = events.filter((event) => event.tokenTrip === foundTrip.tokenTrip) // Filtrer les événements correspondant au tokenTrip
-console.log('all events :', allEvents);
+console.log('all events :', allEvents.map(e => e.name));
 const eventsList = allEvents.map((event, i) => (
-    <Event key={i}
-      onPress={() => navigation.navigate("Event")}
+    <Event
+      key={event.tokenEvent}
+      event={event}
        // Passer l'information 'found' au composant Event car les événements sont trouvés
-    >{event.name}</Event>
+    />
   ))
   // 4. Return Component
 
