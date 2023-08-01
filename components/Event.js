@@ -1,22 +1,23 @@
-import { View, StyleSheet, Text, Dimensions } from "react-native";
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity } from "react-native";
 import { GLOBAL_COLOR } from '../styles/globals';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
+import { addDays, format } from "date-fns";
 
-export default function Event() {
+export default function Event({ event, handlePress }) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
         <View style={styles.date}>
-          <Text style={styles.hour}>13H00</Text>
+          <Text style={styles.hour}>{format(new Date(event.timeStart), "hh:mm")}</Text>
           <FontAwesome style={styles.car} name="car" size={30} color={GLOBAL_COLOR.TERTIARY} />
-          <Text style={styles.hour}>18H00</Text>
+          <Text style={styles.hour}>{format(new Date(event.timeEnd), "hh:mm")}</Text>
         </View>
         <View style={styles.ou}>
-          <Text style={styles.name}>Twingo Travel !</Text>
-          <Text style={styles.participants}>5 participants : Maxime, Adrien ...</Text>
+          <Text style={styles.name}>{event.name}</Text>
+          <Text style={styles.participants}>{event.participants.length} participants : {event.participants.map(e => e.username)}</Text>
         </View>
-        <Text style={styles.createur}>Rayenne</Text>
-    </View>
+        <Text style={styles.createur}>{event.user.username}</Text>
+    </TouchableOpacity>
   );
 }
 
