@@ -66,13 +66,13 @@ export default function TripScreen({ route, navigation }) {
   const dateEnd = trip.dateEnd ? new Date(trip.dateEnd) : false;
 
   // Initialisation de la date d'affichage par défault
-  const [currentDate, setCurrentDate] = useState(initialDate());
   const initialDate = () => {
     const currentDate = new Date();
     // Si le jour actuel est plus récent que le 1er jour du Trip, on affiche aujourd'hui, sinon on affiche le 1er jour du trip
     if (compareDesc(currentDate, dateStart) === 1) return dateStart;
     return currentDate;
   };
+  const [currentDate, setCurrentDate] = useState(initialDate());
 
   // Fonction pour afficher la date suivante
   const onNextDate = () => {
