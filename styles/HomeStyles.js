@@ -23,7 +23,7 @@ export default styles = StyleSheet.create({
         marginLeft: 5,
         color: GLOBAL_COLOR.TERTIARY,
         fontSize: 26,
-        fontFamily: 'Montserrat-Alternates-SemiBold-Italic',       
+        // fontFamily: 'Montserrat-Alternates-SemiBold-Italic',       
     },
     userContainer: {
         width: 45,

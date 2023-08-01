@@ -19,5 +19,6 @@ export default styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    form: {flex: 1}
 })
