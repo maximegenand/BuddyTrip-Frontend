@@ -105,7 +105,7 @@ const eventsList = allEvents.map((event, i) => (
             {eventsList}
           </ScrollView>
           <BoutonAdd
-            onPress={() => navigation.navigate("EventScreen")}
+            onPress={() => navigation.navigate("Event")}
             style={styles.boutonAdd}
           />
         </View>
