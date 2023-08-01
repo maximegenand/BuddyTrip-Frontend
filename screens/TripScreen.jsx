@@ -19,6 +19,7 @@ import {  } from '../redux/reducers/user';
 import {  } from '../redux/reducers/trips';
 import {  } from '../redux/reducers/events';
 
+
 export default function TripScreen({ route, navigation }) {
 
   // 1. Redux storage
@@ -27,12 +28,13 @@ export default function TripScreen({ route, navigation }) {
   const events = useSelector(state => state.events.value);
   const dispatch = useDispatch(); 
   const tokenTripFromRoute = route.params.token
+  console.log('tokenTripFromRoute', tokenTripFromRoute);
   // 2. UseEffect, UseState, UseRef
   const startDate = new Date(trips[0].dateStart);
   const today = new Date();
   let initialDate = startDate;
-  const found = trips.find(element=> element.tokenTrip === tokenTripFromRoute)
-
+  const foundTrip = trips.find(element=> element.tokenTrip === tokenTripFromRoute)
+  console.log('trip found', foundTrip);
   // 3. Functions
   if (startDate < today) {
     initialDate = today;
@@ -54,7 +56,14 @@ export default function TripScreen({ route, navigation }) {
   const dateStart = (
     <Text style={styles.date}> {format(currentDate, "dd/MM/yyyy")}</Text>
   );
-
+const allEvents = events.filter((event) => event.tokenTrip === foundTrip.tokenTrip) // Filtrer les événements correspondant au tokenTrip
+console.log('all events :', allEvents);
+const eventsList = allEvents.map((event, i) => (
+    <Event key={i}
+      onPress={() => navigation.navigate("Event")}
+       // Passer l'information 'found' au composant Event car les événements sont trouvés
+    >{event.name}</Event>
+  ))
   // 4. Return Component
 
   return (
@@ -87,9 +96,7 @@ export default function TripScreen({ route, navigation }) {
             </View>
           </View>
           <ScrollView style={styles.events}>
-            <Event onPress={() => navigation.navigate("Event")} />
-            <Event onPress={() => navigation.navigate("Event")} />
-            <Event onPress={() => navigation.navigate("Event")} />
+            {eventsList}
           </ScrollView>
           <BoutonAdd
             onPress={() => navigation.navigate("Event")}

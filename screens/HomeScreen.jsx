@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, Button, Br, StatusBar } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { BACK_URL } from '@env';
 
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from '../styles/globals'
@@ -18,7 +19,7 @@ import { useNavigation } from '@react-navigation/native';
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
 import {  } from '../redux/reducers/user';
-import {  } from '../redux/reducers/trips';
+import { addAllTrips } from '../redux/reducers/trips';
 import {  } from '../redux/reducers/events';
 
 
@@ -31,6 +32,24 @@ export default function HomeScreen({ navigation }) {
   const dispatch = useDispatch();
 
   // 2. UseEffect, UseState, UseRef
+
+  // On récupère la liste des trips dans le backend et on sauvegarde dans le redux storage
+  useEffect(() => {
+    (async () => {
+      try {
+        console.log(user.token);
+        const tripsFetch = await fetch(`${BACK_URL}/trips/next?token=${user.token}`);
+        const data = await tripsFetch.json();
+
+        // On enregistre les infos dans le reducer si tout s'est bien déroulé
+        if(data.result) {
+            dispatch(addAllTrips(data.trips));          
+        };
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    })();
+  }, []);
 
   
   // 3. Functions
