@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, Button, Br, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, Button, Br, StatusBar, SafeAreaView } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { BACK_URL } from '@env';
 
@@ -75,7 +75,7 @@ export default function HomeScreen({ navigation }) {
 
   // 4. Return Component
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={GLOBAL_COLOR.TERTIARY} barStyle="dark-content" />
       <View style={styles.header}>
         <View style={styles.logo}>
@@ -99,6 +99,6 @@ export default function HomeScreen({ navigation }) {
         </View>
         <View style={styles.add}><BoutonAdd onPress={() => navigation.navigate('NewTrip')}/></View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

@@ -8,6 +8,21 @@ export default styles = StyleSheet.create({
         height: screenHeight,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
+    content: {
+        flex:1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 100,
+    },
+    input :{
+        fontWeight: "bold",
+        fontSize: 20,
+        borderRadius: 10,
+        backgroundColor: '#f2f2f2',
+        paddingHorizontal: 15, // Ajouter un espace intérieur horizontal pour améliorer l'apparence
+        paddingVertical: 5,
+        fontStyle: 'italic',
+    },
     forms :{
         flex: 1,
         justifyContent: 'center',
@@ -18,12 +33,17 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    dates:{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     textmain :{
         fontWeight: "bold",
         fontSize: 20,
     },
-    input :{
-        fontWeight: "bold",
+    btnAdd: {
         fontSize: 20,
+
     }
 })

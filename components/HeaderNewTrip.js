@@ -10,7 +10,7 @@ export default function HeaderNav({ navigation }) {
         <FontAwesome style={styles.fleche} name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
       </TouchableOpacity>
       <Text style={styles.text}>Nouveau groupe</Text>
-      <Text></Text>
+      <Text style={styles.right}></Text>
     </View>
   );
 }
@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
     color: GLOBAL_COLOR.TERTIARY,
   },
   fleche: {
-    marginRight: 10,
+    padding:10,
   },
+  right: {
+    padding: 20,
+  }
 });
