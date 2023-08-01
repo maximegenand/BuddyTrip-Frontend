@@ -1,9 +1,9 @@
 import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from "react-native";
 import { GLOBAL_COLOR } from '../styles/globals';
 
-export default function BoutonAdd() {
+export default function BoutonAdd(props) {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={props.onPress}>
       <Text style={styles.plus}>+</Text>
     </TouchableOpacity>
   );

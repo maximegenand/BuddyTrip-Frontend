@@ -78,7 +78,7 @@ export default function HomeScreen({ navigation }) {
             <Text>Aucun Trip renseigné</Text>
           }
         </View>
-        <View style={styles.add}><BoutonAdd /></View>
+        <View style={styles.add}><BoutonAdd onPress={() => navigation.navigate('NewTrip')}/></View>
       </View>
     </View>
   );

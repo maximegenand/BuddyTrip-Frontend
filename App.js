@@ -21,6 +21,7 @@ import ProfilScreen from './screens/ProfilScreen';
 import DocumentsScreen from './screens/DocumentsScreen';
 import ChatScreen from './screens/ChatScreen';
 import NewEventScreen from './screens/NewEventScreen';
+import NewTripScreen from './screens/NewTripScreen';
 
 // Import Redux persist
 import { Provider } from 'react-redux';
@@ -72,6 +73,7 @@ export default function App() {
           <Stack.Screen name="Signup" component={SignupScreen} />
           <Stack.Screen name="Home" component={HomeScreen} />
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          <Stack.Screen name="NewTrip" component={NewTripScreen}/>
           <Stack.Screen name="Event" component={EventScreen} />
         </Stack.Navigator>
       </NavigationContainer>
