@@ -4,21 +4,26 @@ const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
     container: {
-        flex: 1,
+        width: screenWidth,
+        height: screenHeight,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
-    },
-    header: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        height: 67,
-        paddingHorizontal: 10,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
     },
     forms :{
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    form: {flex: 1}
+    form: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textmain :{
+        fontWeight: "bold",
+        fontSize: 20,
+    },
+    input :{
+        fontWeight: "bold",
+        fontSize: 20,
+    }
 })

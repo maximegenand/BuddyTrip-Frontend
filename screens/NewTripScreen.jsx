@@ -1,35 +1,37 @@
-import { View, Text, TextInput, TouchableOpacity, Platform, SafeAreaView } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, Platform, SafeAreaView, Button } from "react-native";
+import { useState } from "react";
 import HeaderNav from "../components/HeaderNewTrip";
-import DatePickerAndroid from '../components/DatePickerAndroid';
-import DatePickerIOS from '../components/DatePickerIOS.js'
+import DatePickerAll from '../components/DatePicker';
 
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 import styles from "../styles/NewTripStyles";
 
 export default function NewTripScreen({ navigation }) {
-
-  let datePicker = <DatePickerIOS/>
-	if(Platform.OS === 'android') datePicker = <DatePickerAndroid/>
+  
+  const [isDatePickerOpen, setIsDatePickerOpen]  = useState(false);
+  // let datePicker = <DatePickerIOS/>
+	// if(Platform.OS === 'android') datePicker = <DatePickerAndroid/>
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderNav navigation={navigation} style={styles.header} />
+      <HeaderNav navigation={navigation}/>
       <View style={styles.forms}>
         <View style={styles.form}>
           <TextInput
             style={styles.input}
-            placeholder="Name"
-            placeholderTextColor={GLOBAL_COLOR.TERTIARY}
+            placeholder="Nom du Groupe"
           />
         </View>
         <View style={styles.form}>
-          <Text>Début</Text>
-          { datePicker }
+          <Text style={styles.textmain}>Début</Text>
+          { isDatePickerOpen && <DatePickerAll /> }
+          <Button title='Choose end date' onPress={() => setIsDatePickerOpen(!isDatePickerOpen)}/> 
         </View>
         <View style={styles.form}>
-          <Text>Fin</Text>
-          { datePicker }
+          <Text style={styles.textmain}>Fin</Text>
+          { isDatePickerOpen && <DatePickerAll /> }
+          <Button title='Choose end date' onPress={() => setIsDatePickerOpen(!isDatePickerOpen)}/> 
         </View>
         <TouchableOpacity>
           <Text>Add Trip</Text>
