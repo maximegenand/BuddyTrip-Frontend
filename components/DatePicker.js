@@ -27,7 +27,6 @@ export default function DatePickerAll() {
 
 const styles = StyleSheet.create({
 	date: {
-		fontWeight: "bold",
 		fontSize: 20,
 	},
 })

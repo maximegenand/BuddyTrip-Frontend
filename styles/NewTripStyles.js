@@ -3,49 +3,55 @@ import { GLOBAL_COLOR } from './globals';
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
-    container: {
+    screen: {
         width: screenWidth,
         height: screenHeight,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
+    container:{
+        flex: 1,
+    },
     content: {
-        flex:1,
-        justifyContent: 'center',
+        flex: 1,
+        justifyContent: 'flex-start',
         alignItems: 'center',
-        padding: '20%',
+        margin: '10%',
     },
-    input :{
-        // display: 'flex',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        paddingHorizontal: 10,
-        paddingVertical: 5,
-        // height: '30%',
-        width: '100%',
-        fontWeight: "bold",
-        fontSize: 20,
+    inputName :{
         borderRadius: 10,
-        backgroundColor: 'white',
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        marginBottom: 20,
+        width: '100%',
+        textAlign: 'center',
+        fontWeight: "bold",
         fontStyle: 'italic',
-    },
-    forms: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    form: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        fontSize: 20,
+        backgroundColor: 'white',
     },
     dates: {
-        flex: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginBottom: 10,
+        marginTop: 10,
+    },
+    form: {
+        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
     },
     textmain: {
         fontWeight: "bold",
         fontSize: 20,
+    },
+    description: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        marginBottom: 15,
     },
     descriptionLabel: {
         fontWeight: "bold",

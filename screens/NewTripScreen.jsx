@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, Platform, SafeAreaView, Button } from "react-native";
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, SafeAreaView, Button } from "react-native";
 import { useState } from "react";
 import { useSelector } from 'react-redux';
 import HeaderNav from "../components/HeaderNewTrip";
@@ -27,12 +27,13 @@ export default function NewTripScreen({ navigation }) {
       const token = userToken;
       const tripData = {
         name: groupName,
-        dateStart: startDate,
-        dateEnd: endDate,
+        dateStart: new Date(startDate),
+        dateEnd: new Date(endDate),
         description: description,
+        particpants:["1rbtH6kQHjePtTK2qZu0XAkWDK7Ubmt4"],
       }
 
-      const response = await fetch(`${BACK_URL}/trips`, {
+      const response = await fetch(`${BACK_URL}/trips/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,39 +55,39 @@ export default function NewTripScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <HeaderNav navigation={navigation} />
-      <View style={styles.content}>
-        <View>
-          <TextInput style={styles.input} placeholder="Nom du Groupe" onChangeText={setGroupName} value={groupName} />
-        </View>
-        <View style={styles.dates}>
-          <View style={styles.form}>
-            <Text style={styles.textmain}>Début</Text>
-            {isDatePickerOpen && <DatePickerAll value={startDate} onChange={setStartDate} />}
-            <Button title="Choose start date" onPress={() => setIsDatePickerOpen(!isDatePickerOpen)} />
+    <SafeAreaView style={styles.screen}>
+      <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <HeaderNav navigation={navigation} />
+        <View style={styles.content}>
+          <TextInput style={styles.inputName} placeholder="Nom du Groupe" onChangeText={setGroupName} value={groupName} />
+          <View style={styles.dates}>
+            <View style={styles.form}>
+              <Text style={styles.textmain}>Début</Text>
+              {isDatePickerOpen && <DatePickerAll value={startDate} onChange={setStartDate} />}
+              <Button title="Choose start date" onPress={() => setIsDatePickerOpen(!isDatePickerOpen)} />
+            </View>
+            <View style={styles.form}>
+              <Text style={styles.textmain}>Fin</Text>
+              {isDatePickerOpen && <DatePickerAll value={endDate} onChange={setEndDate} />}
+              <Button title="Choose end date" onPress={() => setIsDatePickerOpen(!isDatePickerOpen)} />
+            </View>
           </View>
-          <View style={styles.form}>
-            <Text style={styles.textmain}>Fin</Text>
-            {isDatePickerOpen && <DatePickerAll value={endDate} onChange={setEndDate} />}
-            <Button title="Choose end date" onPress={() => setIsDatePickerOpen(!isDatePickerOpen)} />
+          <View style={styles.description}>
+            <Text style={styles.descriptionLabel}>Description du voyage :</Text>
+            <TextInput
+              style={styles.descriptionInput}
+              placeholder="Saisissez la description de votre voyage ici..."
+              value={description}
+              onChangeText={setDescription}
+              multiline={true}
+              numberOfLines={4} // Vous pouvez ajuster le nombre de lignes affichées
+            />
           </View>
+          <TouchableOpacity style={styles.btnAdd} onPress={handleAddTrip}>
+            <Text style={styles.btnText}>Add Trip</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.description}>
-          <Text style={styles.descriptionLabel}>Description du voyage :</Text>
-          <TextInput
-            style={styles.descriptionInput}
-            placeholder="Saisissez la description de votre voyage ici..."
-            value={description}
-            onChangeText={setDescription}
-            multiline={true}
-            numberOfLines={4} // Vous pouvez ajuster le nombre de lignes affichées
-          />
-        </View>
-        <TouchableOpacity style={styles.btnAdd} onPress={handleAddTrip}>
-          <Text style={styles.btnText}>Add Trip</Text>
-        </TouchableOpacity>
-      </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
