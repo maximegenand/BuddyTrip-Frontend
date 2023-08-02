@@ -12,15 +12,20 @@ export default styles = StyleSheet.create({
         flex:1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 100,
+        padding: '20%',
     },
     input :{
+        // display: 'flex',
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        // height: '30%',
+        width: '100%',
         fontWeight: "bold",
         fontSize: 20,
         borderRadius: 10,
-        backgroundColor: '#f2f2f2',
-        paddingHorizontal: 15, // Ajouter un espace intérieur horizontal pour améliorer l'apparence
-        paddingVertical: 5,
+        backgroundColor: 'white',
         fontStyle: 'italic',
     },
     forms :{
@@ -43,7 +48,17 @@ export default styles = StyleSheet.create({
         fontSize: 20,
     },
     btnAdd: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 10,
+        backgroundColor: GLOBAL_COLOR.PRIMARY,
+        height: '10%',
+        width: '100%',
+    },
+    btnText: {
         fontSize: 20,
-
+        fontWeight: "bold",
+        color:'white',
     }
 })
