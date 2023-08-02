@@ -57,20 +57,25 @@ export default function TripScreen({ route, navigation }) {
     })();
   }, []);
 
-  // On récupère les infos du trip et des events que l'on souhaite afficher
+
+
+  // On récupère les infos du trip que l'on souhaite afficher
   const trip = trips.find(element=> element.tokenTrip === tokenTrip);
-  const eventsTrip = events.filter((event) => event.tokenTrip === trip.tokenTrip);
+
+
+
 
   // Déclaration des dates au bon format
   const dateStart = new Date(trip.dateStart);
-  const dateEnd = trip.dateEnd ? new Date(trip.dateEnd) : false;
+
+ 
 
   // Initialisation de la date d'affichage par défault
   const initialDate = () => {
-    const currentDate = new Date();
-    // Si le jour actuel est plus récent que le 1er jour du Trip, on affiche aujourd'hui, sinon on affiche le 1er jour du trip
-    if (compareDesc(currentDate, dateStart) === 1) return dateStart;
-    return currentDate;
+    const dateNow = new Date(format(new Date(), 'yyyy-MM-dd')) ;
+   // Si le jour actuel est plus récent que le 1er jour du Trip, on affiche aujourd'hui, sinon on affiche le 1er jour du trip
+    if (compareDesc(dateNow, dateStart) === 1) return dateStart;
+    return dateNow;
   };
   const [currentDate, setCurrentDate] = useState(initialDate());
 
@@ -94,6 +99,8 @@ export default function TripScreen({ route, navigation }) {
     </View>
   );
 
+  //On récupère les infos des events que l'on souhaite afficher
+  const eventsTrip = events.filter((event) => event.tokenTrip === trip.tokenTrip && compareDesc(new Date(event.date), currentDate) === 0 );
   // Affichage des events
   const eventsScreen = eventsTrip.map((event) => (
     <Event
