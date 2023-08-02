@@ -61,13 +61,13 @@ export default function TripScreen({ route, navigation }) {
 
   // On récupère les infos du trip que l'on souhaite afficher
   const trip = trips.find(element=> element.tokenTrip === tokenTrip);
-  
+
 
 
 
   // Déclaration des dates au bon format
   const dateStart = new Date(trip.dateStart);
-  const dateEnd = trip.dateEnd ? new Date(trip.dateEnd) : false;
+
  
 
   // Initialisation de la date d'affichage par défault
