@@ -8,9 +8,9 @@ export default function Event({ event, handlePress }) {
   return (
     <TouchableOpacity style={styles.container} onPress={handlePress}>
         <View style={styles.date}>
-          <Text style={styles.hour}>{format(new Date(event.timeStart), "hh:mm")}</Text>
+          <Text style={styles.hour}>{format(new Date(event.timeStart), "HH:mm")}</Text>
           <FontAwesome style={styles.car} name="car" size={30} color={GLOBAL_COLOR.TERTIARY} />
-          <Text style={styles.hour}>{event.timeEnd && format(new Date(event.timeEnd), "hh:mm")}</Text>
+          <Text style={styles.hour}>{event.timeEnd && format(new Date(event.timeEnd), "HH:mm")}</Text>
         </View>
         <View style={styles.ou}>
           <Text style={styles.name}>{event.name}</Text>
