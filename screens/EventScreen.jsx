@@ -35,7 +35,7 @@ export default function EventScreen({ route, navigation }) {
     setEvent(eventFiltered)
   }, []);
 
-  let eventTab, eventName, eventCreateur, eventParticipants, eventPlace, eventDescritpion, eventpointInteret, eventDate
+  let eventTab, eventName, eventCreateur, eventParticipants, eventPlace, eventDescritpion, eventpointInteret, eventDate, eventSeat, eventType, eventDepartHour, eventArriveHour
   if (event) {
      eventTab = event[0]
      eventName = eventTab.name
@@ -44,8 +44,13 @@ export default function EventScreen({ route, navigation }) {
      eventPlace = eventTab.place
      eventDescritpion = eventTab.description
      eventpointInteret = eventTab.infos
-     eventDate = event[0].date
+     eventDate = eventTab.date
+     eventSeat = eventTab.seats
+     eventType = eventTab.category
+     eventDepartHour = eventTab.timeStart
+     eventArriveHour = eventTab.timeEnd
   }
+  // Gestion des point d'interet
   let eventPointInteretList;
   if(eventpointInteret) {
      eventPointInteretList = eventpointInteret.map((data, i) => {
@@ -56,12 +61,40 @@ export default function EventScreen({ route, navigation }) {
     )
   })
   }
+  // mise en place de la date 
   let date;
   if(eventDate) {
     date = format(new Date(eventDate), 'd MMMM',{locale : fr})
   }
-  console.log(date)
 
+  // Gestion des places disponible
+  let seatDisponibles;
+  if (eventSeat) {
+    seatDisponibles = 
+    <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Places</Text> : {eventSeat - eventParticipants} Places restantes</Text>
+  }
+  // Gestion des horaires 
+  let hourDepart;
+  let hourArrive;
+
+  if (eventDepartHour) {
+    hourDepart = format(new Date(eventDepartHour), 'HH:mm',{locale : fr})
+  }
+
+  if (eventDepartHour && eventArriveHour) {
+    hourDepart = format(new Date(eventDepartHour), 'HH:mm',{locale : fr})
+    hourArrive = format(new Date(eventArriveHour), 'HH:mm',{locale : fr})
+  }
+
+  let affichageHour;
+  if (eventType === 'travel') {
+    affichageHour = <>
+      <Text style={styles.textInfos}><Text style={styles.textInfosBold}>heure de depart</Text> : {hourDepart}</Text>
+       <Text style={styles.textInfos}><Text style={styles.textInfosBold}>heure d'arrivée</Text> : {hourArrive}</Text>
+    </>
+  } else {
+    affichageHour = <Text style={styles.textInfos}><Text style={styles.textInfosBold}>heure</Text> : {hourDepart}</Text>
+  }
   
   // 3. Functions
 
@@ -95,9 +128,9 @@ export default function EventScreen({ route, navigation }) {
           <Text style={styles.textInfos}>
             <Text style={styles.textInfosBold}>Date</Text>: {date}
           </Text>
-          <Text style={styles.textInfos}><Text style={styles.textInfosBold}>heure</Text> : 13h</Text>
+          {affichageHour}
           <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Lieu</Text> : {eventPlace}</Text>
-          <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Places</Text> : 6 Places restantes</Text>
+          {seatDisponibles}
           <View style={styles.lines} />
           <Text style={styles.desc}>
             {eventDescritpion}
