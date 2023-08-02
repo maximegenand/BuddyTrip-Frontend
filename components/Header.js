@@ -3,16 +3,16 @@ import { GLOBAL_COLOR } from '../styles/globals';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
-export default function Header({ navigation }) {
+export default function Header({ navigation, title, participants}) {
   return (
     <View style={styles.header}>
       <View style={styles.header_Left}>
         <TouchableOpacity onPress={() => navigation.navigate('Home')} activeOpacity={0.8}>
           <FontAwesome style={styles.fleche} name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
         </TouchableOpacity>
-        <View>
-          <Text style={styles.name}>Rome les mecs</Text>
-          <Text style={styles.buddys}>Adrien, crackito, prout, max ...</Text>
+        <View style={styles.header_text}>
+          <Text style={styles.name}>{title}</Text>
+          <Text style={styles.buddys}>{participants}</Text>
         </View>
       </View>
       <FontAwesome style={styles.bell} name="bell" size={30} color={GLOBAL_COLOR.TERTIARY} />
@@ -49,4 +49,7 @@ const styles = StyleSheet.create({
     bell : {
         marginRight: 10,
     },
+    header_text : {
+      maxWidth: 200
+    }
 });
