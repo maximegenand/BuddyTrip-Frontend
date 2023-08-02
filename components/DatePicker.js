@@ -14,7 +14,7 @@ export default function DatePickerAll() {
 
 	return (
 		<>
-			{/* <Text style={styles.date}> Date sélectionnée: {date.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit', year: 'numeric' })} </Text> */}
+			<Text style={styles.date}> Date sélectionnée: {date.toLocaleDateString(undefined, { day: '2-digit', month: '2-digit', year: 'numeric' })} </Text>
 			<DatePicker
 				value={date}
 				mode='date'
@@ -24,11 +24,10 @@ export default function DatePickerAll() {
 	);
 }
 
-/*
+
 const styles = StyleSheet.create({
 	date: {
 		fontWeight: "bold",
 		fontSize: 20,
 	},
 })
-*/

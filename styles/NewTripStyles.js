@@ -28,7 +28,7 @@ export default styles = StyleSheet.create({
         backgroundColor: 'white',
         fontStyle: 'italic',
     },
-    forms :{
+    forms: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -38,14 +38,25 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    dates:{
+    dates: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
     },
-    textmain :{
+    textmain: {
         fontWeight: "bold",
         fontSize: 20,
+    },
+    descriptionLabel: {
+        fontWeight: "bold",
+        fontSize: 20,
+    },
+    descriptionInput:{
+        fontSize: 15,
+        backgroundColor: 'white',
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
     },
     btnAdd: {
         display: 'flex',
