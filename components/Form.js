@@ -7,9 +7,10 @@ const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 export default function Form(props) {
   return (
     <View style={styles.container} >
+      <Text>{props.placeholder}</Text>
        <TextInput 
        placeholder={props.placeholder} 
-       onChangeText={props.onChangeText} 
+       onChangeText={(value)=> props.handleChangeText(value)} 
        value={props.value}
        style={styles.input}
        styles={props.style}
