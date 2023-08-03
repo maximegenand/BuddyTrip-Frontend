@@ -37,7 +37,8 @@ export default function HomeScreen({ navigation }) {
   // console.log('HOME Rerender')
   useEffect(() => {
     (async () => {
-      // console.log('HOME useEffect')
+      const random = Math.round(Math.random() * 1000);
+      //console.log('HomeScreen useEffect - Start',random);
       try {
         const tripsFetch = await fetch(`${BACK_URL}/trips/next?token=${user.token}`);
         const data = await tripsFetch.json();
@@ -47,8 +48,9 @@ export default function HomeScreen({ navigation }) {
             dispatch(addAllTrips(data.trips));          
         };
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('HomeScreen - Error fetching data:', error);
       }
+      //console.log('HomeScreen useEffect - End', random);
     })();
   }, []);
 
