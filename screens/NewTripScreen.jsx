@@ -25,6 +25,7 @@ export default function NewTripScreen({ navigation }) {
   const [endDate, setEndDate] = useState(new Date());
   const [groupName, setGroupName] = useState("");
   const [description, setDescription] = useState("");
+  const [textError, setTextError] = useState("");
 
   const userToken = useSelector((state) => state.user.value.token);
 
@@ -39,31 +40,7 @@ export default function NewTripScreen({ navigation }) {
     setIsDateStartPickerOpen(false);
   };
 
-  const handleEndDate = (selectedDate) => {
-    if(selectedDate <= startDate){
-      console.log("La date de fin doit être supérieure à la date de début.");
-      return;
-    }
-    setEndDate(selectedDate);
-  }
-
-  // //fonction pour gérer le nombre de ligne dans l'input de description
-  // const handleDescriptionChange = (text) => {
-  //   // Compter le nombre de lignes actuelles dans le texte
-  //   const lines = text.split('\n');
-  //   const lineCount = lines.length;
-
-  //   // Si le nombre de lignes dépasse MAX_DESCRIPTION_LINES, tronquer le texte
-  //   if (lineCount > 3) {
-  //     const truncatedText = lines.slice(0, 3).join('\n');
-  //     setDescription(truncatedText);
-  //   } else {
-  //     // Sinon, mettre à jour le texte normalement
-  //     setDescription(text);
-  //   }
-  // };
-
-  // fonction handleAddTripp pour créer un nouveau groupe
+  // Fonction handleAddTripp pour créer un nouveau groupe //
   async function handleAddTrip() {
     try {
       const token = userToken;
@@ -71,6 +48,16 @@ export default function NewTripScreen({ navigation }) {
       // Vérifie que tous les champs de l'objet sont non vides
       if (!groupName || !startDate || !endDate || !description) {
         console.log("Tous les champs doivent être remplis.");
+        setTextError("Tous les champs doivent être remplis");
+        return;
+      }
+      if (endDate <= startDate) {
+        console.log("La date de fin doit être supérieure à la date de début.");
+        setTextError("La date de fin doit être supérieure à la date de début");
+        return;
+      }
+      if (!isValidDate(dateText)) {
+        setDateError("Date non valide");
         return;
       }
 
@@ -103,39 +90,99 @@ export default function NewTripScreen({ navigation }) {
     }
   }
 
+  const [startDateText, setStartDateText] = useState("");
+  const [endDateText, setEndDateText] = useState("");
+
+  const isValidDate = (date) => {
+    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+    if (!date.match(dateRegex)) return false;
+
+    const [day, month, year] = date.split("/");
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+    if (isNaN(parsedDate.getTime())) return false;
+
+    // Vérifier si le jour, le mois et l'année sont valides
+    const maxDay = new Date(year, month, 0).getDate(); // Récupérer le dernier jour du mois
+    if (parseInt(day, 10) < 1 || parseInt(day, 10) > maxDay) {
+      return false;
+    }
+
+    if (parseInt(month, 10) < 1 || parseInt(month, 10) > 12) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const formatDate = (text) => {
+    // Supprimer tous les caractères non numériques
+    const cleanedText = text.replace(/[^0-9]/g, "");
+
+    // Appliquer le format "DD/MM/YYYY" jusqu'à 8 caractères
+    if (cleanedText.length <= 2) {
+      return cleanedText;
+    } else if (cleanedText.length <= 4) {
+      const day = cleanedText.slice(0, 2);
+      const month = cleanedText.slice(2);
+      return `${day}/${month}`;
+    } else {
+      const day = cleanedText.slice(0, 2);
+      const month = cleanedText.slice(2, 4);
+      const year = cleanedText.slice(4, 8);
+      return `${day}/${month}/${year}`;
+    }
+  };
+
+
+  const handleStartDateChange = (text) => {
+    const formattedDate = formatDate(text);
+    if (formattedDate.length <= 10) {
+      setStartDateText(formattedDate);
+    }
+  };
+
+  const handleEndDateChange = (text) => {
+    const formattedDate = formatDate(text);
+    if (formattedDate.length <= 10) {
+      setEndDateText(formattedDate);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.screen}>
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
           <HeaderNav navigation={navigation} />
           <View style={styles.content}>
+            <Text style={styles.textmain}>Nom du Groupe : {groupName}</Text>
             <TextInput
-              style={styles.inputName}
+              style={styles.input}
               placeholder="Nom du Groupe"
               onChangeText={setGroupName}
               value={groupName}
             />
-            <View style={styles.dates}>
-              <View style={styles.form}>
-                <Text style={styles.textmain}>Début</Text>
-                {isDateStartPickerOpen && <DatePickerAll value={startDate} onChange={setStartDate} />}
-                <TouchableOpacity
-                  style={styles.btnDate}
-                  onPress={() => setIsDateStartPickerOpen(!isDateStartPickerOpen)}
-                >
-                  <Text style={styles.textBtnDate}>Choose Start Date</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.form}>
-                <Text style={styles.textmain}>Fin</Text>
-                {isDateEndPickerOpen && <DatePickerAll value={endDate} onChange={handleEndDate} />}
-                <TouchableOpacity style={styles.btnDate} onPress={() => setIsDateEndPickerOpen(!isDateEndPickerOpen)}>
-                  <Text style={styles.textBtnDate}>Choose End Date</Text>
-                </TouchableOpacity>
-              </View>
+            <View style={styles.form}>
+              <Text style={styles.textmain}>Date de début : {startDateText}</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Entrez une date (JJ/MM/AAAA)"
+                value={startDateText}
+                onChangeText={handleStartDateChange}
+                maxLength={10}
+              />
             </View>
-            <View style={styles.description}>
-              <Text style={styles.descriptionLabel}>Description du voyage :</Text>
+            <View style={styles.form}>
+              <Text style={styles.textmain}>Date de fin : {endDateText}</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Entrez une date (JJ/MM/AAAA)"
+                value={endDateText}
+                onChangeText={handleEndDateChange}
+                maxLength={10}
+              />
+            </View>
+            <View style={styles.form}>
+              <Text style={styles.textmain}>Description du voyage :</Text>
               <TextInput
                 style={styles.descriptionInput}
                 placeholder="Saisissez la description de votre voyage ici..."
@@ -148,7 +195,7 @@ export default function NewTripScreen({ navigation }) {
             <TouchableOpacity style={styles.btnAdd} onPress={handleAddTrip}>
               <Text style={styles.btnText}>Add Trip</Text>
             </TouchableOpacity>
-            {textError}
+            <Text style={styles.textError}>{textError}</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
