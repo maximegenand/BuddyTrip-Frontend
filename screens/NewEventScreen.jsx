@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { SelectList } from "react-native-dropdown-select-list";
+import { BACK_URL } from '@env';
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 import styles from "../styles/NewEventStyles";
@@ -34,6 +35,7 @@ export default function NewEventScreen({ navigation }) {
   const user = useSelector((state) => state.user.value);
   const trips = useSelector((state) => state.trips.value);
   const events = useSelector((state) => state.events.value);
+  const tripToken = useSelector((state) => state.trip.value.token);
   const dispatch = useDispatch();
 
   const dimensions = Dimensions.get("screen");
@@ -41,20 +43,44 @@ export default function NewEventScreen({ navigation }) {
 
   // 2. UseEffect, UseState, UseRef
   const [titre, setTitre] = useState("");
+  const [date, setDate] = useState("");
+  const [heureDeDepart, setHeureDeDepart] = useState("");
+  const [heureDarrivee, setHeureDarrivee] = useState("");
+  const [placesDispo, setPlaceDispo] = useState("");
+  const [numeroBillet, setNumeroBillet] = useState("");
+  const [heure, setHeure] = useState("");
+  const [lieu, setLieu] = useState("");
+  const [description, setDescription] = useState("");
+
   // ETAT rendu conditionnel en fonction de l'event
   const [transport, setTransport] = useState(false);
   const [act, setAct] = useState(false);
 
   const [selected, setSelected] = useState("");
-  const titreRef = useRef(null);
-  const dateRef = useRef(null);
-  const heureDepartRef = useRef(null);
-  const placesDispoRef = useRef(null);
-  const numeroBilletRef = useRef(null);
-  const titreActRef = useRef(null);
-  const descriptionRef = useRef(null);
+  // const titreRef = useRef(null);
+  // const dateRef = useRef(null);
+  // const heureDepartRef = useRef(null);
+  // const placesDispoRef = useRef(null);
+  // const numeroBilletRef = useRef(null);
+  // const titreActRef = useRef(null);
+  // const descriptionRef = useRef(null);
+  
 
   // 3. Functions
+
+
+ const handleChangeTitre = (inputValue) => { setTitre(inputValue) }
+ const handleChangeDate = (inputValue) => { setDate(inputValue) }
+ const handleChangeHeureDeDepart = (inputValue) => { setHeureDeDepart(inputValue) }
+ const handleChangeHeureDarrivee = (inputValue) => { setHeureDarrivee(inputValue) }
+ const handleChangePlaceDispo = (inputValue) => { setPlaceDispo(inputValue) }
+ const handleChangeHeure = (inputValue) => { setHeure(inputValue) }
+ const handleChangeNumeroBillet = (inputValue) => { setNumeroBillet(inputValue) }
+ const handleChangeLieu = (inputValue) => { setLieu(inputValue) }
+ const handleChangeDescription = (inputValue) => { setDescription(inputValue) }
+
+
+
 
 // choix disponible dans l'input clickable
   const data = [
@@ -68,19 +94,13 @@ export default function NewEventScreen({ navigation }) {
   //l'input pour ajouter le nombre de place disponible si type de transport est la voiture 
   const typeTransportVoiture = (
     <View style={styles.containerInputDesc}>
-      <TextInput
-       ref={placesDispoRef}
-       onChangeText={value => placesDispoRef.current.inputValue = value}
-        placeholder="Nombre de places disponible"
-        style={styles.inputDesc}
-        keyboardType="numeric"
-      ></TextInput>
+      <Form placeholder="Nombre de places disponible" value={placesDispo} handleChangeText={handleChangePlaceDispo} keyboardType="numeric" />
     </View>
   );
   //l'input pour ajouter le numero de billet si le moyen de transport est train ou avion 
   const typeTransportCommun = (
     <View style={styles.containerInputDesc}>
-      <TextInput ref={numeroBilletRef}  onChangeText={value => numeroBilletRef.current.inputValue = value}  placeholder="Numero de billet" style={styles.inputDesc}></TextInput>
+      <Form placeholder="Numero de billet" value={numeroBillet} handleChangeText={handleChangeNumeroBillet} />
     </View>
   );
 // gestion du transport en fonction de la selection du type de transport
@@ -105,12 +125,18 @@ export default function NewEventScreen({ navigation }) {
         dropdownStyles={{ backgroundColor: GLOBAL_COLOR.TERTIARY }}
       />
       <View style={styles.containerInputDesc}>
-        <TextInput ref={heureDepartRef} onChangeText={value => heureDepartRef.current.inputValue = value} placeholder="Heure de Depart" style={styles.inputDesc}></TextInput>
+      <Form placeholder="Heure de Depart" value={heureDeDepart} handleChangeText={handleChangeHeureDeDepart} />
+      </View>
+      <View style={styles.containerInputDesc}>
+      <Form placeholder="Heure d'arriveé" value={heureDarrivee} handleChangeText={handleChangeHeureDarrivee} />
+      </View>
+      <View style={styles.containerInputDesc}>
+      <Form placeholder="Lieu de départ" value={lieu} handleChangeText={handleChangeLieu} />
       </View>
       {typeTransportInput}
-     /* <View style={styles.descritpion}>
-        <TextInput ref={descriptionRef}  onChangeText={value => descriptionRef.current.inputValue = value} placeholder="Description" style={styles.inputDescription} />
-      </View>*/
+     <View style={styles.descritpion}>
+     <Form placeholder="Description" value={description} handleChangeText={handleChangeDescription} />
+      </View>
     </View>
   );
    //  input si bouton Activity = true
@@ -118,30 +144,25 @@ export default function NewEventScreen({ navigation }) {
   const activityForm = (
     <View style={styles.transport}>
       <View style={styles.containerInputDesc}>
-        <TextInput ref={heureDepartRef} onChangeText={value => heureDepartRef.current.inputValue = value}  placeholder="Heure de Depart" style={styles.inputDesc}></TextInput>
+      <Form placeholder="Heure" value={heure} handleChangeText={handleChangeHeure} />
       </View>
       <View style={styles.containerInputDesc}>
-        <TextInput ref={titreActRef}  onChangeText={value => titreActRef.current.inputValue = value}  placeholder="Titre" style={styles.inputDesc}></TextInput>
+      <Form placeholder="Lieu" value={lieu} handleChangeText={handleChangeLieu} />
       </View>
-     /* <View style={styles.descritpion}>
-        <TextInput ref={descriptionRef}  onChangeText={value => descriptionRef.current.inputValue = value} placeholder="Description" style={styles.inputDescription} />
-      </View>*/
+      <View style={styles.descritpion}>
+     <Form placeholder="Description" value={description} handleChangeText={handleChangeDescription} />
+      </View>
     </View>
   );
 
-  let description = (
-    <View style={styles.descritpion}>
-      <TextInput ref={descriptionRef} onChangeText={value => descriptionRef.current.inputValue = value} placeholder="Description" style={styles.inputDescription} />
-    </View>
-   
-  );
- // description = input de base, si act = true => activityFormn, si transport = true => transportForm
+  //  si act = true => activityFormn, si transport = true => transportForm
+  let formDynamique;
   if (act) {
-    description = activityForm;
+    formDynamique = activityForm;
   } else if (transport) {
-    description = transportForm;
+    formDynamique = transportForm;
   } else {
-    description;
+    formDynamique;
   }
 
   const handleTransportPress = () => {
@@ -154,31 +175,49 @@ export default function NewEventScreen({ navigation }) {
     setAct(true);
     setTransport(false);
   };
-  const handlePress=()=> {
-    const newTrip = {
-          titre: titreRef.current.inputValue,
-          date: dateRef.current.inputValue, 
-          heureDepart: heureDepartRef.current.inputValue,
-          placeDispo: placesDispoRef.current.inputValue,
-          numBillet: numeroBilletRef.current.inputValue,
-          titreAct: titreActRef.current.inputValue,
-          description: descriptionRef.current.inputValue,
-    
-  }
-  (async () => {
-    try {
-      const eventFetch = await fetch(`${BACK_URL}/trips/next?token=${user.token}`);
-      const data = await tripsFetch.json();
 
-      // On enregistre les infos dans le reducer si tout s'est bien déroulé
-      if(data.result) {
-          dispatch(addAllTrips(data.trips));          
-      };
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  })
+  
+ // fonction handleAddEvent pour créer un nouveau groupe
+
+ async function handleAddEvent() {
+  try {
+    // création de la donnée à envoyer au backend
+
+      const eventData = {
+
+      tokenTrip: tripToken,
+      category: selected,
+      name: titre,
+      date:date,
+      timeStart: heureDeDepart,
+      timeEnd: heureDarrivee,
+      place: lieu,
+      ticket: numeroBillet,
+      seats: placesDispo,
+      description: description,
   }
+    const response = await fetch(`${BACK_URL}/events/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({token: token, event: eventData}),
+    });
+
+    const responseData = await response.json();
+    console.log("Réponse du serveur:", responseData);
+
+    if (responseData.result === true) {
+      // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
+      navigation.navigate('Event');
+    }
+
+  } catch (error) {
+    console.error("Erreur lors de l'envoi de l'event au serveur :", error);
+  }
+}
+
+
 
   // return (
   //   <>
@@ -206,6 +245,7 @@ export default function NewEventScreen({ navigation }) {
       <ScrollView>
         <View style={styles.header}>
           <FontAwesome
+          onPress={() => navigation.navigate("Event")}
             style={styles.fleche}
             name="arrow-left"
             size={30}
@@ -214,8 +254,8 @@ export default function NewEventScreen({ navigation }) {
           <Text style={styles.name}>Nouvelle Activité</Text>
         </View>
         <View style={styles.forms}>
-          <Form   ref= {titreRef}  placeholder="Titre" onChangeText={setTitre} value={titre} />
-          <Form ref={dateRef} onChangeText={value => dateRef.current.inputValue = value} placeholder="JJ/MM/AAAA" />
+        <Form placeholder="Titre" value={titre} handleChangeText={handleChangeTitre} />
+        <Form placeholder="Date" value={date} handleChangeText={handleChangeDate} />
           <View style={styles.categorie}>
             <Text style={styles.textCategorie}>Selectionner une categorie :</Text>
             <View style={styles.bulles}>
@@ -233,10 +273,10 @@ export default function NewEventScreen({ navigation }) {
             </View>
           </View>
           <View style={styles.lines} />
+          {formDynamique}
           <View style={styles.variable}>
-            {description}
             <TouchableOpacity style={styles.enregistrer}>
-              <Text style={styles.enregistrerWord} onPress={() => handlePress()}>Enregistrer</Text>
+              <Text style={styles.enregistrerWord} onPress={() => handleAddEvent()}>Enregistrer</Text>
             </TouchableOpacity>
           </View>
         </View>
