@@ -105,7 +105,7 @@ export default function TripScreen({ route, navigation }) {
     />
   ));
 
-  // code permettant d'afficher les 4 premiers participants du voyage
+  // code permettant d'afficher les 4 premiers participants du voyage dans le header
   const affichageParticipants = trip.participants;
   const quatrePremiers = affichageParticipants
     .slice(0, 4)
