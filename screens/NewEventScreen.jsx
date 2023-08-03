@@ -165,7 +165,19 @@ export default function NewEventScreen({ navigation }) {
           description: descriptionRef.current.inputValue,
     
   }
-  console.log(newTrip)
+  (async () => {
+    try {
+      const eventFetch = await fetch(`${BACK_URL}/trips/next?token=${user.token}`);
+      const data = await tripsFetch.json();
+
+      // On enregistre les infos dans le reducer si tout s'est bien déroulé
+      if(data.result) {
+          dispatch(addAllTrips(data.trips));          
+      };
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  })
   }
 
   // return (
