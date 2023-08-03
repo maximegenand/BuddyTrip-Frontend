@@ -19,8 +19,6 @@ import { BACK_URL } from "@env";
 import styles from "../styles/NewTripStyles";
 
 export default function NewTripScreen({ navigation }) {
-  const [isDateStartPickerOpen, setIsDateStartPickerOpen] = useState(false);
-  const [isDateEndPickerOpen, setIsDateEndPickerOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [groupName, setGroupName] = useState("");
@@ -34,119 +32,124 @@ export default function NewTripScreen({ navigation }) {
     Keyboard.dismiss();
   };
 
-  // Fonction pour fermer les DatePicker lorsque l'utilisateur appuie sur le champ de saisie de la description
-  const handleDatePickerClose = () => {
-    setIsDateEndPickerOpen(false);
-    setIsDateStartPickerOpen(false);
-  };
-
-  // Fonction handleAddTripp pour créer un nouveau groupe //
-  async function handleAddTrip() {
-    try {
-      const token = userToken;
-
-      // Vérifie que tous les champs de l'objet sont non vides
-      if (!groupName || !startDate || !endDate || !description) {
-        console.log("Tous les champs doivent être remplis.");
-        setTextError("Tous les champs doivent être remplis");
-        return;
-      }
-      if (endDate <= startDate) {
-        console.log("La date de fin doit être supérieure à la date de début.");
-        setTextError("La date de fin doit être supérieure à la date de début");
-        return;
-      }
-      if (!isValidDate(dateText)) {
-        setDateError("Date non valide");
-        return;
-      }
-
-      // Création de l'objet tripData avec les champs non vides
-      const tripData = {
-        name: groupName,
-        dateStart: startDate,
-        dateEnd: endDate,
-        description: description,
-        participants: [],
-      };
-
-      const response = await fetch(`${BACK_URL}/trips/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ token: token, trip: tripData }),
-      });
-
-      const responseData = await response.json();
-      console.log("Réponse du serveur:", responseData);
-
-      if (responseData.result === true) {
-        // Redirigez l'utilisateur vers HomeScreen si la réponse du backend est true
-        navigation.navigate("Home");
-      }
-    } catch (error) {
-      console.error("Erreur lors de l'envoi du voyage au serveur :", error);
-    }
-  }
-
+  
   const [startDateText, setStartDateText] = useState("");
   const [endDateText, setEndDateText] = useState("");
 
-  const isValidDate = (date) => {
-    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
-    if (!date.match(dateRegex)) return false;
+// Fonction pour formater le texte de la date
+const formatDate = (text) => {
+  // Supprimer tous les caractères non numériques de la chaîne de texte
+  const cleanedText = text.replace(/[^0-9]/g, "");
 
-    const [day, month, year] = date.split("/");
+  // Appliquer le format "DD/MM/YYYY" jusqu'à 8 caractères
+  if (cleanedText.length <= 2) {
+    // Si la longueur est inférieure ou égale à 2, cela signifie que l'utilisateur saisit le jour (ex: "2")
+    return cleanedText;
+  } else if (cleanedText.length <= 4) {
+    // Si la longueur est entre 3 et 4, cela signifie que l'utilisateur saisit le jour et le mois (ex: "0212" pour le 2 décembre)
+    const day = cleanedText.slice(0, 2);
+    const month = cleanedText.slice(2);
+    return `${day}/${month}`;
+  } else {
+    // Si la longueur est supérieure à 4, cela signifie que l'utilisateur saisit le jour, le mois et l'année (ex: "02122023" pour le 2 décembre 2023)
+    const day = cleanedText.slice(0, 2);
+    const month = cleanedText.slice(2, 4);
+    const year = cleanedText.slice(4, 8);
+    return `${day}/${month}/${year}`;
+  }
+};
+
+
+// Fonction pour gérer les changements de texte dans le champ de saisie de la date de début
+const handleStartDateChange = (text) => {
+  // Formater le texte de la date pour qu'il ait le format "JJ/MM/AAAA"
+  const formattedDate = formatDate(text);
+
+  // Vérifier si la date est valide (longueur maximale de 10 caractères)
+  if (formattedDate.length <= 10) {
+    // Mettre à jour l'état startDateText avec la date formatée
+    setStartDateText(formattedDate);
+
+    // Mise à jour de l'état startDate en convertissant formattedDate en objet Date
+    const [day, month, year] = formattedDate.split("/");
     const parsedDate = new Date(`${year}-${month}-${day}`);
-    if (isNaN(parsedDate.getTime())) return false;
+    setStartDate(parsedDate);
+  }
+};
 
-    // Vérifier si le jour, le mois et l'année sont valides
-    const maxDay = new Date(year, month, 0).getDate(); // Récupérer le dernier jour du mois
-    if (parseInt(day, 10) < 1 || parseInt(day, 10) > maxDay) {
-      return false;
+// Fonction pour gérer les changements de texte dans le champ de saisie de la date de fin
+const handleEndDateChange = (text) => {
+  // Formater le texte de la date pour qu'il ait le format "JJ/MM/AAAA"
+  const formattedDate = formatDate(text);
+
+  // Vérifier si la date est valide (longueur maximale de 10 caractères)
+  if (formattedDate.length <= 10) {
+    // Mettre à jour l'état endDateText avec la date formatée
+    setEndDateText(formattedDate);
+
+    // Mise à jour de l'état endDate en convertissant formattedDate en objet Date
+    const [day, month, year] = formattedDate.split("/");
+    const parsedDate = new Date(`${year}-${month}-${day}`);
+    setEndDate(parsedDate);
+  }
+};
+
+
+// Fonction pour créer un nouveau groupe de voyage
+async function handleAddTrip() {
+  try {
+    // Convertir les dates au format texte en objets Date
+    setStartDate(new Date(startDateText));
+    setEndDate(new Date(endDateText));
+
+    // Récupérer le token de l'utilisateur connecté
+    const token = userToken;
+
+    // Vérifie que tous les champs de l'objet sont non vides
+    if (!groupName || !startDate || !endDate || !description) {
+      console.log("Tous les champs doivent être remplis.");
+      setTextError("Tous les champs doivent être remplis");
+      return;
     }
 
-    if (parseInt(month, 10) < 1 || parseInt(month, 10) > 12) {
-      return false;
+    // Vérifier que la date de fin est supérieure à la date de début
+    if (endDate <= startDate) {
+      console.log("La date de fin doit être supérieure à la date de début.");
+      setTextError("La date de fin doit être supérieure à la date de début");
+      return;
     }
 
-    return true;
-  };
+    // Création de l'objet tripData avec les champs non vides
+    const tripData = {
+      name: groupName,
+      dateStart: startDate,
+      dateEnd: endDate,
+      description: description,
+      participants: [],
+    };
 
-  const formatDate = (text) => {
-    // Supprimer tous les caractères non numériques
-    const cleanedText = text.replace(/[^0-9]/g, "");
+    // Envoyer la demande de création du voyage au serveur via une requête POST
+    const response = await fetch(`${BACK_URL}/trips/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ token: token, trip: tripData }),
+    });
 
-    // Appliquer le format "DD/MM/YYYY" jusqu'à 8 caractères
-    if (cleanedText.length <= 2) {
-      return cleanedText;
-    } else if (cleanedText.length <= 4) {
-      const day = cleanedText.slice(0, 2);
-      const month = cleanedText.slice(2);
-      return `${day}/${month}`;
-    } else {
-      const day = cleanedText.slice(0, 2);
-      const month = cleanedText.slice(2, 4);
-      const year = cleanedText.slice(4, 8);
-      return `${day}/${month}/${year}`;
+    // Attendre la réponse du serveur et la traiter comme JSON
+    const responseData = await response.json();
+    console.log("Réponse du serveur:", responseData);
+
+    // Si la réponse du backend est true, rediriger l'utilisateur vers HomeScreen
+    if (responseData.result === true) {
+      navigation.navigate("Home");
     }
-  };
+  } catch (error) {
+    console.error("Erreur lors de l'envoi du voyage au serveur :", error);
+  }
+}
 
-
-  const handleStartDateChange = (text) => {
-    const formattedDate = formatDate(text);
-    if (formattedDate.length <= 10) {
-      setStartDateText(formattedDate);
-    }
-  };
-
-  const handleEndDateChange = (text) => {
-    const formattedDate = formatDate(text);
-    if (formattedDate.length <= 10) {
-      setEndDateText(formattedDate);
-    }
-  };
 
   return (
     <SafeAreaView style={styles.screen}>
@@ -154,13 +157,15 @@ export default function NewTripScreen({ navigation }) {
         <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
           <HeaderNav navigation={navigation} />
           <View style={styles.content}>
-            <Text style={styles.textmain}>Nom du Groupe : {groupName}</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Nom du Groupe"
-              onChangeText={setGroupName}
-              value={groupName}
-            />
+            <View style={styles.form}>
+              <Text style={styles.textmain}>Nom du Groupe : {groupName}</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Nom du Groupe"
+                onChangeText={setGroupName}
+                value={groupName}
+              />
+            </View>
             <View style={styles.form}>
               <Text style={styles.textmain}>Date de début : {startDateText}</Text>
               <TextInput
@@ -189,7 +194,6 @@ export default function NewTripScreen({ navigation }) {
                 value={description}
                 multiline={true}
                 onChangeText={setDescription}
-                onFocus={handleDatePickerClose}
               />
             </View>
             <TouchableOpacity style={styles.btnAdd} onPress={handleAddTrip}>

@@ -66,6 +66,6 @@ export default styles = StyleSheet.create({
     btnText: {
         fontSize: 20,
         fontWeight: "bold",
-        color:'white',
+        color:GLOBAL_COLOR.TERTIARY,
     }
 })
