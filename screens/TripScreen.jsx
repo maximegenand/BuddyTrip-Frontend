@@ -110,13 +110,20 @@ export default function TripScreen({ route, navigation }) {
     />
   ));
 
-
-
-  // 4. Return Component
+// code permettant d'afficher les 4 premiers participants du voyage
+  const affichageParticipants = trip.participants;
+  const quatrePremiers = affichageParticipants.slice(0, 4).map((participant) => participant.username);
+  const formattedUsername = quatrePremiers.map((username, i) => {
+    if (i === quatrePremiers.length - 1) {
+      return username + '...'
+    } else {
+      return username
+    }
+  }).join(', ')
 
   return (
     <View style={styles.container}>
-      <Header navigation={navigation} />
+      <Header navigation={navigation} title={trip.name} participants={formattedUsername} />
       <View style={styles.planning}>
         <View style={styles.calendrierEvent}>
           <View style={styles.calendrier}>
