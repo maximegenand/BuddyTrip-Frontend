@@ -26,14 +26,28 @@ export default styles = StyleSheet.create({
     textShadowRadius: 10,
   },
   inputContainer: {
+    position: 'relative',
     backgroundColor: 'white',
     display: 'flex',
     justifyContent: 'center',
     borderRadius: 5,
     marginBottom: 20,
   },
+  inputAbsolute: {
+    position: 'absolute',
+    zIndex: 100,
+    top: 0,
+    left: 0,
+    paddingTop: 2,
+    paddingHorizontal: 5,
+    fontSize: 12,
+    color: '#a9a9a9',
+    //backgroundColor: 'white',
+    //borderTopLeftRadius: 5,
+    //borderTopRightRadius: 5,
+  },
   inputContainerDisabled: {
-    backgroundColor: '#c0c0c0',
+    backgroundColor: '#d3d3d3',
   },
   input : {
     width: '90%',
@@ -44,7 +58,7 @@ export default styles = StyleSheet.create({
     borderBottomColor : GLOBAL_COLOR.SECONDARY,
   },
   inputDisabled: {
-    backgroundColor: '#c0c0c0',
+    backgroundColor: '#d3d3d3',
   },
   linkContainer: {
     marginTop: -10,
@@ -63,7 +77,7 @@ export default styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.PRIMARY,
   },
   btnConnectDisabled: {
-    backgroundColor: '#c0c0c0',
+    backgroundColor: '#d3d3d3',
   },
   textConnect: {
     fontSize: 20,
@@ -71,6 +85,6 @@ export default styles = StyleSheet.create({
     color: 'white',
   },
   textConnectDisabled: {
-    color: '#c0c0c0',
+    color: '#d3d3d3',
   },
 });

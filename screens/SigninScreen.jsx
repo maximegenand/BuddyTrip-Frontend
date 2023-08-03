@@ -99,6 +99,7 @@ export default function SigninScreen({ navigation }) {
           <Text onPress={() => {setEmail('ben@gmail.com'); setPassword('azerty');}}>Ben</Text>
         </View>
         <View style={[styles.inputContainer, disabled && styles.inputContainerDisabled]}>
+          <Text style={styles.inputAbsolute}>{email && <>Email</>}</Text>
           <TextInput
             editable={!disabled}
             style={[styles.input, disabled && styles.inputDisabled]}
@@ -111,6 +112,7 @@ export default function SigninScreen({ navigation }) {
           />
         </View>
         <View style={[styles.inputContainer, disabled && styles.inputContainerDisabled]}>
+          <Text style={styles.inputAbsolute}>{password && <>Password</>}</Text>
           <TextInput
             editable={!disabled}
             style={[styles.input, disabled && styles.inputDisabled]}
