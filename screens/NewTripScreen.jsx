@@ -32,7 +32,7 @@ export default function NewTripScreen({ navigation }) {
     Keyboard.dismiss();
   };
 
-  
+
   const [startDateText, setStartDateText] = useState("");
   const [endDateText, setEndDateText] = useState("");
 
@@ -98,9 +98,6 @@ const handleEndDateChange = (text) => {
 // Fonction pour créer un nouveau groupe de voyage
 async function handleAddTrip() {
   try {
-    // Convertir les dates au format texte en objets Date
-    setStartDate(new Date(startDateText));
-    setEndDate(new Date(endDateText));
 
     // Récupérer le token de l'utilisateur connecté
     const token = userToken;
