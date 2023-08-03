@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { GLOBAL_COLOR } from './globals';
+import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
@@ -25,7 +25,6 @@ export default styles = StyleSheet.create({
         width: '100%',
         textAlign: 'center',
         fontWeight: "bold",
-        fontStyle: 'italic',
         fontSize: 20,
         backgroundColor: 'white',
     },
@@ -46,9 +45,21 @@ export default styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20,
     },
+    btnDate: {
+        borderRadius: 10,
+        backgroundColor: GLOBAL_COLOR.PRIMARY,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+    },
+    textBtnDate: {
+        fontWeight: "bold",
+        fontSize: 20,
+        color: 'white',
+    },
     description: {
         display: 'flex',
-        justifyContent: 'center',
+        height: '15%',
+        width: '100%',
         flexDirection: 'column',
         alignItems: 'flex-start',
         marginBottom: 15,
@@ -57,7 +68,9 @@ export default styles = StyleSheet.create({
         fontWeight: "bold",
         fontSize: 20,
     },
-    descriptionInput:{
+    descriptionInput: {
+        width: '100%',
+        maxHeight: 60,
         fontSize: 15,
         backgroundColor: 'white',
         borderRadius: 5,
