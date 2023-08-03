@@ -4,6 +4,7 @@ const GLOBAL_COLOR = {
     PRIMARY : '#cc2f06',
     SECONDARY: '#e9671f',
     TERTIARY : '#f7dbc6',
+    SECONDARY_TRANSPARENT: 'rgba(233, 103, 31, 0.8)',
 };
 
 const globalsStyles = StyleSheet.create({

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { SafeAreaView, View, Text, TouchableOpacity, TextInput, Button, StatusBar } from 'react-native';
+import { SafeAreaView, View, Text, TouchableOpacity, TextInput, Button, StatusBar, ImageBackground } from 'react-native';
 import { BACK_URL } from '@env';
 
 // Import styles
@@ -87,54 +87,56 @@ export default function SigninScreen({ navigation }) {
 
   // 4. Return Component
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={GLOBAL_COLOR.SECONDARY} barStyle="light-content" />
-      <Logo size={100} style={styles.logo} />
-      <View style={styles.body}>
-        <Text style={styles.error}>{errorFetch}</Text>
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-          <Text onPress={() => {setEmail('john@gmail.com'); setPassword('azerty');}}>John</Text>
-          <Text onPress={() => {setEmail('barbie@gmail.com'); setPassword('azerty');}}>Barbie</Text>
-          <Text onPress={() => {setEmail('ken@gmail.com'); setPassword('azerty');}}>Ken</Text>
-          <Text onPress={() => {setEmail('ben@gmail.com'); setPassword('azerty');}}>Ben</Text>
+    <ImageBackground source={{uri: 'https://st.depositphotos.com/2294011/3570/i/450/depositphotos_35708235-stock-photo-travel-and-trip.jpg'}} style={styles.backgroundImage} resizeMode="cover">
+      <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor={GLOBAL_COLOR.SECONDARY_TRANSPARENT} barStyle="light-content" />
+        <Logo size={100} style={styles.logo} />
+        <View style={styles.body}>
+          <Text style={styles.error}>{errorFetch}</Text>
+          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
+            <Text onPress={() => {setEmail('john@gmail.com'); setPassword('azerty');}}>John</Text>
+            <Text onPress={() => {setEmail('barbie@gmail.com'); setPassword('azerty');}}>Barbie</Text>
+            <Text onPress={() => {setEmail('ken@gmail.com'); setPassword('azerty');}}>Ken</Text>
+            <Text onPress={() => {setEmail('ben@gmail.com'); setPassword('azerty');}}>Ben</Text>
+          </View>
+          <View style={[styles.inputContainer, disabled && styles.inputContainerDisabled]}>
+            <Text style={styles.inputAbsolute}>{email && <>Email</>}</Text>
+            <TextInput
+              editable={!disabled}
+              style={[styles.input, disabled && styles.inputDisabled]}
+              placeholder="Email"
+              autoComplete="email"
+              autoCapitalize="none"
+              keyboardType="email-address"
+              onChangeText={setEmail}
+              value={email}
+            />
+          </View>
+          <View style={[styles.inputContainer, disabled && styles.inputContainerDisabled]}>
+            <Text style={styles.inputAbsolute}>{password && <>Password</>}</Text>
+            <TextInput
+              editable={!disabled}
+              style={[styles.input, disabled && styles.inputDisabled]}
+              placeholder="Password"
+              autoComplete="current-password"
+              autoCapitalize="none"
+              secureTextEntry={true}
+              onChangeText={setPassword}
+              value={password}
+            />
+          </View>
+          <TouchableOpacity style={[styles.linkContainer, {alignSelf: 'flex-end'}]} onPress={() => console.log('mdp oublié')}>
+            <Text style={[styles.linkText, {textAlign: 'right'}]} activeOpacity={0.8}>Mot de passe oublié</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.btnConnect, disabled && styles.btnConnectDisabled]} onPress={handleConnect} activeOpacity={0.8}>
+            <Text style={[styles.textConnect, disabled && styles.textConnectDisabled]}>Se connecter</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.linkContainer,{alignSelf: 'center'}]} onPress={() => navigation.navigate('Signup')}>
+            <Text style={[styles.linkText, {textAlign: 'center'}]} activeOpacity={0.8}>Créer un compte</Text>
+          </TouchableOpacity>
         </View>
-        <View style={[styles.inputContainer, disabled && styles.inputContainerDisabled]}>
-          <Text style={styles.inputAbsolute}>{email && <>Email</>}</Text>
-          <TextInput
-            editable={!disabled}
-            style={[styles.input, disabled && styles.inputDisabled]}
-            placeholder="Email"
-            autoComplete="email"
-            autoCapitalize="none"
-            keyboardType="email-address"
-            onChangeText={setEmail}
-            value={email}
-          />
-        </View>
-        <View style={[styles.inputContainer, disabled && styles.inputContainerDisabled]}>
-          <Text style={styles.inputAbsolute}>{password && <>Password</>}</Text>
-          <TextInput
-            editable={!disabled}
-            style={[styles.input, disabled && styles.inputDisabled]}
-            placeholder="Password"
-            autoComplete="current-password"
-            autoCapitalize="none"
-            secureTextEntry={true}
-            onChangeText={setPassword}
-            value={password}
-          />
-        </View>
-        <TouchableOpacity style={[styles.linkContainer, {alignSelf: 'flex-end'}]} onPress={() => console.log('mdp oublié')}>
-          <Text style={[styles.linkText, {textAlign: 'right'}]} activeOpacity={0.8}>Mot de passe oublié</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.btnConnect, disabled && styles.btnConnectDisabled]} onPress={handleConnect} activeOpacity={0.8}>
-          <Text style={[styles.textConnect, disabled && styles.textConnectDisabled]}>Se connecter</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.linkContainer,{alignSelf: 'center'}]} onPress={() => navigation.navigate('Signup')}>
-          <Text style={[styles.linkText, {textAlign: 'center'}]} activeOpacity={0.8}>Créer un compte</Text>
-        </TouchableOpacity>
-      </View>
-      <View></View>
-    </SafeAreaView>
+        <View></View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }

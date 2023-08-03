@@ -3,11 +3,14 @@ import { GLOBAL_COLOR } from './globals';
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: GLOBAL_COLOR.SECONDARY,
+    backgroundColor: GLOBAL_COLOR.SECONDARY_TRANSPARENT,
   },
   logo: {
     alignContent: 'center',
