@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: [
+  value: [/*
     {
       "tokenTrip": "FFOzaNjn2L4z_tx23_tbixr2shBM29p0",
       "name": "Rome les mecs & filles",
@@ -52,7 +52,7 @@ const initialState = {
         }
       ]
     }
-  ]
+  */]
 };
 
 export const tripsSlice = createSlice({

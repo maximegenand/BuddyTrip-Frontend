@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: [
+  value: [/*
     {
       "tokenEvent": "UqsJhATSBSZqpgBXCDlDFyyYZdmsTS4A",
       "tokenTrip": "FFOzaNjn2L4z_tx23_tbixr2shBM29p0",
@@ -67,7 +67,7 @@ const initialState = {
           "uri": "https://www.rs-automobiles.com/7045-large_default/renault-twingo-1993.jpg"
         }
       ]
-    }
+    }*/
   ],
 };
 
