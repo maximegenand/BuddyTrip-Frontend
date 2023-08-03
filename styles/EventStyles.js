@@ -35,7 +35,7 @@ export default styles = StyleSheet.create({
     },
     listBuddy : {
         width: '90%',
-        height: '10%',
+        height: 60,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -43,6 +43,10 @@ export default styles = StyleSheet.create({
         backgroundColor: GLOBAL_COLOR.SECONDARY,
         borderRadius: 10,
         marginTop: 15,
+    },
+    bubbles: {
+        flex: 1,
+        alignItems: 'center',
     },
     body : {
         height: '100%',
