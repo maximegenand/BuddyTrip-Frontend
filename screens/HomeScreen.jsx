@@ -33,7 +33,7 @@ export default function HomeScreen({ navigation }) {
 
   // 2. UseEffect, UseState, UseRef
 
-  // On récupère la liste des trips dans le backend et on sauvegarde dans le redux storage
+  // On récupère la liste des trip s dans le backend et on sauvegarde dans le redux storage
   // console.log('HOME Rerender')
   useEffect(() => {
     (async () => {
