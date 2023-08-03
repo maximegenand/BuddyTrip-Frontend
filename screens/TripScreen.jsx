@@ -38,7 +38,8 @@ export default function TripScreen({ route, navigation }) {
   // console.log('TRIP Rerender : '+tokenTrip);
   useEffect(() => {
     (async () => {
-      //console.log('Trip useEffect')
+      const random = Math.round(Math.random() * 1000);
+      //console.log('TripScreen useEffect - Start',random);
       try {
         const tripFetch = await fetch(`${BACK_URL}/trips/${tokenTrip}?token=${user.token}`);
         const data = await tripFetch.json();
@@ -51,6 +52,7 @@ export default function TripScreen({ route, navigation }) {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
+      //console.log('TripScreen useEffect - End',random);
     })();
   }, []);
 
@@ -152,8 +154,13 @@ export default function TripScreen({ route, navigation }) {
               <FontAwesome name="arrow-right" size={30} color={GLOBAL_COLOR.TERTIARY} />
             </TouchableOpacity>
           </View>
-          <ScrollView style={styles.events}>{eventsScreen}</ScrollView>
-          <BoutonAdd onPress={() => navigation.navigate("Event")} style={styles.boutonAdd} />
+          <ScrollView style={styles.events}>
+            {eventsScreen}
+          </ScrollView>
+          <BoutonAdd
+            onPress={() => navigation.navigate("NewEvent")}
+            style={styles.boutonAdd}
+          />
         </View>
       </View>
     </View>

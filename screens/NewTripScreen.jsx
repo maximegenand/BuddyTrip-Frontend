@@ -30,7 +30,7 @@ export default function NewTripScreen({ navigation }) {
         dateStart: new Date(startDate),
         dateEnd: new Date(endDate),
         description: description,
-        particpants:["1rbtH6kQHjePtTK2qZu0XAkWDK7Ubmt4"],
+        participants:["1rbtH6kQHjePtTK2qZu0XAkWDK7Ubmt4"],
       }
 
       const response = await fetch(`${BACK_URL}/trips/`, {
