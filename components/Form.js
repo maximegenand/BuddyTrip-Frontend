@@ -31,8 +31,6 @@ const styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.TERTIARY,
     width : screenWidth * 0.8,
     height : screenHeight * 0.06,
-    display: 'flex',
-    justifyContent: 'center',
     borderRadius: 5,
     marginBottom: 20,
   },

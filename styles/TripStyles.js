@@ -58,4 +58,29 @@ export default styles = StyleSheet.create({
     events : {
         overflow :'scroll',
     },
+    modalContainer : {
+        width: '80%',
+        height: '70%',
+        backgroundColor: GLOBAL_COLOR.SECONDARY,
+        borderRadius: 10,
+        position: 'absolute',
+        top: '15%', // 50% - (70% / 2)
+        left: '10%', // 50% - (80% / 2)
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },  
+    modalTitle: {
+        fontWeight: 'bold',
+        color: GLOBAL_COLOR.SECONDARY,
+    },
+    bulleModal : {
+        alignItems: 'center',
+        backgroundColor : GLOBAL_COLOR.TERTIARY,
+        padding: 10,
+        width: '80%',
+        borderRadius: 10,
+        margin : 10
+    },
+
 });

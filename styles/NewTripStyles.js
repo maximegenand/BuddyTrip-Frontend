@@ -1,12 +1,12 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { GLOBAL_COLOR } from './globals';
+import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
     screen: {
         width: screenWidth,
         height: screenHeight,
-        backgroundColor: GLOBAL_COLOR.TERTIARY,
+        backgroundColor: GLOBAL_COLOR.SECONDARY,
     },
     container:{
         flex: 1,
@@ -17,17 +17,14 @@ export default styles = StyleSheet.create({
         alignItems: 'center',
         margin: '10%',
     },
-    inputName :{
-        borderRadius: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
-        marginBottom: 20,
-        width: '100%',
-        textAlign: 'center',
-        fontWeight: "bold",
-        fontStyle: 'italic',
-        fontSize: 20,
-        backgroundColor: 'white',
+    input: {
+        borderBottomWidth: 1,
+        borderBottomColor : GLOBAL_COLOR.SECONDARY,
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
+        fontSize: 15,
+        width : screenWidth * 0.8,
+        height : screenHeight * 0.06,
+        borderRadius: 5,
     },
     dates: {
         display: 'flex',
@@ -41,28 +38,21 @@ export default styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        marginBottom: 15,
     },
     textmain: {
         fontWeight: "bold",
         fontSize: 20,
+        color: GLOBAL_COLOR.TERTIARY,
     },
-    description: {
-        display: 'flex',
-        justifyContent: 'center',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        marginBottom: 15,
-    },
-    descriptionLabel: {
-        fontWeight: "bold",
-        fontSize: 20,
-    },
-    descriptionInput:{
+    descriptionInput: {
+        borderBottomWidth: 1,
+        borderBottomColor : GLOBAL_COLOR.SECONDARY,
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
         fontSize: 15,
-        backgroundColor: 'white',
+        width : screenWidth * 0.8,
+        height : screenHeight * 0.06,
         borderRadius: 5,
-        paddingHorizontal: 10,
-        paddingVertical: 5,
     },
     btnAdd: {
         display: 'flex',
@@ -76,6 +66,6 @@ export default styles = StyleSheet.create({
     btnText: {
         fontSize: 20,
         fontWeight: "bold",
-        color:'white',
+        color:GLOBAL_COLOR.TERTIARY,
     }
 })

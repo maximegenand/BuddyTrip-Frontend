@@ -103,7 +103,7 @@ export default function EventScreen({ route, navigation }) {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.header_left}>
-          <TouchableOpacity onPress={() => navigation.navigate("Home")} activeOpacity={0.8}>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()} >
             <FontAwesome
               style={styles.fleche}
               name="arrow-left"

@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { GLOBAL_COLOR } from './globals';
+import { FontDisplay } from 'expo-font';
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
@@ -31,12 +32,7 @@ export default styles = StyleSheet.create({
         backgroundColor: GLOBAL_COLOR.TERTIARY,
         borderRadius: 25,
     },
-    body: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
-        paddingTop: 20,
-    },
+
     listTrips: {
         alignItems: 'center',
         width: '100%',
@@ -65,6 +61,50 @@ export default styles = StyleSheet.create({
         color: GLOBAL_COLOR.TERTIARY
     },
     add: {
-        margin: 20,
+        marginTop: 4,
+        marginBottom: 20,
+        alignItems: 'center',
     },
+    scrollContainer : {
+        flex: 1,
+        width: '100%'
+    },
+    modalContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        flex: 1,
+        backgroundColor: 'transparent',
+    },
+    modalContent: {
+        width: '80%',
+        height: '25%',
+        backgroundColor: 'white',
+        borderRadius: 5,
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        backgroundColor: GLOBAL_COLOR.SECONDARY,
+        padding: 10
+    },
+    titleModalContainer: {
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
+        borderRadius: 5,
+        padding: 10,
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    modalTitle : {
+        color: GLOBAL_COLOR.SECONDARY,
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    removeButton: {
+        backgroundColor: GLOBAL_COLOR.PRIMARY,
+        padding: 10,
+        borderRadius: 10
+    },
+    removeButtonText : {
+        color: GLOBAL_COLOR.TERTIARY
+    }
 });

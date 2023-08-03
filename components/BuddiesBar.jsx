@@ -2,7 +2,12 @@ import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from "react-nati
 import { GLOBAL_COLOR } from '../styles/globals';
 import BuddyBubble from "../components/BuddyBubble";
 
+// Taille par défaut des bulles
+const defaultSize = 50;
+
 export default function BuddiesBar(props) {
+  //
+  const size = props.size ? props.size : defaultSize;
 
   const buddies = [
     { tokenUser: "7", username: "John",},
@@ -29,14 +34,14 @@ export default function BuddiesBar(props) {
 //console.log('affichés :', indexMax)
 //console.log('boutton + :', substrac)
   return (
-    <TouchableOpacity style={[ styles.container, { width: indexMax * 25 + 15 } ]}>
+    <TouchableOpacity style={[ styles.container, { width: (indexMax + 1 + 0.6) * size * 0.6 } ]}>
       {
         // Affiche des BuddyBubbles
-        buddies.map((buddy, i) => indexMax > i && (<BuddyBubble key={buddy.tokenUser} buddy={buddy} i={i} />))
+        buddies.map((buddy, i) => indexMax > i && (<BuddyBubble key={buddy.tokenUser} buddy={buddy} i={i} size={size} />))
       }
       {
         // Si on a plus de buddies que ceux à afficher on créé une bulle contenant le nombre à ajouter
-        substrac && <BuddyBubble key={substrac} add={substrac} i={indexMax} />
+        substrac > 0 && <BuddyBubble key={substrac} add={substrac} i={indexMax} size={size} />
       }
     </TouchableOpacity>
   );
@@ -46,6 +51,5 @@ const styles = StyleSheet.create({
     container : {
       position: 'relative',
       flexDirection: 'row',
-      //backgroundColor: 'red',
     },
 });
