@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addTrip } from '../redux/reducers/trips';
+import { addTrip } from "../redux/reducers/trips";
 import HeaderNav from "../components/HeaderNewTrip";
 import { BACK_URL } from "@env";
 
@@ -79,7 +79,7 @@ export default function NewTripScreen({ navigation }) {
   // Fonction pour vérifier si une date est valide et supérieure ou égale à la date d'aujourd'hui
   const isValidDate = (dateText) => {
     const cleanedDateText = dateText.replace(/[^0-9]/g, "");
-    // transforme la string dans parseInt() en entier 
+    // transforme la string dans parseInt() en entier
     const day = parseInt(cleanedDateText.slice(0, 2));
     const month = parseInt(cleanedDateText.slice(2, 4));
     const year = parseInt(cleanedDateText.slice(4, 8));
@@ -186,7 +186,7 @@ export default function NewTripScreen({ navigation }) {
 
       // Si la réponse du backend est true, rediriger l'utilisateur vers HomeScreen
       if (responseData.result === true) {
-        // dispatch(addTrip(responseData.trip));
+        dispatch(addTrip(responseData.trip));
         navigation.navigate("Home");
       }
     } catch (error) {

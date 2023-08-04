@@ -65,9 +65,11 @@ export const tripsSlice = createSlice({
     addAllTrips: (state, action) => {
       state.value = action.payload;
     },
-    // addTrip: (state, action) => {
-    //   state.value = state.value.push(action.payload);
-    // }
+    addTrip: (state, action) => {
+      console.log(state.value)
+      console.log(action.payload)
+      state.value.push(action.payload);
+    }
   },
 });
 
