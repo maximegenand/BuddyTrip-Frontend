@@ -46,7 +46,7 @@ export default function HomeScreen({ navigation }) {
 
   // On récupère la liste des trip s dans le backend et on sauvegarde dans le redux storage
   // console.log('HOME Rerender')
-  useEffect(() => {
+  /*useEffect(() => {
     (async () => {
       const random = Math.round(Math.random() * 1000);
       //console.log('HomeScreen useEffect - Start',random);
@@ -63,7 +63,7 @@ export default function HomeScreen({ navigation }) {
       }
       //console.log('HomeScreen useEffect - End', random);
     })();
-  }, []);
+  }, []);*/
 
   // 3. Functions
   const navigationTokenTrip = useNavigation();
