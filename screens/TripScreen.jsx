@@ -32,6 +32,9 @@ export default function TripScreen({ route, navigation }) {
   const events = useSelector((state) => state.events.value);
   const dispatch = useDispatch();
 
+  //gerer le style du buttonAdd
+  const buttonStyle = styles.boutonAdd;
+
   // 2. UseEffect, UseState, UseRef
   const [modalVisible, setModalVisible] = useState(false);
   // On récupère le trip dans le backend avec les events et infos, puis on sauvegarde dans le redux storage
@@ -159,7 +162,7 @@ export default function TripScreen({ route, navigation }) {
           </ScrollView>
           <BoutonAdd
             onPress={() => navigation.navigate("NewEvent",  { screen: "NewEvent", tokenTrip })}
-            style={styles.boutonAdd}
+            buttonStyle={buttonStyle}
           />
         </View>
       </View>
