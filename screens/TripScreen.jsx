@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Button, ScrollView, Modal } from "react-native";
+import { View, Text, TouchableOpacity, Button, ScrollView, Modal, SafeAreaView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { addDays, format, compareDesc } from "date-fns";
 import { BACK_URL } from "@env";
@@ -128,7 +128,7 @@ export default function TripScreen({ route, navigation }) {
     .join(", ");
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
           <View style={styles.bulleModal}>
@@ -163,6 +163,6 @@ export default function TripScreen({ route, navigation }) {
           />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
