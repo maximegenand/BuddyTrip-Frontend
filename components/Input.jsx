@@ -39,10 +39,13 @@ export default function InputComponent(props) {
   // => https://reactnative.dev/docs/textinput
   let params = {};
   if (props.type) {
-    if (props.type === 'email') params = {
-      autoComplete:"email",
-      autoCapitalize:"none",
-      keyboardType:"email-address",
+    if (props.type === 'username') params = {
+      autoComplete: 'username',
+    }
+    else if (props.type === 'email') params = {
+      autoComplete: "email",
+      autoCapitalize: "none",
+      keyboardType: "email-address",
     }
     else if (props.type === 'current-password' || props.type === 'new-password') params = {
       autoComplete: props.type,
