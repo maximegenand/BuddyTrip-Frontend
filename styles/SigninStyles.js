@@ -1,16 +1,26 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { GLOBAL_COLOR } from './globals';
-const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
+import { StyleSheet } from 'react-native';
+import { GLOBAL_COLOR, STATUSBAR_HEIGHT } from './globals';
 
 export default styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
   },
+  modal: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 100,
+    backgroundColor: "rgba(0, 0, 0, 0.2)"
+  },
   container: {
+    flex: 1,
+    paddingTop: STATUSBAR_HEIGHT,
+    backgroundColor: GLOBAL_COLOR.SECONDARY+'CC', // 0.8 d'opacity - format #rrggbbaa -> https://borderleft.com/toolbox/rrggbbaa/
+  },
+  safeView: {
     flex: 1,
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: GLOBAL_COLOR.SECONDARY_TRANSPARENT,
   },
   logo: {
     alignContent: 'center',
@@ -18,6 +28,7 @@ export default styles = StyleSheet.create({
   },
   body: {
     width: '80%',
+    marginBottom: 50,
   },
   error: {
     height: 30,
@@ -27,41 +38,6 @@ export default styles = StyleSheet.create({
     fontWeight: 700,
     textShadowColor: 'white',
     textShadowRadius: 10,
-  },
-  inputContainer: {
-    position: 'relative',
-    backgroundColor: 'white',
-    display: 'flex',
-    justifyContent: 'center',
-    borderRadius: 5,
-    marginBottom: 20,
-  },
-  inputAbsolute: {
-    position: 'absolute',
-    zIndex: 100,
-    top: 0,
-    left: 0,
-    paddingTop: 2,
-    paddingHorizontal: 5,
-    fontSize: 12,
-    color: '#a9a9a9',
-    //backgroundColor: 'white',
-    //borderTopLeftRadius: 5,
-    //borderTopRightRadius: 5,
-  },
-  inputContainerDisabled: {
-    backgroundColor: '#d3d3d3',
-  },
-  input : {
-    width: '90%',
-    margin: 10,
-    fontSize: 16,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor : GLOBAL_COLOR.SECONDARY,
-  },
-  inputDisabled: {
-    backgroundColor: '#d3d3d3',
   },
   linkContainer: {
     marginTop: -10,
@@ -79,15 +55,9 @@ export default styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: GLOBAL_COLOR.PRIMARY,
   },
-  btnConnectDisabled: {
-    backgroundColor: '#d3d3d3',
-  },
   textConnect: {
     fontSize: 20,
     fontWeight: 'bold',
     color: 'white',
-  },
-  textConnectDisabled: {
-    color: '#d3d3d3',
   },
 });
