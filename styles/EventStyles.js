@@ -8,70 +8,87 @@ export default styles = StyleSheet.create({
         height: screenHeight,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
-    header : {
-        width : '100%',
-        height: '15%',
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    fleche : {
-        margin: 10,
-        marginBottom: 30
-    },
-    ajouteur : {
-        marginLeft: 10,
-        color: GLOBAL_COLOR.TERTIARY
-    },
-    name: {
-        color: GLOBAL_COLOR.TERTIARY,
-        fontWeight: 'bold',
-        fontSize: 18,
-        marginBottom: 10
-    },
-    header_right: {
-        marginLeft: 70
-    },
-    listBuddy : {
-        width: '90%',
-        height: 60,
-        display: 'flex',
+    header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: GLOBAL_COLOR.SECONDARY,
-        borderRadius: 10,
-        marginTop: 15,
+        marginBottom: 15,
+        padding: 10,
+        backgroundColor: GLOBAL_COLOR.PRIMARY,
     },
-    bubbles: {
+    return: {
+        alignSelf: 'flex-start',
+    },
+    titleContainer: {
         flex: 1,
-        alignItems: 'center',
+        marginHorizontal: 20,
+        overflow: 'hidden',
     },
-    body : {
-        height: '100%',
-        display: 'flex',
+    title: {
+        marginBottom: 0,
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: GLOBAL_COLOR.TERTIARY,
+    },
+    titleBy: {
+        fontSize: 14,
+        fontStyle: 'italic',
+        color: GLOBAL_COLOR.TERTIARY,
+    },
+    body: {
+        flex: 1,
         alignItems: 'center'
     },
+    buddiesContainer: {
+        alignSelf: 'center',
+    },
+    titleBuddies: {
+        position: 'relative',
+        bottom: -2,
+        alignSelf: 'flex-start',
+        marginRight: 59,
+        paddingTop: 5,
+        paddingHorizontal: 10,
+        fontSize: 16,
+        fontWeight: 700,
+        borderTopLeftRadius: 15,
+        borderTopRightRadius: 15,
+        color: GLOBAL_COLOR.SECONDARY,
+        borderColor: GLOBAL_COLOR.SECONDARY,
+        borderWidth: 2,
+        backgroundColor: 'white',
+    },
+    buddiesContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        height: 60,
+        borderTopRightRadius: 30,
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 30,
+        backgroundColor: GLOBAL_COLOR.SECONDARY,
+    },
+    bubbles: {
+        //flex: 1,
+        flexGrow: 1,
+        alignSelf: 'center',
+        marginHorizontal: 20,
+    },
+    buttonAddBuddy : {
+        position: 'relative',
+        right: -1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor : 'white',
+        width: 60,
+        height: 60,
+        borderTopRightRadius: 30,
+        borderBottomRightRadius: 30,
+    },  
     buddysWord : {
         color : GLOBAL_COLOR.TERTIARY,
         fontWeight: 'bold',
         fontSize: 15,
         padding: 20
-    },
-    BouttonAddBuddy : {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor : 'white',
-        height: '100%',
-        width: '20%',
-        borderRadius: 10,
-    },  
-    BouttonPlus : {
-        color: GLOBAL_COLOR.SECONDARY,
-        fontWeight: 'bold',
-        fontSize: 30
     },
     lines : {
         width : screenWidth * 0.8,

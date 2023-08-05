@@ -34,7 +34,7 @@ export default function BuddiesBar(props) {
 //console.log('affichés :', indexMax)
 //console.log('boutton + :', substrac)
   return (
-    <TouchableOpacity style={[ styles.container, { width: (indexMax + 1 + 0.6) * size * 0.6 } ]}>
+    <TouchableOpacity style={[ styles.container, props.style, { width: (indexMax + 1 + 0.6) * size * 0.6 } ]}>
       {
         // Affiche des BuddyBubbles
         buddies.map((buddy, i) => indexMax > i && (<BuddyBubble key={buddy.tokenUser} buddy={buddy} i={i} size={size} />))

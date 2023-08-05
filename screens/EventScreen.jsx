@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Button, Linking, SafeAreaView } from "react-native";
+import { View, Text, TouchableOpacity, Button, Linking, SafeAreaView, StatusBar } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { format } from "date-fns";
 import { fr } from "date-fns/esm/locale";
@@ -7,11 +7,13 @@ import { fr } from "date-fns/esm/locale";
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 import styles from "../styles/EventStyles";
-import Header from "../components/Header";
 
 //Import components
+import Header from "../components/Header";
+import BuddiesBar from "../components/BuddiesBar";
 
 //Import modules
+import { formatDate } from '../modules/dates'
 
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
@@ -27,141 +29,97 @@ export default function EventScreen({ route, navigation }) {
   const dispatch = useDispatch();
 
   // 2. UseEffect, UseState, UseRef
-  const [event, setEvent] = useState(null);
-  const tokenEventFromRoute = route.params.params.tokenEvent;
 
-  useEffect(() => {
-    const eventFiltered = events.filter((event) => event.tokenEvent === tokenEventFromRoute);
-    setEvent(eventFiltered);
-  }, []);
+  // On recupère les infos de l'évènement dans le storage grâce à son tokenEvent
+  const tokenEvent = route.params.params.tokenEvent
+  const event = events.find( e => e.tokenEvent === tokenEvent );
 
-  let eventTab,
-    eventName,
-    eventCreateur,
-    eventParticipants,
-    eventPlace,
-    eventDescritpion,
-    eventpointInteret,
-    eventDate,
-    eventSeat,
-    eventType,
-    eventDepartHour,
-    eventArriveHour;
-  if (event) {
-    eventTab = event[0];
-    eventName = eventTab.name;
-    eventCreateur = eventTab.user.username;
-    eventParticipants = eventTab.participants.length + 1;
-    eventPlace = eventTab.place;
-    eventDescritpion = eventTab.description;
-    eventpointInteret = eventTab.infos;
-    eventDate = eventTab.date;
-    eventSeat = eventTab.seats;
-    eventType = eventTab.category;
-    eventDepartHour = eventTab.timeStart;
-    eventArriveHour = eventTab.timeEnd;
-  }
-  // Gestion des point d'interet
-  let eventPointInteretList;
-  if (eventpointInteret) {
-    eventPointInteretList = eventpointInteret.map((data, i) => {
-      return (
-        <TouchableOpacity key={i} onPress={() => Linking.openURL(data.uri)}>
-          <Text style={styles.interetTextList}>• {data.name}</Text>
-        </TouchableOpacity>
-      );
-    });
-  }
-  // mise en place de la date
-  let date;
-  if (eventDate) {
-    date = format(new Date(eventDate), "d MMMM", { locale: fr });
-  }
+  // On destructure les données
+  const { user:userEvent, participants, date, name, description, category, place, timeStart, timeEnd, seats, infos } = event;
 
-  // Gestion des places disponible
-  let seatDisponibles;
-  if (eventSeat) {
-    seatDisponibles = (
-      <Text style={styles.textInfos}>
-        <Text style={styles.textInfosBold}>Places</Text> : {eventSeat - eventParticipants} Places restantes
-      </Text>
-    );
-  }
-  // Gestion des horaires
-  let hourDepart;
-  let hourArrive;
+  // On défini le nombre de participants
+  const sumParticipants = participants.length + 1;
 
-  if (eventDepartHour) {
-    hourDepart = format(new Date(eventDepartHour), "HH:mm", { locale: fr });
-  }
 
-  if (eventDepartHour && eventArriveHour) {
-    hourDepart = format(new Date(eventDepartHour), "HH:mm", { locale: fr });
-    hourArrive = format(new Date(eventArriveHour), "HH:mm", { locale: fr });
-  }
-
-  let affichageHour;
-  if (eventType === "travel") {
-    affichageHour = (
-      <>
-        <Text style={styles.textInfos}>
-          <Text style={styles.textInfosBold}>heure de depart</Text> : {hourDepart}
-        </Text>
-        <Text style={styles.textInfos}>
-          <Text style={styles.textInfosBold}>heure d'arrivée</Text> : {hourArrive}
-        </Text>
-      </>
-    );
-  } else {
-    affichageHour = (
-      <Text style={styles.textInfos}>
-        <Text style={styles.textInfosBold}>heure</Text> : {hourDepart}
-      </Text>
-    );
-  }
 
   // 3. Functions
 
   // 4. Return Component
+
+  // Gestion des horaires
+  const timeScreen = category === 'travel' ? (
+    <>
+      <Text style={styles.textInfos}><Text style={styles.textInfosBold}>départ :</Text> {format(new Date(timeStart), "HH'h'mm",{locale : fr})}</Text>
+      <Text style={styles.textInfos}><Text style={styles.textInfosBold}>arrivée :</Text> {format(new Date(timeEnd), "HH'h'mm",{locale : fr})}</Text>
+    </>
+  ) : (
+    <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Heure :</Text> {format(new Date(timeStart), "HH'h'mm",{locale : fr})}</Text>
+  );
+
+  // Gestion des places disponibles
+  const seatsScreen = seats ? ( 
+    <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Places</Text> : {seats - sumParticipants} places restantes</Text>
+  ) : false;
+
+  // Gestion des point d'interet
+  infosScreen = infos.map(data => (
+    <TouchableOpacity key={data.tokenInfo} onPress={() => Linking.openURL(data.uri) }>
+      <Text style={styles.interetTextList}>• {data.name}</Text>
+    </TouchableOpacity>
+  ));
+
+  // Retour du component
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.header_left}>
-          <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()}>
-            <FontAwesome style={styles.fleche} name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
+    <>
+      <StatusBar translucent={false} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
+      <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.return} activeOpacity={0.8} onPress={() => navigation.goBack()}>
+            <FontAwesome name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
           </TouchableOpacity>
+          <View style={styles.titleContainer}>
+            <Text numberOfLines={1} ellipsizeMode="middle" style={styles.title}>{name}</Text>
+            <Text style={styles.titleBy}>Ajouté par {userEvent.username}</Text>
+          </View>
+          <FontAwesome name="car" size={30} color={GLOBAL_COLOR.TERTIARY} />
         </View>
-        <View style={styles.header_right}>
-          <Text style={styles.name}>{eventName}</Text>
-          <Text style={styles.ajouteur}>Ajouté par {eventCreateur}</Text>
-        </View>
-      </View>
-      <View style={styles.body}>
-        <View style={styles.listBuddy}>
-          <Text style={styles.buddysWord}>{eventParticipants} Buddys</Text>
-          <TouchableOpacity style={styles.BouttonAddBuddy}>
-            <Text style={styles.BouttonPlus}>+</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.infos}>
-          <Text style={styles.textInfos}>
-            <Text style={styles.textInfosBold}>Date</Text>: {date}
-          </Text>
-          {affichageHour}
-          <Text style={styles.textInfos}>
-            <Text style={styles.textInfosBold}>Lieu</Text> : {eventPlace}
-          </Text>
-          {seatDisponibles}
-          <View style={styles.lines} />
-          <Text style={styles.desc}>{eventDescritpion}</Text>
-          <View></View>
-          <View style={styles.lines} />
-          <View style={styles.pointInteret}>
-            <Text style={styles.interetText}>Point d'intérêt :</Text>
-            {eventPointInteretList}
+        <View style={styles.body}>
+          <View style={styles.buddiesContainer}>
+            <Text style={styles.titleBuddies}>Buddies déjà inscrits :</Text>
+            <View style={styles.buddiesContent}>
+           
+                <BuddiesBar style={styles.bubbles} buddies={participants} max={5} />
+         
+              <TouchableOpacity style={styles.buttonAddBuddy}>
+                <FontAwesome name="plus" size={30} color={GLOBAL_COLOR.SECONDARY} />
+              </TouchableOpacity>
+            </View>
+          </View>
+          <View style={styles.infos}>
+            <Text style={styles.textInfos}>
+              <Text style={styles.textInfosBold}>Date :</Text> {formatDate(new Date(date))}
+            </Text>
+            {timeScreen}
+            <Text style={styles.textInfos}>
+              <Text style={styles.textInfosBold}>Lieu</Text> : {place}
+            </Text>
+            {seatsScreen}
+            <View style={styles.lines} />
+            <Text style={styles.desc}>{description}</Text>
+            <View></View>
+            { infosScreen && (
+              <>
+                <View style={styles.lines} />
+                <View style={styles.pointInteret}>
+                  <Text style={styles.interetText}>Point d'intérêt :</Text>
+                  {infosScreen}
+                </View>
+              </>
+            )}
           </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 }
