@@ -27,23 +27,23 @@ import Form from "../components/Form";
 import { useDispatch, useSelector } from "react-redux";
 import {} from "../redux/reducers/user";
 import {} from "../redux/reducers/trips";
-import {} from "../redux/reducers/events";
+import { addEvent } from "../redux/reducers/events";
 import { StatusBar } from "expo-status-bar";
 
-export default function NewEventScreen({ navigation }) {
+export default function NewEventScreen({ route, navigation }) {
   // 1. Redux storage
   const user = useSelector((state) => state.user.value);
   const trips = useSelector((state) => state.trips.value);
   const events = useSelector((state) => state.events.value);
-  const tripToken = useSelector((state) => state.trip.value.token);
+  
   const dispatch = useDispatch();
-
+// console.log('store', trips)
   const dimensions = Dimensions.get("screen");
   const dimensionsHeight = dimensions.height;
 
   // 2. UseEffect, UseState, UseRef
   const [titre, setTitre] = useState("");
-  const [date, setDate] = useState("");
+  const [date, setDate] = useState(new Date(format(new Date(), "yyyy-MM-dd")));
   const [heureDeDepart, setHeureDeDepart] = useState("");
   const [heureDarrivee, setHeureDarrivee] = useState("");
   const [placesDispo, setPlaceDispo] = useState("");
@@ -57,14 +57,11 @@ export default function NewEventScreen({ navigation }) {
   const [act, setAct] = useState(false);
 
   const [selected, setSelected] = useState("");
-  // const titreRef = useRef(null);
-  // const dateRef = useRef(null);
-  // const heureDepartRef = useRef(null);
-  // const placesDispoRef = useRef(null);
-  // const numeroBilletRef = useRef(null);
-  // const titreActRef = useRef(null);
-  // const descriptionRef = useRef(null);
-  
+
+ 
+
+  const tripToken = route.params.tokenTrip;
+
 
   // 3. Functions
 
@@ -180,7 +177,8 @@ export default function NewEventScreen({ navigation }) {
  // fonction handleAddEvent pour créer un nouveau groupe
 
  async function handleAddEvent() {
-  try {
+  //try {
+    const token = user.token;
     // création de la donnée à envoyer au backend
 
       const eventData = {
@@ -192,29 +190,35 @@ export default function NewEventScreen({ navigation }) {
       timeStart: heureDeDepart,
       timeEnd: heureDarrivee,
       place: lieu,
-      ticket: numeroBillet,
       seats: placesDispo,
+      ticket: numeroBillet,
       description: description,
   }
+  console.log(token, eventData)
     const response = await fetch(`${BACK_URL}/events/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({token: token, event: eventData}),
+  
     });
+    
 
     const responseData = await response.json();
     console.log("Réponse du serveur:", responseData);
 
     if (responseData.result === true) {
+      const newEvent= responseData.event
+     // sauvgarder dans le reducer le nouvel event 
+      dispatch(addEvent(newEvent))
       // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
-      navigation.navigate('Event');
+      navigation.navigate("Event", { screen: "Event", params: { tokenEvent: newEvent.tokenEvent } })
     }
 
-  } catch (error) {
-    console.error("Erreur lors de l'envoi de l'event au serveur :", error);
-  }
+  /*} catch (error) {
+   console.error("Erreur lors de l'envoi de l'event au serveur :", error);
+  }*/
 }
 
 
@@ -245,7 +249,7 @@ export default function NewEventScreen({ navigation }) {
       <ScrollView>
         <View style={styles.header}>
           <FontAwesome
-          onPress={() => navigation.navigate("Event")}
+          onPress={() => navigation.goBack()}
             style={styles.fleche}
             name="arrow-left"
             size={30}

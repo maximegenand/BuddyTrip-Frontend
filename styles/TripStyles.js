@@ -82,5 +82,7 @@ export default styles = StyleSheet.create({
         borderRadius: 10,
         margin : 10
     },
-
+    boutonAdd: {
+        marginBottom: screenHeight / 11
+    },
 });

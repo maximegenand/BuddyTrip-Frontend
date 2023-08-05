@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Button, Linking } from "react-native";
+import { View, Text, TouchableOpacity, Button, Linking, SafeAreaView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { format } from "date-fns";
 import { fr } from "date-fns/esm/locale";
@@ -27,89 +27,108 @@ export default function EventScreen({ route, navigation }) {
   const dispatch = useDispatch();
 
   // 2. UseEffect, UseState, UseRef
-  const [event, setEvent] = useState(null)
-  const tokenEventFromRoute = route.params.params.tokenEvent
+  const [event, setEvent] = useState(null);
+  const tokenEventFromRoute = route.params.params.tokenEvent;
 
   useEffect(() => {
-    const eventFiltered = events.filter((event) => event.tokenEvent=== tokenEventFromRoute )
-    setEvent(eventFiltered)
+    const eventFiltered = events.filter((event) => event.tokenEvent === tokenEventFromRoute);
+    setEvent(eventFiltered);
   }, []);
 
-  let eventTab, eventName, eventCreateur, eventParticipants, eventPlace, eventDescritpion, eventpointInteret, eventDate, eventSeat, eventType, eventDepartHour, eventArriveHour
+  let eventTab,
+    eventName,
+    eventCreateur,
+    eventParticipants,
+    eventPlace,
+    eventDescritpion,
+    eventpointInteret,
+    eventDate,
+    eventSeat,
+    eventType,
+    eventDepartHour,
+    eventArriveHour;
   if (event) {
-     eventTab = event[0]
-     eventName = eventTab.name
-     eventCreateur = eventTab.user.username
-     eventParticipants = eventTab.participants.length + 1
-     eventPlace = eventTab.place
-     eventDescritpion = eventTab.description
-     eventpointInteret = eventTab.infos
-     eventDate = eventTab.date
-     eventSeat = eventTab.seats
-     eventType = eventTab.category
-     eventDepartHour = eventTab.timeStart
-     eventArriveHour = eventTab.timeEnd
+    eventTab = event[0];
+    eventName = eventTab.name;
+    eventCreateur = eventTab.user.username;
+    eventParticipants = eventTab.participants.length + 1;
+    eventPlace = eventTab.place;
+    eventDescritpion = eventTab.description;
+    eventpointInteret = eventTab.infos;
+    eventDate = eventTab.date;
+    eventSeat = eventTab.seats;
+    eventType = eventTab.category;
+    eventDepartHour = eventTab.timeStart;
+    eventArriveHour = eventTab.timeEnd;
   }
   // Gestion des point d'interet
   let eventPointInteretList;
-  if(eventpointInteret) {
-     eventPointInteretList = eventpointInteret.map((data, i) => {
+  if (eventpointInteret) {
+    eventPointInteretList = eventpointInteret.map((data, i) => {
       return (
-        <TouchableOpacity key={i} onPress={() => Linking.openURL(data.uri) }>
+        <TouchableOpacity key={i} onPress={() => Linking.openURL(data.uri)}>
           <Text style={styles.interetTextList}>• {data.name}</Text>
-    </TouchableOpacity>
-    )
-  })
+        </TouchableOpacity>
+      );
+    });
   }
-  // mise en place de la date 
+  // mise en place de la date
   let date;
-  if(eventDate) {
-    date = format(new Date(eventDate), 'd MMMM',{locale : fr})
+  if (eventDate) {
+    date = format(new Date(eventDate), "d MMMM", { locale: fr });
   }
 
   // Gestion des places disponible
   let seatDisponibles;
   if (eventSeat) {
-    seatDisponibles = 
-    <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Places</Text> : {eventSeat - eventParticipants} Places restantes</Text>
+    seatDisponibles = (
+      <Text style={styles.textInfos}>
+        <Text style={styles.textInfosBold}>Places</Text> : {eventSeat - eventParticipants} Places restantes
+      </Text>
+    );
   }
-  // Gestion des horaires 
+  // Gestion des horaires
   let hourDepart;
   let hourArrive;
 
   if (eventDepartHour) {
-    hourDepart = format(new Date(eventDepartHour), 'HH:mm',{locale : fr})
+    hourDepart = format(new Date(eventDepartHour), "HH:mm", { locale: fr });
   }
 
   if (eventDepartHour && eventArriveHour) {
-    hourDepart = format(new Date(eventDepartHour), 'HH:mm',{locale : fr})
-    hourArrive = format(new Date(eventArriveHour), 'HH:mm',{locale : fr})
+    hourDepart = format(new Date(eventDepartHour), "HH:mm", { locale: fr });
+    hourArrive = format(new Date(eventArriveHour), "HH:mm", { locale: fr });
   }
 
   let affichageHour;
-  if (eventType === 'travel') {
-    affichageHour = <>
-      <Text style={styles.textInfos}><Text style={styles.textInfosBold}>heure de depart</Text> : {hourDepart}</Text>
-       <Text style={styles.textInfos}><Text style={styles.textInfosBold}>heure d'arrivée</Text> : {hourArrive}</Text>
-    </>
+  if (eventType === "travel") {
+    affichageHour = (
+      <>
+        <Text style={styles.textInfos}>
+          <Text style={styles.textInfosBold}>heure de depart</Text> : {hourDepart}
+        </Text>
+        <Text style={styles.textInfos}>
+          <Text style={styles.textInfosBold}>heure d'arrivée</Text> : {hourArrive}
+        </Text>
+      </>
+    );
   } else {
-    affichageHour = <Text style={styles.textInfos}><Text style={styles.textInfosBold}>heure</Text> : {hourDepart}</Text>
+    affichageHour = (
+      <Text style={styles.textInfos}>
+        <Text style={styles.textInfosBold}>heure</Text> : {hourDepart}
+      </Text>
+    );
   }
-  
+
   // 3. Functions
 
   // 4. Return Component
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <View style={styles.header_left}>
-          <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()} >
-            <FontAwesome
-              style={styles.fleche}
-              name="arrow-left"
-              size={30}
-              color={GLOBAL_COLOR.TERTIARY}
-            />
+          <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.goBack()}>
+            <FontAwesome style={styles.fleche} name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
           </TouchableOpacity>
         </View>
         <View style={styles.header_right}>
@@ -129,14 +148,13 @@ export default function EventScreen({ route, navigation }) {
             <Text style={styles.textInfosBold}>Date</Text>: {date}
           </Text>
           {affichageHour}
-          <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Lieu</Text> : {eventPlace}</Text>
+          <Text style={styles.textInfos}>
+            <Text style={styles.textInfosBold}>Lieu</Text> : {eventPlace}
+          </Text>
           {seatDisponibles}
           <View style={styles.lines} />
-          <Text style={styles.desc}>
-            {eventDescritpion}
-          </Text>
-          <View>
-          </View>
+          <Text style={styles.desc}>{eventDescritpion}</Text>
+          <View></View>
           <View style={styles.lines} />
           <View style={styles.pointInteret}>
             <Text style={styles.interetText}>Point d'intérêt :</Text>
@@ -144,6 +162,6 @@ export default function EventScreen({ route, navigation }) {
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

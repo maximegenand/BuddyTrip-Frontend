@@ -9,7 +9,7 @@ export default function HeaderNav({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate("Home")} activeOpacity={0.8}>
         <FontAwesome style={styles.fleche} name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
       </TouchableOpacity>
-      <Text style={styles.text}>Nouveau groupe</Text>
+      <Text style={styles.text}>Nouveau Trip</Text>
       <Text style={styles.right}></Text>
     </View>
   );

@@ -65,8 +65,13 @@ export const tripsSlice = createSlice({
     addAllTrips: (state, action) => {
       state.value = action.payload;
     },
+    addTrip: (state, action) => {
+      console.log(state.value)
+      console.log(action.payload)
+      state.value.push(action.payload);
+    }
   },
 });
 
-export const { updateTrip, addAllTrips } = tripsSlice.actions;
+export const { updateTrip, addAllTrips, addTrip } = tripsSlice.actions;
 export default tripsSlice.reducer;

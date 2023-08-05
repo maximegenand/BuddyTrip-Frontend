@@ -182,7 +182,7 @@ export default function HomeScreen({ navigation }) {
         </View>
       </ScrollView>
       <View style={styles.add}>
-        <BoutonAdd onPress={() => navigation.navigate("NewTrip")} />
+        <BoutonAdd onPress={() => navigation.navigate("NewTrip")} buttonStyle={styles.boutonAdd}/>
       </View>
     </SafeAreaView>
   );
