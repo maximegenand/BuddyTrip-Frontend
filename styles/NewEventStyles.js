@@ -1,28 +1,30 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { GLOBAL_COLOR } from './globals';
+import { GLOBAL_COLOR, STATUSBAR_HEIGHT } from './globals';
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
-    container : {
-      height: Dimensions.get("screen").height,
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor : GLOBAL_COLOR.SECONDARY
-    },
-    // container : {
-    //     height: screenHeight,
-    //     width: screenWidth,
-    //     backgroundColor : GLOBAL_COLOR.SECONDARY
-    // },
-    header: {
-        height: screenHeight * 0.11,
-        width : screenWidth,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems :'center',
-        marginBottom: 20
-    },
+    container: {
+        flex: 1,
+        paddingTop: STATUSBAR_HEIGHT,
+        backgroundColor: GLOBAL_COLOR.SECONDARY,
+      },
+      safeView: {
+        flex: 1,
+        justifyContent: "space-between",
+        alignItems: "center",
+      },
+      header: {
+          height: 60,
+          backgroundColor: GLOBAL_COLOR.PRIMARY,
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems :'center',
+          marginBottom: 20
+      },
+      body: {
+        paddingHorizontal: '10%',
+        marginBottom: 50,
+      },
     name : {
         color: GLOBAL_COLOR.TERTIARY,
         fontWeight: 'bold',
