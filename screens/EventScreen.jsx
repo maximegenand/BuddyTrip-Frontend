@@ -29,7 +29,8 @@ export default function EventScreen({ route, navigation }) {
   const dispatch = useDispatch();
 
   // 2. UseEffect, UseState, UseRef
-
+  // On gére si l'utilisateur participe à l'activité ou non 
+  const [isAdded, setIsAdded] = useState(false);
   // On recupère les infos de l'évènement dans le storage grâce à son tokenEvent
   const tokenEvent = route.params.params.tokenEvent
   const event = events.find( e => e.tokenEvent === tokenEvent );
@@ -43,7 +44,9 @@ export default function EventScreen({ route, navigation }) {
 
 
   // 3. Functions
-
+  const handleAddMePress = () => {
+    setIsAdded(true);
+  };
   // 4. Return Component
 
   // Gestion des horaires
@@ -90,10 +93,20 @@ export default function EventScreen({ route, navigation }) {
             <View style={styles.buddiesContent}>
            
                 <BuddiesBar style={styles.bubbles} buddies={participants} max={5} />
-         
-              <TouchableOpacity style={styles.buttonAddBuddy}>
-                <FontAwesome name="plus" size={30} color={GLOBAL_COLOR.SECONDARY} />
-              </TouchableOpacity>
+       {/* Afficher une icône si l'utilisateur est  le créateur de l'événement */}
+      { event.user == event.user.token && (
+        <FontAwesome name="check" size={30} color={GLOBAL_COLOR.SECONDARY}  />
+      ) }
+       <TouchableOpacity style={styles.buttonAddBuddy} onPress={handleAddMePress}>
+
+      {/* Afficher une icône pour ajouter ou supprimer en fonction si le user participe ou pas a l'event */}
+      {!isAdded ? (
+        <FontAwesome name="plus" size={30} color={GLOBAL_COLOR.SECONDARY}   />
+      ) : (
+        <FontAwesome name="minus" size={30} color={GLOBAL_COLOR.SECONDARY}  />
+      )}
+         </TouchableOpacity>
+
             </View>
           </View>
           <View style={styles.infos}>
