@@ -7,8 +7,10 @@ import {
   Platform,
   SafeAreaView,
   Keyboard,
+  Modal,
+  ActivityIndicator,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addTrip } from "../redux/reducers/trips";
 import HeaderNav from "../components/HeaderNewTrip";
@@ -17,7 +19,14 @@ import { BACK_URL } from "@env";
 // Import styles
 import styles from "../styles/NewTripStyles";
 
+import AddBuddyTrip from "../components/AddBuddyTrip";
+
 export default function NewTripScreen({ navigation }) {
+
+  // Gère l'affichage de la modale
+  const [modalBuddyVisible, setModalBuddyVisible] = useState(false);
+  const [buddiesSelected, setBuddiesSelected] = useState([]);
+
   // États pour gérer les valeurs des champs
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -27,8 +36,33 @@ export default function NewTripScreen({ navigation }) {
   const [description, setDescription] = useState("");
   const [textError, setTextError] = useState("");
 
-  const userToken = useSelector((state) => state.user.value.token);
+  const user = useSelector((state) => state.user.value);
   const dispatch = useDispatch();
+
+  const handleModal = () => {
+    setModalBuddyVisible(!modalBuddyVisible);
+    console.log(buddiesSelected)
+  }
+
+  // On récupère les tokenUser des utilisateurs au chargement de la page
+  const [ dataUsers, setDataUsers ] = useState([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const fetchUsers = await fetch(`${BACK_URL}/users/list?token=${user.token}`);
+        const data = await fetchUsers.json();
+        // On traite les données pour l'envoyer au format necessaire à la liste des buddies
+        const dataMap = data.users.map(obj => {
+          return {key: obj.tokenUser, value: `${obj.username} - ${obj.email}`, selected: true}
+        })
+        setDataUsers(dataMap)
+      } catch(error) {
+        console.error("Erreur lors de la connexion au serveur :", error);
+      }
+    })().catch(err => {
+      console.error("Unhandled promise rejection:", err);
+    });
+  }, [])
 
   // Fonction pour masquer le clavier lorsque l'utilisateur appuie en dehors du champ de saisie
   const dismissKeyboard = () => {
@@ -122,8 +156,6 @@ export default function NewTripScreen({ navigation }) {
   // Fonction pour créer un nouveau groupe de voyage
   async function handleAddTrip() {
     try {
-      // Récupérer le token de l'utilisateur connecté
-      const token = userToken;
 
       // Vérifier que tous les champs de l'objet sont non vides
       if (!tripName || !startDateText || !endDateText || !description) {
@@ -165,10 +197,10 @@ export default function NewTripScreen({ navigation }) {
       // Création de l'objet tripData avec les champs non vides
       const tripData = {
         name: tripName,
-        dateStart: startDate,
-        dateEnd: endDate,
+        dateStart: parsedStartDate,
+        dateEnd: parsedEndDate,
         description: description,
-        participants: [],
+        participants: buddiesSelected,
       };
 
       // Envoyer la demande de création du voyage au serveur via une requête POST
@@ -177,7 +209,7 @@ export default function NewTripScreen({ navigation }) {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ token: token, trip: tripData }),
+        body: JSON.stringify({ token: user.token, trip: tripData }),
       });
 
       // Attendre la réponse du serveur et la traiter comme JSON
@@ -196,6 +228,7 @@ export default function NewTripScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.screen}>
+      <AddBuddyTrip modalVisible={modalBuddyVisible} data={dataUsers} setBuddiesSelected={setBuddiesSelected} buddiesSelected={buddiesSelected} handleModal={handleModal} />
       <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
           <HeaderNav navigation={navigation} />
@@ -234,6 +267,7 @@ export default function NewTripScreen({ navigation }) {
                 onChangeText={setDescription}
               />
             </View>
+            <TouchableOpacity onPress={handleModal}><Text style={{fontSize: 20, fontWeight: '700', paddingBottom: 20}}>Ajouter des buddies</Text></TouchableOpacity>
             <TouchableOpacity style={styles.btnAdd} onPress={handleAddTrip}>
               <Text style={styles.btnText}>Add Trip</Text>
             </TouchableOpacity>

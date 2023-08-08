@@ -95,12 +95,12 @@ export default function NewEventScreen({ route, navigation }) {
     setTransport(false);
     setTicket("");
     setTimeEnd("");
-    setSeats("0");
+    setSeats("");
   };
 
-  
- // fonction handleAddEvent pour créer un nouveau groupe
- async function handleAddEvent() {
+
+  // fonction handleAddEvent pour créer un nouveau groupe
+  async function handleAddEvent() {
     const token = user.token;
     // création de la donnée à envoyer au backend
 
@@ -147,49 +147,48 @@ export default function NewEventScreen({ route, navigation }) {
       seats: +seats,
       ticket,
       description,
-  }
-  // console.log(eventData)
-
-  try {
-    const response = await fetch(`${BACK_URL}/events/`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({token: token, event: eventData}),
-    });
-    
-    const responseData = await response.json();
-    console.log("Réponse du serveur:", responseData);
-
-    if (responseData.result) {
-      const newEvent = responseData.event
-     // sauvegarder dans le reducer le nouvel event 
-      dispatch(addEvent(newEvent))
-      // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
-      navigation.navigate("Event", { screen: "Event", params: { tokenEvent: newEvent.tokenEvent } })
     }
-  } catch (error) {
-   console.error("Erreur lors de l'envoi de l'event au serveur :", error);
+    // console.log(eventData)
+
+    try {
+      const response = await fetch(`${BACK_URL}/events/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({token: token, event: eventData}),
+      });
+      
+      const responseData = await response.json();
+      // console.log("Réponse du serveur:", responseData);
+
+      if (responseData.result) {
+        const newEvent = responseData.event
+        // sauvegarder dans le reducer le nouvel event 
+        dispatch(addEvent(newEvent))
+        // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
+        navigation.navigate("Event", { screen: "Event", params: { tokenEvent: newEvent.tokenEvent } })
+      }
+    } catch (error) {
+    console.error("Erreur lors de l'envoi de l'event au serveur :", error);
+    }
   }
-}
 
 
   // 4. Return Component
   return (
     <>
-    <StatusBar translucent={true} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
-    <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
+      <StatusBar translucent={false} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
+      <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
           <FontAwesome
-          onPress={() => navigation.goBack()}
-            style={styles.fleche}
+            onPress={() => navigation.goBack()}
             name="arrow-left"
             size={30}
             color={GLOBAL_COLOR.TERTIARY}
           />
-          <Text style={styles.name}>Nouvelle Activité</Text>
-      </View>
-      <ScrollView style={styles.body}>
+          <Text style={styles.title}>Nouvel événement</Text>
+        </View>
+        <ScrollView style={styles.body}>
           <InputComponent
             key="title"
             name="title"
@@ -204,27 +203,22 @@ export default function NewEventScreen({ route, navigation }) {
             onInputChange={handleInputChange}
             value={date}
           />
-            <View style={styles.categorie}>
-              <Text style={styles.textCategorie}>Selectionner une categorie :</Text>
-              <View style={styles.bulles}>
-                <TouchableOpacity style={styles.containerCategorie} onPress={handleTransportPress}>
-                  <FontAwesome name="car" size={20} color={GLOBAL_COLOR.SECONDARY} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.containerCategorie} onPress={handleActivityPress}>
-                  <FontAwesome
-                    style={styles.car}
-                    name="play"
-                    size={20}
-                    color={GLOBAL_COLOR.SECONDARY}
-                  />
-                </TouchableOpacity>
-              </View>
+          <View style={styles.categorie}>
+            <Text style={styles.textCategorie}>Selectionner une categorie :</Text>
+            <View style={styles.bubblesContainer}>
+              <TouchableOpacity style={[styles.bubble, {opacity: transport ? 1 : 0.5}]} onPress={handleTransportPress}>
+                <FontAwesome name="car" size={30} color={GLOBAL_COLOR.PRIMARY} />
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.bubble, {opacity: activity ? 1 : 0.5}]} onPress={handleActivityPress}>
+                <FontAwesome name="play" size={30} color={GLOBAL_COLOR.SECONDARY} />
+              </TouchableOpacity>
             </View>
-            <View style={styles.lines} />
-            {
+          </View>
+          <View style={styles.line} />
+          {
             // input si bouton Activity = true
             activity && (
-              <View style={styles.transport}>
+              <>
                 <InputComponent
                   key="timeStart"
                   name="timeStart"
@@ -247,21 +241,25 @@ export default function NewEventScreen({ route, navigation }) {
                   onInputChange={handleInputChange}
                   value={description}
                 />
-              </View>
-            )}
-            {
+              </>
+          )}
+          {
             // input si bouton Transport = true
             transport && (
-              <View style={styles.transport}>
-                <SelectList
-                  style={styles.transportList}
-                  data={listSelection}
-                  setSelected={setTransportSelected}
-                  placeholder="Selectionner un moyen de transport"
-                  boxStyles={{ backgroundColor: GLOBAL_COLOR.TERTIARY }}
-                  search={false}
-                  dropdownStyles={{ backgroundColor: GLOBAL_COLOR.TERTIARY }}
-                />
+              <>
+                <View style={styles.selectList}>
+                  <SelectList
+
+                    data={listSelection}
+                    setSelected={key => setTransportSelected(key)}
+                    save="key"
+                    placeholder="Choisir un moyen de transport"
+                    search={false}
+                    boxStyles={styles.insideList}
+                    dropdownStyles={styles.insideList}
+                    inputStyles={styles.textList}
+                  />
+                </View>
                 <InputComponent
                   key="timeStart"
                   name="timeStart"
@@ -317,13 +315,12 @@ export default function NewEventScreen({ route, navigation }) {
                   value={description}
                 />
 
-              </View>
-            )}
-            <View style={styles.variable}>
-              <TouchableOpacity style={styles.enregistrer}>
-                <Text style={styles.enregistrerWord} onPress={() => handleAddEvent()}>Enregistrer</Text>
-              </TouchableOpacity>
-            </View>
+              </>
+          )}
+          <TouchableOpacity style={styles.btnSave}>
+            <Text style={styles.textSave} onPress={() => handleAddEvent()}>Enregistrer</Text>
+          </TouchableOpacity>
+          <View style={styles.space} />
         </ScrollView>
       </SafeAreaView>
     </>
