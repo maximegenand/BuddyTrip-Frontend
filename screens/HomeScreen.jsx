@@ -13,6 +13,7 @@ import {
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { BACK_URL } from "@env";
 
+
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 import styles from "../styles/HomeStyles";
@@ -29,10 +30,11 @@ import { useNavigation } from "@react-navigation/native";
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
 import {} from "../redux/reducers/user";
-import { addAllTrips } from "../redux/reducers/trips";
+import { addAllTrips, deleteTrip } from "../redux/reducers/trips";
 import {} from "../redux/reducers/events";
 
 export default function HomeScreen({ navigation }) {
+
   // 1. Redux storage
   const user = useSelector((state) => state.user.value);
   const trips = useSelector((state) => state.trips.value);
@@ -42,7 +44,6 @@ export default function HomeScreen({ navigation }) {
   // 2. UseEffect, UseState, UseRef
   const [modalVisible, setModalVisible] = useState(false);
   const [infosModalTrip, setInfosModalTrip] = useState({});
-  const [adminTripModal, setAdminTripModal] = useState(false);
 
   // On récupère la liste des trip s dans le backend et on sauvegarde dans le redux storage
   // console.log('HOME Rerender')
@@ -91,61 +92,73 @@ export default function HomeScreen({ navigation }) {
     </TouchableOpacity>
   ));
 
-  // recuperation des elements du trips pour la Modal
-  const handleModalSuppression = (ModalTripToken) => {
-    const tripInfosModal = trips.find((e) => e.tokenTrip === ModalTripToken);
+  // Fonction de récuperation des elements du trips pour la Modal
+  const handleModalSuppression = (tokenTrip) => {
+    const tripInfosModal = trips.find((e) => e.tokenTrip === tokenTrip);
     setModalVisible(true);
     setInfosModalTrip({
       titleTripModal: tripInfosModal.name,
-      tokenTripModal: ModalTripToken,
-      tokenCreateurModal: tripInfosModal.user.tokenUser,
+      tokenTripModal: tokenTrip,
     });
   };
 
-  // condition pour l'accès la modal suppression du groupe OU pour quitter le groupe
-  if (infosModalTrip.tokenCreateurModal === user.token) {
-    setAdminTripModal(true);
-  }
+  // Boutton de la modal 
+  const ModalButton = ({ onPress, text }) => (
+    <TouchableOpacity style={styles.removeButton} onPress={onPress}>
+      <Text style={styles.removeButtonText}>{text}</Text>
+    </TouchableOpacity>
+  );
 
-  // condition en fonction da ta position dans le trip : => Admin ou Participants
-  let modalBoutton;
-  if (adminTripModal) {
-    modalBoutton = (
-      <TouchableOpacity style={styles.removeButton} onPress={() => deleteTrip()}>
-        <Text style={styles.removeButtonText}>Supprimer le groupe</Text>
-      </TouchableOpacity>
-    );
-  } else {
-    modalBoutton = (
-      <TouchableOpacity style={styles.removeButton} onPress={() => quitterGroupe()}>
-        <Text style={styles.removeButtonText}>Quitter le groupe</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  // FETCH Supprmier le groupe (PAS ENCORE TESTÉ )
-  const deleteTrip = () => {
-    const data = {
-      token: user.token,
-      tokenTrip: infosModalTrip.tokenTripModal,
-    };
-
-    fetch(`${BACK_URL}/`), {
+  // FETCH / Fonction pour supprimer le groupe
+  const handleDeleteTrip = () => {
+    // console.log("user avant delete trip:", user);
+    // console.log("infos modal :", infosModalTrip);
+    // console.log("les trips du user:", trips);
+    const token = user.token;
+    const tokenTrip = infosModalTrip.tokenTripModal;
+  
+    fetch(`${BACK_URL}/trips/`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    }
+      body: JSON.stringify({ token, tokenTrip }),
+    })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
+        if(data.result === true){
+          dispatch(deleteTrip(tokenTrip));
+        }
         setModalVisible(false);
-
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête DELETE :", error);
       });
   };
 
-  // FETCH Quitter le groupe
-  const quitterGroupe = () => {
-    console.log("quitter");
-    setModalVisible(false);
+  // FETCH / Fonction pour quitter le groupe
+  const quitTrip = () => {
+    // console.log("user avant delete trip:", user);
+    // console.log("infos modal :", infosModalTrip);
+    // console.log("les trips du user:", trips);
+    const token = user.token;
+    const tokenTrip = infosModalTrip.tokenTripModal;
+  
+    fetch(`${BACK_URL}/trips/quit`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token, tokenTrip }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if(data.result === true){
+          dispatch(deleteTrip(tokenTrip));
+        }
+        setModalVisible(false);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête DELETE :", error);
+      });
   };
 
   // 4. Return Component
@@ -160,7 +173,10 @@ export default function HomeScreen({ navigation }) {
               <View style={styles.titleModalContainer}>
                 <Text style={styles.modalTitle}>{infosModalTrip.titleTripModal}</Text>
               </View>
-              {modalBoutton}
+              <View style={styles.modalButton}>
+                <ModalButton onPress={() => handleDeleteTrip()} text="Supprimer le Trip" />
+                <ModalButton onPress={() => quitTrip()} text="Quitter le Trip" />
+            </View>
             </View>
           </TouchableOpacity>
         </Modal>
