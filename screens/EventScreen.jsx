@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Button,
   Linking,
   SafeAreaView,
   StatusBar,
@@ -18,11 +17,11 @@ import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 import styles from "../styles/EventStyles";
 
 //Import components
-import Header from "../components/Header";
 import BuddiesBar from "../components/BuddiesBar";
 
 //Import modules
 import { formatDate } from "../modules/dates";
+import { findCategory } from "../modules/findCategory";
 
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
@@ -61,6 +60,7 @@ export default function EventScreen({ route, navigation }) {
     timeStart,
     timeEnd,
     seats,
+    ticket,
     infos,
   } = event;
 
@@ -68,6 +68,9 @@ export default function EventScreen({ route, navigation }) {
   const sumParticipants = participants.length + 1;
 
   // 3. Functions
+
+  // On sélectionne l'icone en fonction de la catégorie de l'event 
+  const iconHeader = useRef(findCategory(category));
   
 // Au clique sur le plus ça envoi les info au back et met à jour l'état du fontawsome
   const handleAddMePress = async() => {
@@ -145,7 +148,7 @@ export default function EventScreen({ route, navigation }) {
             </Text>
             <Text style={styles.titleBy}>Ajouté par {userEvent.username}</Text>
           </View>
-          <FontAwesome name={iconHeader} size={30} color={GLOBAL_COLOR.TERTIARY} />
+          <FontAwesome name={iconHeader.current} size={30} color={GLOBAL_COLOR.TERTIARY} />
         </View>
         <View style={styles.body}>
           <View style={styles.buddiesContainer}>
@@ -180,8 +183,8 @@ export default function EventScreen({ route, navigation }) {
           </View>
           <View style={styles.infos}>
             <Text style={styles.textInfos}>
-              <Text style={styles.textInfosBold}>Date :</Text>{" "}
-              {formatDate(new Date(date))}
+              <Text style={styles.textInfosBold}>Date :</Text>
+              <Text> {formatDate(new Date(date))}</Text>
             </Text>
             {category === 'activity' ? (
               <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Heure :</Text> {format(new Date(timeStart), "HH'h'mm",{locale : fr})}</Text>
@@ -194,8 +197,11 @@ export default function EventScreen({ route, navigation }) {
             <Text style={styles.textInfos}>
               <Text style={styles.textInfosBold}>Lieu</Text> : {place}
             </Text>
-            {seats && ( 
+            {seats !== 0 && (
               <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Places</Text> : {seats - sumParticipants} places restantes</Text>
+            )}
+            {ticket && (
+              <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Billet n°</Text> : {ticket}</Text>
             )}
             <View style={styles.lines} />
             <Text style={styles.desc}>{description}</Text>
