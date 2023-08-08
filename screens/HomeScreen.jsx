@@ -45,27 +45,6 @@ export default function HomeScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   const [infosModalTrip, setInfosModalTrip] = useState({});
 
-  // On récupère la liste des trip s dans le backend et on sauvegarde dans le redux storage
-  // console.log('HOME Rerender')
-  useEffect(() => {
-    (async () => {
-      const random = Math.round(Math.random() * 1000);
-      //console.log('HomeScreen useEffect - Start',random);
-      try {
-        const tripsFetch = await fetch(`${BACK_URL}/trips/next?token=${user.token}`);
-        const data = await tripsFetch.json();
-
-        // On enregistre les infos dans le reducer si tout s'est bien déroulé
-        if (data.result) {
-          dispatch(addAllTrips(data.trips));
-        }
-      } catch (error) {
-        console.error('HomeScreen - Error fetching data:', error);
-      }
-      //console.log('HomeScreen useEffect - End', random);
-    })();
-  }, []);
-
   // 3. Functions
   const navigationTokenTrip = useNavigation();
 
