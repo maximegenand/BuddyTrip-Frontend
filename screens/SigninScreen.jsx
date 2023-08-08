@@ -44,8 +44,6 @@ export default function SigninScreen({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
   // Gère l'affichage du message d'erreur
   const [ errorFetch, setErrorFetch ] = useState(null);
-  // Gère la désactivation des inputs
-  const [ disabled, setDisabled ] = useState(false);
 
   // Gère les infos dans les input
   const [ email, setEmail] = useState("");
@@ -61,13 +59,13 @@ export default function SigninScreen({ navigation }) {
 
   // Fonction de connection
   const handleConnect = async () => {
-    // On annule l'action si le formulaire est disabled
-    if (disabled) return;
-    // On change la valeur du disabled le temps du fetch
-    setDisabled(true);
+    // On annule l'action si la modale est affichée
+    if (modalVisible) return;
+    // On affiche la modale le temps du fetch
+    setModalVisible(true);
     // On vérifie si les inputs ne sont pas vides
     if(!(email !== "" && password !== "")) {
-      setDisabled(false);
+      setModalVisible(false);
       setErrorFetch('Empty fields');
       return;
     }
@@ -83,7 +81,7 @@ export default function SigninScreen({ navigation }) {
       const data = await fetchLogin.json();
       // Si on a result False, on affiche un message à l'utilisateur
       if (!data.result) {
-        setDisabled(false);
+        setModalVisible(false);
         setErrorFetch(data.error);
         return;
       }
@@ -92,11 +90,11 @@ export default function SigninScreen({ navigation }) {
       dispatch(login(data.user));
       dispatch(addAllTrips(data.trips));
       await navigation.navigate("Home");
-      setDisabled(false);
+      setModalVisible(false);
     }
     // Si on a une erreur au moment du fetch, on renvoie une erreur
     catch (error) {
-      setDisabled(false);
+      setModalVisible(false);
       setErrorFetch("Erreur de connexion au serveur");
       console.error("Erreur lors de l'envoi au serveur :", error);
     }
@@ -130,7 +128,7 @@ export default function SigninScreen({ navigation }) {
       <Modal
         animationType="fade"
         transparent={true}
-        visible={disabled}
+        visible={modalVisible}
         statusBarTranslucent={true}
       >
         <View style={styles.modal}><ActivityIndicator size="large" color="#750000" /></View>
