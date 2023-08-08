@@ -94,6 +94,7 @@ export default styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
+
   removeButton: {
     backgroundColor: GLOBAL_COLOR.PRIMARY,
     padding: 10,
