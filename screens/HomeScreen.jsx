@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import {
-  View,
+  View, 
   Text,
   TouchableOpacity,
   Button,
@@ -18,7 +18,7 @@ import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 import styles from "../styles/HomeStyles";
 
 //Import components
-import SvgLogo from "../components/svg/SvgLogo";
+import Logo from "../components/Logo";
 import SvgUser from "../components/svg/SvgUser";
 import BoutonAdd from "../components/BoutonAdd";
 
@@ -150,40 +150,40 @@ export default function HomeScreen({ navigation }) {
 
   // 4. Return Component
   return (
-    <SafeAreaView style={styles.container}>
-      <Modal animationType="fade" transparent={true} visible={modalVisible}>
-        <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
-          <View style={styles.modalContent}>
-            <View style={styles.titleModalContainer}>
-              <Text style={styles.modalTitle}>{infosModalTrip.titleTripModal}</Text>
+    <>
+      <StatusBar translucent={false} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
+      <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
+      <SafeAreaView style={styles.container}>
+        <Modal animationType="fade" transparent={true} visible={modalVisible}>
+          <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
+            <View style={styles.modalContent}>
+              <View style={styles.titleModalContainer}>
+                <Text style={styles.modalTitle}>{infosModalTrip.titleTripModal}</Text>
+              </View>
+              {modalBoutton}
             </View>
-            {modalBoutton}
-          </View>
-        </TouchableOpacity>
-      </Modal>
-      <StatusBar backgroundColor={GLOBAL_COLOR.TERTIARY} barStyle="dark-content" />
-      <View style={styles.header}>
-        <View style={styles.logo}>
-          <SvgLogo width={50} height={50} fill={GLOBAL_COLOR.TERTIARY} />
-          <Text style={styles.logoText}>BuddyTrip</Text>
-        </View>
-        <View style={styles.userContainer}>
-          <TouchableOpacity onPress={() => navigation.navigate("Signin")} activeOpacity={0.8}>
-            <SvgUser width={45} height={45} fill={GLOBAL_COLOR.PRIMARY} />
           </TouchableOpacity>
+        </Modal>
+        <View style={styles.header}>
+          <Logo style={{flexDirection: 'row'}} />
+          <View style={styles.userContainer}>
+            <TouchableOpacity onPress={() => navigation.navigate("Signin")} activeOpacity={0.8}>
+              <SvgUser width={40} height={40} fill={GLOBAL_COLOR.PRIMARY} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      <ScrollView style={styles.scrollContainer}>
-        <View style={styles.listTrips}>
-          {
-            // Si un trip est enregistré, on affiche la liste, sinon on envoie un message de remplacement
-            tripList.length ? tripList : <Text>Aucun Trip renseigné</Text>
-          }
+        <ScrollView style={styles.scrollContainer}>
+          <View style={styles.listTrips}>
+            {
+              // Si un trip est enregistré, on affiche la liste, sinon on envoie un message de remplacement
+              tripList.length ? tripList : <Text>Aucun Trip renseigné</Text>
+            }
+          </View>
+        </ScrollView>
+        <View style={styles.add}>
+          <BoutonAdd onPress={() => navigation.navigate("NewTrip")} buttonStyle={styles.boutonAdd}/>
         </View>
-      </ScrollView>
-      <View style={styles.add}>
-        <BoutonAdd onPress={() => navigation.navigate("NewTrip")} buttonStyle={styles.boutonAdd}/>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 }
