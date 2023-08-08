@@ -46,29 +46,6 @@ export default function EventScreen({ route, navigation }) {
 
   // 4. Return Component
 
-  // Gestion des horaires
-  const timeScreen = category === 'travel' ? (
-    <>
-      <Text style={styles.textInfos}><Text style={styles.textInfosBold}>départ :</Text> {format(new Date(timeStart), "HH'h'mm",{locale : fr})}</Text>
-      <Text style={styles.textInfos}><Text style={styles.textInfosBold}>arrivée :</Text> {format(new Date(timeEnd), "HH'h'mm",{locale : fr})}</Text>
-    </>
-  ) : (
-    <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Heure :</Text> {format(new Date(timeStart), "HH'h'mm",{locale : fr})}</Text>
-  );
-
-  // Gestion des places disponibles
-  const seatsScreen = seats ? ( 
-    <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Places</Text> : {seats - sumParticipants} places restantes</Text>
-  ) : false;
-
-  // Gestion des point d'interet
-  infosScreen = infos.map(data => (
-    <TouchableOpacity key={data.tokenInfo} onPress={() => Linking.openURL(data.uri) }>
-      <Text style={styles.interetTextList}>• {data.name}</Text>
-    </TouchableOpacity>
-  ));
-
-  // Retour du component
   return (
     <>
       <StatusBar translucent={false} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
@@ -82,15 +59,13 @@ export default function EventScreen({ route, navigation }) {
             <Text numberOfLines={1} ellipsizeMode="middle" style={styles.title}>{name}</Text>
             <Text style={styles.titleBy}>Ajouté par {userEvent.username}</Text>
           </View>
-          <FontAwesome name="car" size={30} color={GLOBAL_COLOR.TERTIARY} />
+          <FontAwesome name={iconHeader} size={30} color={GLOBAL_COLOR.TERTIARY} />
         </View>
         <View style={styles.body}>
           <View style={styles.buddiesContainer}>
             <Text style={styles.titleBuddies}>Buddies déjà inscrits :</Text>
             <View style={styles.buddiesContent}>
-           
                 <BuddiesBar style={styles.bubbles} buddies={participants} max={5} />
-         
               <TouchableOpacity style={styles.buttonAddBuddy}>
                 <FontAwesome name="plus" size={30} color={GLOBAL_COLOR.SECONDARY} />
               </TouchableOpacity>
@@ -100,20 +75,33 @@ export default function EventScreen({ route, navigation }) {
             <Text style={styles.textInfos}>
               <Text style={styles.textInfosBold}>Date :</Text> {formatDate(new Date(date))}
             </Text>
-            {timeScreen}
+            {category === 'activity' ? (
+              <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Heure :</Text> {format(new Date(timeStart), "HH'h'mm",{locale : fr})}</Text>
+            ) : (
+              <>
+                <Text style={styles.textInfos}><Text style={styles.textInfosBold}>départ :</Text> {format(new Date(timeStart), "HH'h'mm",{locale : fr})}</Text>
+                <Text style={styles.textInfos}><Text style={styles.textInfosBold}>arrivée :</Text> {format(new Date(timeEnd), "HH'h'mm",{locale : fr})}</Text>
+              </>
+            )}
             <Text style={styles.textInfos}>
               <Text style={styles.textInfosBold}>Lieu</Text> : {place}
             </Text>
-            {seatsScreen}
+            {seats && ( 
+              <Text style={styles.textInfos}><Text style={styles.textInfosBold}>Places</Text> : {seats - sumParticipants} places restantes</Text>
+            )}
             <View style={styles.lines} />
             <Text style={styles.desc}>{description}</Text>
             <View></View>
-            { infosScreen && (
+            { infos.length > 0 && (
               <>
                 <View style={styles.lines} />
                 <View style={styles.pointInteret}>
                   <Text style={styles.interetText}>Point d'intérêt :</Text>
-                  {infosScreen}
+                  {infos.map(data => (
+                    <TouchableOpacity key={data.tokenInfo} onPress={() => Linking.openURL(data.uri) }>
+                      <Text style={styles.interetTextList}>• {data.name}</Text>
+                    </TouchableOpacity>
+                  ))}
                 </View>
               </>
             )}
