@@ -47,6 +47,14 @@ export default function InputComponent(props) {
       autoCapitalize: "none",
       keyboardType: "email-address",
     }
+    else if (props.type === 'date') params = {
+      autoComplete: "off",
+      keyboardType: "numeric",
+      maxLength: 10,
+    }
+    else if (props.type === 'description') params = {
+      multiline: true,
+    }
     else if (props.type === 'current-password' || props.type === 'new-password') params = {
       autoComplete: props.type,
       autoCapitalize: "none",
@@ -65,6 +73,7 @@ export default function InputComponent(props) {
         value={props.value}
         {...params}
       />
+      {props.type === 'date' && <FontAwesome name="calendar" size={30} color={GLOBAL_COLOR.PRIMARY} />}
     </View>
   );
 };

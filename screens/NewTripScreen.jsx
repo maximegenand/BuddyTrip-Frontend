@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -10,41 +11,46 @@ import {
   Modal,
   ActivityIndicator,
 } from "react-native";
-import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { addTrip } from "../redux/reducers/trips";
-import HeaderNav from "../components/HeaderNewTrip";
 import { BACK_URL } from "@env";
 
 // Import styles
 import styles from "../styles/NewTripStyles";
 
+//Import components
+import HeaderNav from "../components/HeaderNewTrip";
 import AddBuddyTrip from "../components/AddBuddyTrip";
+import InputComponent from "../components/Input";
+
+//Import modules
+import { formatDate } from "../modules/formatDate";
+import { isValidDate } from "../modules/isValidDate";
+
+// Import redux
+import { useSelector, useDispatch } from "react-redux";
+import { addTrip } from "../redux/reducers/trips";
+
 
 export default function NewTripScreen({ navigation }) {
+
+// 1. Redux storage
+  const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+
+
+// 2. UseEffect, UseState, UseRef
 
   // Gère l'affichage de la modale
   const [modalBuddyVisible, setModalBuddyVisible] = useState(false);
   const [buddiesSelected, setBuddiesSelected] = useState([]);
 
   // États pour gérer les valeurs des champs
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [tripName, setTripName] = useState("");
   const [startDateText, setStartDateText] = useState("");
   const [endDateText, setEndDateText] = useState("");
-  const [tripName, setTripName] = useState("");
   const [description, setDescription] = useState("");
   const [textError, setTextError] = useState("");
 
-  const user = useSelector((state) => state.user.value);
-  const dispatch = useDispatch();
-
-  const handleModal = () => {
-    setModalBuddyVisible(!modalBuddyVisible);
-    console.log(buddiesSelected)
-  }
-
-  // On récupère les tokenUser des utilisateurs au chargement de la page
+  // On récupère les tokenUser de tous utilisateurs au chargement de la page
   const [ dataUsers, setDataUsers ] = useState([]);
   useEffect(() => {
     (async () => {
@@ -64,93 +70,35 @@ export default function NewTripScreen({ navigation }) {
     });
   }, [])
 
+
+// 3. Functions
+
+  // Gestion des states des inputs
+  const handleInputChange = (name, value) => {
+    if (name === 'name') setTripName(value);
+    else if (name === 'dateStart') handleDateChange(value, 'start');
+    else if (name === 'dateEnd') handleDateChange(value, 'end');
+    else if (name === 'description') setDescription(value);
+  }
+
+  // Fonction qui gère l'affichage ou non de la modale des buddies
+  const handleModal = () => {
+    setModalBuddyVisible(!modalBuddyVisible);
+    console.log(buddiesSelected)
+  }
+
   // Fonction pour masquer le clavier lorsque l'utilisateur appuie en dehors du champ de saisie
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   };
 
   // Fonction pour gérer les changements de texte dans le champ de saisie de la date de début
-  const handleStartDateChange = (text) => {
+  const handleDateChange = (text, name) => {
     // Formater le texte de la date pour qu'il ait le format "JJ/MM/AAAA"
     const formattedDate = formatDate(text);
-
     // Mettre à jour l'état startDateText avec la date formatée
-    setStartDateText(formattedDate);
-  };
-
-  // Fonction pour gérer les changements de texte dans le champ de saisie de la date de fin
-  const handleEndDateChange = (text) => {
-    // Formater le texte de la date pour qu'il ait le format "JJ/MM/AAAA"
-    const formattedDate = formatDate(text);
-
-    // Mettre à jour l'état endDateText avec la date formatée
-    setEndDateText(formattedDate);
-  };
-
-  // Fonction pour formater le texte de la date
-  const formatDate = (text) => {
-    // Supprimer tous les caractères non numériques de la chaîne de texte
-    const cleanedText = text.replace(/[^0-9]/g, "");
-
-    // Appliquer le format "JJ/MM/AAAA" jusqu'à 8 caractères
-    if (cleanedText.length <= 2) {
-      // Si la longueur est inférieure ou égale à 2, cela signifie que l'utilisateur saisit le jour (ex: "2")
-      return cleanedText;
-    } else if (cleanedText.length <= 4) {
-      // Si la longueur est entre 3 et 4, cela signifie que l'utilisateur saisit le jour et le mois (ex: "0212" pour le 2 décembre)
-      const day = cleanedText.slice(0, 2);
-      const month = cleanedText.slice(2);
-      return `${day}/${month}`;
-    } else {
-      // Si la longueur est supérieure à 4, cela signifie que l'utilisateur saisit le jour, le mois et l'année (ex: "02122023" pour le 2 décembre 2023)
-      const day = cleanedText.slice(0, 2);
-      const month = cleanedText.slice(2, 4);
-      const year = cleanedText.slice(4, 8);
-      return `${day}/${month}/${year}`;
-    }
-  };
-
-  // Fonction pour vérifier si une date est valide et supérieure ou égale à la date d'aujourd'hui
-  const isValidDate = (dateText) => {
-    const cleanedDateText = dateText.replace(/[^0-9]/g, "");
-    // transforme la string dans parseInt() en entier
-    const day = parseInt(cleanedDateText.slice(0, 2));
-    const month = parseInt(cleanedDateText.slice(2, 4));
-    const year = parseInt(cleanedDateText.slice(4, 8));
-
-    // Vérifier que l'année est supérieure ou égale à l'année courante
-    const currentYear = new Date().getFullYear();
-    if (year < currentYear) {
-      return false;
-    } else if (year === currentYear) {
-      // Si l'année est égale à l'année courante, vérifier le mois et le jour
-      const currentMonth = new Date().getMonth() + 1; // Les mois vont de 0 à 11 dans JavaScript, donc on ajoute 1
-      if (month < currentMonth) {
-        return false;
-      } else if (month === currentMonth) {
-        const currentDay = new Date().getDate();
-        if (day < currentDay) {
-          return false;
-        }
-      }
-    }
-
-    // Vérifier que le mois est compris entre 1 et 12
-    if (month < 1 || month > 12) {
-      return false;
-    }
-    // Vérifier que le jour est compris entre 1 et 31
-    if (day < 1 || day > 31) {
-      return false;
-    }
-    // Vérifier la validité de la date en créant un objet Date avec les valeurs
-    const parsedDate = new Date(year, month - 1, day);
-    //on vérifie avec isNan() si le valeur dedans n'est pas un nombre
-    if (isNaN(parsedDate)) {
-      return false;
-    }
-
-    return true;
+    name === 'start' && setStartDateText(formattedDate);
+    name === 'end' && setEndDateText(formattedDate);
   };
 
   // Fonction pour créer un nouveau groupe de voyage
@@ -181,11 +129,9 @@ export default function NewTripScreen({ navigation }) {
       // Mise à jour de l'état startDate ou endDate en convertissant la date formatée en objet Date
       const [startDay, startMonth, startYear] = startDateText.split("/");
       const parsedStartDate = new Date(`${startYear}-${startMonth}-${startDay}`);
-      setStartDate(parsedStartDate);
 
       const [endDay, endMonth, endYear] = endDateText.split("/");
       const parsedEndDate = new Date(`${endYear}-${endMonth}-${endDay}`);
-      setEndDate(parsedEndDate);
 
       // Vérifier que la date de fin est supérieure à la date de début
       if (parsedEndDate <= parsedStartDate) {
@@ -233,6 +179,39 @@ export default function NewTripScreen({ navigation }) {
         <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
           <HeaderNav navigation={navigation} />
           <View style={styles.content}>
+            <InputComponent
+              key="name"
+              name="name"
+              placeholder="Nom du groupe"
+              onInputChange={handleInputChange}
+              value={tripName}
+            />
+            <InputComponent
+              key="dateStart"
+              name="dateStart"
+              type="date"
+              placeholder="Date de début (JJ/MM/AAAA)"
+              onInputChange={handleInputChange}
+              value={startDateText}
+            />
+            <InputComponent
+              key="dateEnd"
+              name="dateEnd"
+              type="date"
+              placeholder="Date de fin(JJ/MM/AAAA)"
+              onInputChange={handleInputChange}
+              value={endDateText}
+            />
+            <InputComponent
+              key="description"
+              name="description"
+              type="description"
+              placeholder="Description du voyage"
+              onInputChange={handleInputChange}
+              value={description}
+            />
+            
+{/*
             <View style={styles.form}>
               <Text style={styles.textmain}>Nom du Trip : {tripName}</Text>
               <TextInput style={styles.input} placeholder="Nom du Groupe" onChangeText={setTripName} value={tripName} />
@@ -266,7 +245,7 @@ export default function NewTripScreen({ navigation }) {
                 multiline={true}
                 onChangeText={setDescription}
               />
-            </View>
+  </View> */}
             <TouchableOpacity onPress={handleModal}><Text style={{fontSize: 20, fontWeight: '700', paddingBottom: 20}}>Ajouter des buddies</Text></TouchableOpacity>
             <TouchableOpacity style={styles.btnAdd} onPress={handleAddTrip}>
               <Text style={styles.btnText}>Add Trip</Text>
