@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import {
-  View,
+  View, 
   Text,
   TouchableOpacity,
   Button,
