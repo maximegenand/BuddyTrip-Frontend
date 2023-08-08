@@ -251,7 +251,8 @@ export default function NewEventScreen({ route, navigation }) {
                   <SelectList
 
                     data={listSelection}
-                    setSelected={setTransportSelected}
+                    setSelected={key => setTransportSelected(key)}
+                    save="key"
                     placeholder="Choisir un moyen de transport"
                     search={false}
                     boxStyles={styles.insideList}
