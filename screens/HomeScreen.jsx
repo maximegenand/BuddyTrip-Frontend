@@ -1,5 +1,19 @@
 import { useRef, useState, useEffect } from "react";
+<<<<<<< HEAD
 import { View, Text, TouchableOpacity, Button, Br, StatusBar, SafeAreaView, ScrollView, Modal } from "react-native";
+=======
+import {
+  View, 
+  Text,
+  TouchableOpacity,
+  Button,
+  Br,
+  StatusBar,
+  SafeAreaView,
+  ScrollView,
+  Modal,
+} from "react-native";
+>>>>>>> f7ebc0ccbf364bc0e43a9c4941a0526f81d78799
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { BACK_URL } from "@env";
 
