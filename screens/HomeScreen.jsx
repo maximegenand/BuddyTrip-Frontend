@@ -1,9 +1,6 @@
 import { useRef, useState, useEffect } from "react";
-<<<<<<< HEAD
-import { View, Text, TouchableOpacity, Button, Br, StatusBar, SafeAreaView, ScrollView, Modal } from "react-native";
-=======
 import {
-  View, 
+  View,
   Text,
   TouchableOpacity,
   Button,
@@ -13,7 +10,6 @@ import {
   ScrollView,
   Modal,
 } from "react-native";
->>>>>>> f7ebc0ccbf364bc0e43a9c4941a0526f81d78799
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { BACK_URL } from "@env";
 
@@ -22,7 +18,7 @@ import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 import styles from "../styles/HomeStyles";
 
 //Import components
-import Logo from "../components/Logo";
+import SvgLogo from "../components/svg/SvgLogo";
 import SvgUser from "../components/svg/SvgUser";
 import BoutonAdd from "../components/BoutonAdd";
 
@@ -43,9 +39,10 @@ export default function HomeScreen({ navigation }) {
   const events = useSelector((state) => state.events.value);
   const dispatch = useDispatch();
 
-  // 2. UseEffect, UseState
+  // 2. UseEffect, UseState, UseRef
   const [modalVisible, setModalVisible] = useState(false);
   const [infosModalTrip, setInfosModalTrip] = useState({});
+  const [adminTripModal, setAdminTripModal] = useState(false);
 
   // On récupère la liste des trip s dans le backend et on sauvegarde dans le redux storage
   // console.log('HOME Rerender')
@@ -62,7 +59,7 @@ export default function HomeScreen({ navigation }) {
           dispatch(addAllTrips(data.trips));
         }
       } catch (error) {
-        console.error("HomeScreen - Error fetching data:", error);
+        console.error('HomeScreen - Error fetching data:', error);
       }
       //console.log('HomeScreen useEffect - End', random);
     })();
@@ -87,7 +84,9 @@ export default function HomeScreen({ navigation }) {
       <Text style={styles.tripTitle}>{trip.name}</Text>
       <View style={styles.tripSubContainer}>
         <Text style={styles.tripParticipants}>{trip.participants.length} participants</Text>
-        <Text style={styles.tripDate}>{formatPeriod([new Date(trip.dateStart), new Date(trip.dateEnd)])}</Text>
+        <Text style={styles.tripDate}>
+          {formatPeriod([new Date(trip.dateStart), new Date(trip.dateEnd)])}
+        </Text>
       </View>
     </TouchableOpacity>
   ));
@@ -103,12 +102,26 @@ export default function HomeScreen({ navigation }) {
     });
   };
 
-  // modalbutton
-  const ModalButton = ({ onPress, text }) => (
-    <TouchableOpacity style={styles.removeButton} onPress={onPress}>
-      <Text style={styles.removeButtonText}>{text}</Text>
-    </TouchableOpacity>
-  );
+  // condition pour l'accès la modal suppression du groupe OU pour quitter le groupe
+  if (infosModalTrip.tokenCreateurModal === user.token) {
+    setAdminTripModal(true);
+  }
+
+  // condition en fonction da ta position dans le trip : => Admin ou Participants
+  let modalBoutton;
+  if (adminTripModal) {
+    modalBoutton = (
+      <TouchableOpacity style={styles.removeButton} onPress={() => deleteTrip()}>
+        <Text style={styles.removeButtonText}>Supprimer le groupe</Text>
+      </TouchableOpacity>
+    );
+  } else {
+    modalBoutton = (
+      <TouchableOpacity style={styles.removeButton} onPress={() => quitterGroupe()}>
+        <Text style={styles.removeButtonText}>Quitter le groupe</Text>
+      </TouchableOpacity>
+    );
+  }
 
   // FETCH Supprmier le groupe (PAS ENCORE TESTÉ )
   const deleteTrip = () => {
@@ -117,43 +130,34 @@ export default function HomeScreen({ navigation }) {
       tokenTrip: infosModalTrip.tokenTripModal,
     };
 
-    fetch(`${BACK_URL}/trips/quit`),
-      {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({token, tokenTrip}),
-      }
-        .then((response) => response.json())
-        .then((data) => {
-          setModalVisible(false);
-        });
+    fetch(`${BACK_URL}/`), {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    }
+      .then((response) => response.json())
+      .then((data) => {
+        setModalVisible(false);
+
+      });
   };
 
   // FETCH Quitter le groupe
-  const quitTrip = () => {
+  const quitterGroupe = () => {
     console.log("quitter");
     setModalVisible(false);
   };
 
   // 4. Return Component
   return (
-    <>
-      <StatusBar translucent={false} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
-      <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
-      <SafeAreaView style={styles.container}>
-        <Modal animationType="fade" transparent={true} visible={modalVisible}>
-          <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
-            <View style={styles.modalContent}>
-              <View style={styles.titleModalContainer}>
-                <Text style={styles.modalTitle}>{infosModalTrip.titleTripModal}</Text>
-              </View>
-              {modalBoutton}
+    <SafeAreaView style={styles.container}>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
+          <View style={styles.modalContent}>
+            <View style={styles.titleModalContainer}>
+              <Text style={styles.modalTitle}>{infosModalTrip.titleTripModal}</Text>
             </View>
-<<<<<<< HEAD
-            <View style={styles.modalButton}>
-              <ModalButton onPress={() => deleteTrip()} text="Supprimer le Trip" />
-              <ModalButton onPress={() => quitTrip()} text="Quitter le Trip" />
-            </View>
+            {modalBoutton}
           </View>
         </TouchableOpacity>
       </Modal>
@@ -166,38 +170,20 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.userContainer}>
           <TouchableOpacity onPress={() => navigation.navigate("Signin")} activeOpacity={0.8}>
             <SvgUser width={45} height={45} fill={GLOBAL_COLOR.PRIMARY} />
-=======
->>>>>>> 68eb697911e5e1525f4aef4e07ef4d1f1d991456
           </TouchableOpacity>
-        </Modal>
-        <View style={styles.header}>
-          <Logo style={{flexDirection: 'row'}} />
-          <View style={styles.userContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate("Signin")} activeOpacity={0.8}>
-              <SvgUser width={40} height={40} fill={GLOBAL_COLOR.PRIMARY} />
-            </TouchableOpacity>
-          </View>
         </View>
-        <ScrollView style={styles.scrollContainer}>
-          <View style={styles.listTrips}>
-            {
-              // Si un trip est enregistré, on affiche la liste, sinon on envoie un message de remplacement
-              tripList.length ? tripList : <Text>Aucun Trip renseigné</Text>
-            }
-          </View>
-        </ScrollView>
-        <View style={styles.add}>
-          <BoutonAdd onPress={() => navigation.navigate("NewTrip")} buttonStyle={styles.boutonAdd}/>
+      </View>
+      <ScrollView style={styles.scrollContainer}>
+        <View style={styles.listTrips}>
+          {
+            // Si un trip est enregistré, on affiche la liste, sinon on envoie un message de remplacement
+            tripList.length ? tripList : <Text>Aucun Trip renseigné</Text>
+          }
         </View>
-<<<<<<< HEAD
       </ScrollView>
       <View style={styles.add}>
-        <BoutonAdd onPress={() => navigation.navigate("NewTrip")} buttonStyle={styles.boutonAdd} />
+        <BoutonAdd onPress={() => navigation.navigate("NewTrip")} buttonStyle={styles.boutonAdd}/>
       </View>
     </SafeAreaView>
-=======
-      </SafeAreaView>
-    </>
->>>>>>> 68eb697911e5e1525f4aef4e07ef4d1f1d991456
   );
 }
