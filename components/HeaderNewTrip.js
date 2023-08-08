@@ -17,7 +17,7 @@ export default function HeaderNav({ navigation }) {
 const styles = StyleSheet.create({
   header: {
     width: screenWidth,
-    height: screenHeight * 0.1,
+    height: 60,
     backgroundColor: GLOBAL_COLOR.PRIMARY,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     color: GLOBAL_COLOR.TERTIARY,
   },
   fleche: {
-    padding:10,
+    //padding:10,
   },
   right: {
     padding: 20,
