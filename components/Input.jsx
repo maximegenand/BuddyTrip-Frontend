@@ -63,17 +63,17 @@ export default function InputComponent(props) {
   }
 
   return (
-    <View style={[styles.inputContainer, props.disabled && styles.inputContainerDisabled]}>
+    <View style={styles.inputContainer}>
       <Text style={styles.label}>{label && <>{props.placeholder}</>}</Text>
       <TextInput
-        style={[styles.input, props.disabled && styles.inputDisabled]}
+        style={styles.input}
         editable={!props.disabled}
         placeholder={props.placeholder}
         onChangeText={(value) => props.onInputChange(props.name, value)}
         value={props.value}
         {...params}
       />
-      {props.type === 'date' && <FontAwesome name="calendar" size={30} color={GLOBAL_COLOR.PRIMARY} />}
+      {props.type === 'date' && <View style={styles.icon}><FontAwesome name="calendar" size={30} color={GLOBAL_COLOR.SECONDARY} /></View>}
     </View>
   );
 };
@@ -81,11 +81,12 @@ export default function InputComponent(props) {
 const styles = StyleSheet.create({
   inputContainer: {
     position: 'relative',
-    backgroundColor: 'white',
-    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'center',
-    borderRadius: 5,
+    alignItems: 'center',
     marginBottom: 20,
+    borderRadius: 5,
+    backgroundColor: 'white',
   },
   label: {
     position: 'absolute',
@@ -98,11 +99,15 @@ const styles = StyleSheet.create({
     color: '#a9a9a9',
   },
   input : {
-    width: '90%',
-    margin: 10,
+    flex: 1,
+    marginVertical: 10,
+    marginHorizontal: '5%',
     fontSize: 16,
     backgroundColor: 'white',
     borderBottomWidth: 1,
     borderBottomColor : GLOBAL_COLOR.SECONDARY,
+  },
+  icon: {
+    marginRight: '5%',
   },
 });
