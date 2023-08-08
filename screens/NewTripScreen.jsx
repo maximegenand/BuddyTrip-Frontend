@@ -197,8 +197,8 @@ export default function NewTripScreen({ navigation }) {
       // Création de l'objet tripData avec les champs non vides
       const tripData = {
         name: tripName,
-        dateStart: startDate,
-        dateEnd: endDate,
+        dateStart: parsedStartDate,
+        dateEnd: parsedEndDate,
         description: description,
         participants: buddiesSelected,
       };
