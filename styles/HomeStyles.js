@@ -11,26 +11,15 @@ export default styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",
-    height: 67,
-    paddingHorizontal: 10,
+    height: 60,
+    padding: 10,
     backgroundColor: GLOBAL_COLOR.PRIMARY,
   },
-  logo: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  logoText: {
-    marginLeft: 5,
-    color: GLOBAL_COLOR.TERTIARY,
-    fontSize: 26,
-    fontFamily: "Montserrat-Alternates-SemiBold-Italic",
-  },
   userContainer: {
-    width: 45,
-    height: 45,
+    width: 40,
+    height: 40,
     backgroundColor: GLOBAL_COLOR.TERTIARY,
-    borderRadius: 25,
+    borderRadius: 20,
   },
 
   listTrips: {
@@ -39,7 +28,6 @@ export default styles = StyleSheet.create({
   },
   tripContainer: {
     width: "90%",
-
     marginVertical: 20,
     padding: 10,
     backgroundColor: GLOBAL_COLOR.PRIMARY,

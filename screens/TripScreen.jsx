@@ -158,7 +158,7 @@ export default function TripScreen({ route, navigation }) {
             {eventsScreen}
           </ScrollView>
           <BoutonAdd
-            onPress={() => navigation.navigate("NewEvent",  { screen: "NewEvent", tokenTrip })}
+            onPress={() => navigation.navigate("NewEvent",  { screen: "NewEvent", tokenTrip, currentDate: currentDate.toString() })}
             buttonStyle={styles.boutonAdd}
           />
         </View>
