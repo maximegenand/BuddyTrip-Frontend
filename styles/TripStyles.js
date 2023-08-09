@@ -11,7 +11,7 @@ export default styles = StyleSheet.create({
     header : {
         height: 60,
     },
-    day : {
+    day: {
         width: screenWidth * 0.5,
         height: screenHeight * 0.1,
         backgroundColor: GLOBAL_COLOR.PRIMARY,
@@ -58,32 +58,44 @@ export default styles = StyleSheet.create({
         alignItems: 'center',
         position :'relative'
     },
-    events : {
+    events : {
         overflow :'scroll',
     },
-    modalContainer : {
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: 100,
+        backgroundColor: "rgba(0, 0, 0, 0.5)"
+    },
+    modalInner : {
+        justifyContent: 'center',
+        alignItems: 'center',
         width: '80%',
-        height: '70%',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         backgroundColor: GLOBAL_COLOR.SECONDARY,
         borderRadius: 10,
-        position: 'absolute',
-        top: '15%', // 50% - (70% / 2)
-        left: '10%', // 50% - (80% / 2)
-        display: 'flex',
+    },
+    modalIcon: {
         justifyContent: 'center',
-        alignItems: 'center'
-    },  
+        alignItems: 'center',
+        width: 50,
+        height: 50,
+        backgroundColor: GLOBAL_COLOR.PRIMARY,
+        borderRadius: 25,
+    },
     modalTitle: {
         fontWeight: 'bold',
         color: GLOBAL_COLOR.SECONDARY,
     },
-    bulleModal : {
+    modalBubble : {
         alignItems: 'center',
-        backgroundColor : GLOBAL_COLOR.TERTIARY,
+        width: '100%',
+        marginVertical: 10,
         padding: 10,
-        width: '80%',
+        backgroundColor : GLOBAL_COLOR.TERTIARY,
         borderRadius: 10,
-        margin : 10
     },
     boutonAdd: {
         bottom: screenHeight * 0.04,
