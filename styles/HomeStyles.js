@@ -99,6 +99,5 @@ export default styles = StyleSheet.create({
     width: '100%',
     paddingVertical: 20,
     alignItems: "center",
-    backgroundColor: 'red',
   },
 });

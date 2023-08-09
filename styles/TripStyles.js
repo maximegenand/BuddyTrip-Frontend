@@ -41,8 +41,7 @@ export default styles = StyleSheet.create({
         width: screenWidth * 0.16,
         height: screenHeight * 0.08,
         borderRadius: 70,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
-        display: 'flex',
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -98,6 +97,6 @@ export default styles = StyleSheet.create({
         borderRadius: 10,
     },
     boutonAdd: {
-        marginBottom: screenHeight / 11
+        bottom: screenHeight * 0.04,
     },
 });

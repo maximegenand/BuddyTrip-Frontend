@@ -86,9 +86,15 @@ export default function TripScreen({ route, navigation }) {
   };
 
   // Affichage de la date actuelle
+  const getDayOfWeek = (date) => {
+    const daysOfWeek = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+    const dayIndex = date.getDay();
+    return daysOfWeek[dayIndex];
+  };
+
   const dateScreen = (
     <View style={styles.day}>
-      <Text style={styles.jour}>Aujourd'hui</Text>
+      <Text style={styles.jour}>{getDayOfWeek(currentDate)}</Text>
       <Text style={styles.date}>{formatDate(currentDate, true)} </Text>
     </View>
   );
@@ -155,11 +161,11 @@ export default function TripScreen({ route, navigation }) {
           <View style={styles.calendrierEvent}>
             <View style={styles.calendrier}>
               <TouchableOpacity style={styles.fleche_left} onPress={onPreviousDate}>
-                <FontAwesome name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
+                <FontAwesome name="arrow-left" size={40} color={GLOBAL_COLOR.PRIMARY} />
               </TouchableOpacity>
               {dateScreen}
               <TouchableOpacity style={styles.fleche_left} onPress={onNextDate}>
-                <FontAwesome name="arrow-right" size={30} color={GLOBAL_COLOR.TERTIARY} />
+                <FontAwesome name="arrow-right" size={40} color={GLOBAL_COLOR.PRIMARY} />
               </TouchableOpacity>
             </View>
             <ScrollView style={styles.events}>{eventsScreen}</ScrollView>
