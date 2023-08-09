@@ -31,7 +31,7 @@ import { isValidDate } from "../modules/isValidDate";
 import { useDispatch, useSelector } from "react-redux";
 import {} from "../redux/reducers/user";
 import {} from "../redux/reducers/trips";
-import { addEvent } from "../redux/reducers/events";
+import { addEvent, updateEvent } from "../redux/reducers/events";
 import { StatusBar } from "expo-status-bar";
 
 export default function NewEventScreen({ route, navigation }) {
@@ -67,8 +67,8 @@ export default function NewEventScreen({ route, navigation }) {
   const [title, setTitle] = useState(event.name ?? "");
   const [date, setDate] = useState(format(new Date(event.date), "dd'/'MM'/'yyyy"));
   const [description, setDescription] = useState(event.description ?? "");
-  const [timeStart, setTimeStart] = useState(event.timeStart ? format(new Date(event.timeStart), "hh':'mm") : "");
-  const [timeEnd, setTimeEnd] = useState(event.timeEnd ? format(new Date(event.timeEnd), "hh':'mm") : "");
+  const [timeStart, setTimeStart] = useState(event.timeStart ? format(new Date(event.timeStart), "HH':'mm") : "");
+  const [timeEnd, setTimeEnd] = useState(event.timeEnd ? format(new Date(event.timeEnd), "HH':'mm") : "");
   const [ticket, setTicket] = useState(event.ticket ?? "");
   const [seats, setSeats] = useState(event.seats ?? "");
   const [place, setPlace] = useState(event.place ?? "");
@@ -96,8 +96,6 @@ export default function NewEventScreen({ route, navigation }) {
   // On défini le défaultValue pour la selectionList
   const initialObject = initialTransport ? listSelection.find(e => e.key === transportSelected) : undefined;
   //console.log(initialObject);
-
-  //if
 
 
   // 3. Functions
@@ -218,6 +216,7 @@ export default function NewEventScreen({ route, navigation }) {
 
     const eventData = {
       tokenTrip: event.tokenTrip,
+      tokenEvent: event.tokenEvent ?? null,
       category: categorySave,
       name: title,
       date: dateSave,
@@ -240,22 +239,23 @@ export default function NewEventScreen({ route, navigation }) {
       // console.log("Réponse du serveur:", responseData);
 
       if (responseData.result) {
-        const newEvent = responseData.event
         // On sauvegarde le retour dans le reducer, en faisant un update si c'est un mise à jour, ou un ajout si c'est un nouveau
         if (event.tokenEvent) {
-          dispatch(updateEvent(newEvent));
+          dispatch(updateEvent(responseData.event));
           // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
           await navigation.goBack();
         }
         else {
-          dispatch(addEvent(newEvent));
+          dispatch(addEvent(responseData.event));
           // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
-          await navigation.navigate("Event", { screen: "Event", tokenEvent: newEvent.tokenEvent, isNew: true });
+          await navigation.navigate("Event", { screen: "Event", tokenEvent: responseData.event.tokenEvent, isNew: true });
         }
         setModalLoadingVisible(false);
       }
     } catch (error) {
-    console.error("Erreur lors de l'envoi de l'event au serveur :", error);
+      console.error("Erreur lors de l'envoi de l'event au serveur :", error);
+      setModalLoadingVisible(false);
+      setTextError("Erreur de connexion au serveur");
     }
   }
 
@@ -378,10 +378,10 @@ export default function NewEventScreen({ route, navigation }) {
                       <InputComponent
                         key="seats"
                         name="seats"
-                        type="seats"
+                        type="numeric"
                         placeholder="Places disponibles"
                         onInputChange={handleInputChange}
-                        value={seats}
+                        value={seats.toString()}
                         maxLength={2}
                       />
                     )
