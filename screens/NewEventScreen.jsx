@@ -252,10 +252,11 @@ export default function NewEventScreen({ route, navigation }) {
             <InputComponent
               key="date"
               name="date"
-              type="date"
+              type="numeric"
               placeholder="Date (JJ/MM/AAAA)"
               onInputChange={handleInputChange}
               value={date}
+              maxLength={10}
             />
             <View style={styles.categorie}>
               <Text style={styles.textCategorie}>Selectionner une categorie :</Text>
@@ -276,10 +277,11 @@ export default function NewEventScreen({ route, navigation }) {
                   <InputComponent
                     key="timeStart"
                     name="timeStart"
-                    type="time"
+                    type="numeric"
                     placeholder="Heure (HH:mm)"
                     onInputChange={handleInputChange}
                     value={timeStart}
+                    maxLength={5}
                   />
                   <InputComponent
                     key="place"
@@ -318,18 +320,20 @@ export default function NewEventScreen({ route, navigation }) {
                   <InputComponent
                     key="timeStart"
                     name="timeStart"
-                    type="time"
+                    type="numeric"
                     placeholder="Heure de départ (HH:mm)"
                     onInputChange={handleInputChange}
                     value={timeStart}
+                    maxLength={5}
                   />
                   <InputComponent
                     key="timeEnd"
                     name="timeEnd"
-                    type="time"
+                    type="numeric"
                     placeholder="Heure d'arrivée (HH:mm)"
                     onInputChange={handleInputChange}
                     value={timeEnd}
+                    maxLength={5}
                   />
                   <InputComponent
                     key="place"
@@ -348,6 +352,7 @@ export default function NewEventScreen({ route, navigation }) {
                         placeholder="Places disponibles"
                         onInputChange={handleInputChange}
                         value={seats}
+                        maxLength="2"
                       />
                     )
                   }
