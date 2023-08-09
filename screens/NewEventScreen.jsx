@@ -153,9 +153,10 @@ export default function NewEventScreen({ route, navigation }) {
 
 
     // On renseigne les infos dates et heures en format date pour l'enregistrement
-    const dateSave = parse(date, "dd'/'MM'/'yyyy", new Date());
-    const timeStartSave = parse(`${date}-${timeStart}`, "dd'/'MM'/'yyyy'-'HH':'m", new Date());
-    const timeEndSave = transport ? parse(`${date}-${timeEnd}`, "dd'/'MM'/'yyyy'-'HH':'m", new Date()) : null;
+    const dateSave = parse(`${date} Z`, "dd'/'MM'/'yyyy X", new Date());
+    const timeStartSave = parse(`${date}-${timeStart} Z`, "dd'/'MM'/'yyyy'-'HH':'m X", new Date());
+    const timeEndSave = transport ? parse(`${date}-${timeEnd} Z`, "dd'/'MM'/'yyyy'-'HH':'m X", new Date()) : null;
+    // console.log(dateSave, timeStartSave, timeEndSave);
 
     // On vérifie que la date renseignée est égale ou supérieur à celle d'aujourd'hui
     const dateNow = new Date(format(new Date(), "yyyy-MM-dd"));
