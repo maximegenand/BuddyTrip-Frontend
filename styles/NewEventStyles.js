@@ -20,9 +20,19 @@ export default styles = StyleSheet.create({
         color: GLOBAL_COLOR.TERTIARY,
     },
     body: {
-        paddingTop: 20,
+        paddingTop: 10,
         paddingHorizontal: '10%',
         paddingBottom: 20,
+    },
+    textError: {
+        height: 30,
+        marginBottom: 10,
+        textAlign: 'center',
+        color: '#750000',
+        fontSize: 20,
+        fontWeight: 700,
+        textShadowColor: 'white',
+        textShadowRadius: 10,
     },
     textCategorie: {
         marginBottom: 10,

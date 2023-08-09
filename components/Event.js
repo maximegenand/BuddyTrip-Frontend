@@ -1,6 +1,7 @@
 import { View, StyleSheet, Text, Dimensions, TouchableOpacity } from "react-native";
 import { GLOBAL_COLOR } from '../styles/globals';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { findCategory } from "../modules/findCategory";
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 import { addDays, format } from "date-fns";
 
@@ -9,7 +10,7 @@ export default function Event({ event, handlePress }) {
     <TouchableOpacity style={styles.container} onPress={handlePress}>
         <View style={styles.date}>
           <Text style={styles.hour}>{format(new Date(event.timeStart), "HH:mm")}</Text>
-          <FontAwesome style={styles.car} name="car" size={30} color={GLOBAL_COLOR.TERTIARY} />
+          <FontAwesome style={styles.car} name={findCategory(event.category)} size={30} color={GLOBAL_COLOR.TERTIARY} />
           <Text style={styles.hour}>{event.timeEnd && format(new Date(event.timeEnd), "HH:mm")}</Text>
         </View>
         <View style={styles.ou}>

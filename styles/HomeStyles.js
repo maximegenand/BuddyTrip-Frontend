@@ -30,7 +30,7 @@ export default styles = StyleSheet.create({
     width: "90%",
     marginVertical: 20,
     padding: 10,
-    backgroundColor: GLOBAL_COLOR.PRIMARY,
+    backgroundColor: GLOBAL_COLOR.SECONDARY,
     borderRadius: 10,
   },
   tripTitle: {
@@ -82,6 +82,7 @@ export default styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
+
   removeButton: {
     backgroundColor: GLOBAL_COLOR.PRIMARY,
     padding: 10,
@@ -91,7 +92,9 @@ export default styles = StyleSheet.create({
     color: GLOBAL_COLOR.TERTIARY,
   },
   add: {
-    marginTop: 15,
+    position: 'absolute',
+    bottom: 15,
+    right: 15,
     alignItems: "center",
   },
 });

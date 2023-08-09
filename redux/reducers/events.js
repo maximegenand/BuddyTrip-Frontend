@@ -9,16 +9,28 @@ export const eventsSlice = createSlice({
   initialState,
   reducers: {
     addEvent: (state, action) => {
-      state.value.push(action.payload);
+      // On créé une nouvelle variable qui contient le store actuel + la nouvelle entrée
+      const newEventsList = [...state.value, action.payload];
+      // On trie la liste des events dans l'ordre chronologique
+      newEventsList.sort((a, b) => new Date(a.timeStart) - new Date(b.timeStart));
+      state.value = newEventsList;
     },
     addAllEvents: (state, action) => {
-      state.value = action.payload
+      // On trie la liste des events dans l'ordre chronologique
+      action.payload.sort((a, b) => new Date(a.timeStart) - new Date(b.timeStart));
+      state.value = action.payload;
     },
-    removeAllEvents: (state, action) => {
+    updateEvent: (state, action) => {
+      state.value = state.value.map((data) => data.tokenEvent !== action.payload.tokenEvent ? data : action.payload);
+    },
+    deleteEvent: (state, action) => {
+      state.value = state.value.filter((data) => data.tokenEvent !== action.payload);
+    },
+    deleteAllEvents: (state, action) => {
       state.value = [];
     },
   },
 });
 
-export const { addEvent, addAllEvents, removeAllEvents } = eventsSlice.actions;
+export const { addEvent, addAllEvents, updateEvent, deleteEvent, deleteAllEvents } = eventsSlice.actions;
 export default eventsSlice.reducer;

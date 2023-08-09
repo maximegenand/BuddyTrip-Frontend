@@ -33,9 +33,9 @@ export default function TripScreen({ route, navigation }) {
   const dispatch = useDispatch();
 
   // 2. UseEffect, UseState, UseRef
+
   const [modalVisible, setModalVisible] = useState(false);
   // On récupère le trip dans le backend avec les events et infos, puis on sauvegarde dans le redux storage
-  // console.log('TRIP Rerender : '+tokenTrip);
   useEffect(() => {
     (async () => {
       const random = Math.round(Math.random() * 1000);
@@ -65,6 +65,8 @@ export default function TripScreen({ route, navigation }) {
   // Initialisation de la date d'affichage par défault
   const initialDate = () => {
     const dateNow = new Date(format(new Date(), "yyyy-MM-dd"));
+    // Si on a passé un paramètre dans la route, on affiche le jour selectionné
+    if(route.params?.date) return new Date(route.params.date);
     // Si le jour actuel est plus récent que le 1er jour du Trip, on affiche aujourd'hui, sinon on affiche le 1er jour du trip
     if (compareDesc(dateNow, dateStart) === 1) return dateStart;
     return dateNow;
@@ -102,7 +104,7 @@ export default function TripScreen({ route, navigation }) {
       key={event.tokenEvent}
       event={event}
       handlePress={() =>
-        navigation.navigate("Event", { screen: "Event", params: { tokenEvent: event.tokenEvent } })
+        navigation.navigate("Event", { screen: "Event", tokenEvent: event.tokenEvent })
       }
     />
   ));
