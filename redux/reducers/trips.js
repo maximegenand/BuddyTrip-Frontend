@@ -10,7 +10,10 @@ export const tripsSlice = createSlice({
   initialState,
   reducers: {
     updateTrip: (state, action) => {
-      state.value = state.value.map((data) => data.tokenTrip !== action.payload.tokenTrip ? data : action.payload);
+      const newTripsList = state.value.map((data) => data.tokenTrip !== action.payload.tokenTrip ? data : action.payload);
+      // On trie la liste des trips dans l'ordre chronologique
+      newTripsList.sort((a, b) => new Date(a.dateStart) - new Date(b.dateStart));
+      state.value = newTripsList;
     },
     addAllTrips: (state, action) => {
       // On trie la liste des trips dans l'ordre chronologique
