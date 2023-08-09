@@ -20,6 +20,7 @@ import styles from "../styles/HomeStyles";
 import Logo from "../components/Logo";
 import SvgUser from "../components/svg/SvgUser";
 import BoutonAdd from "../components/BoutonAdd";
+import BuddyBubble from "../components/BuddyBubble";
 
 //Import modules
 import { formatPeriod } from "../modules/dates";
@@ -147,11 +148,9 @@ export default function HomeScreen({ navigation }) {
         </Modal>
         <View style={styles.header}>
           <Logo style={{flexDirection: 'row'}} onPress={() => navigation.navigate("Signin")}/>
-          <View style={styles.userContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate("Profil")} activeOpacity={0.5}>
-              <SvgUser width={40} height={40} fill={GLOBAL_COLOR.PRIMARY} />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.userContainer} onPress={() => navigation.navigate("Profil")} activeOpacity={0.5}>
+            <BuddyBubble size={50} i={1} buddy={{ username: user.username, image: null }} />
+          </TouchableOpacity>
         </View>
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.listTrips}>
