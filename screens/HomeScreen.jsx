@@ -63,9 +63,6 @@ export default function HomeScreen({ navigation }) {
 
   // FETCH / Fonction pour supprimer le groupe
   const handleDeleteTrip = () => {
-    // console.log("user avant delete trip:", user);
-    // console.log("infos modal :", infosModalTrip);
-    // console.log("les trips du user:", trips);
     const token = user.token;
     const tokenTrip = infosModalTrip.tokenTripModal;
   
@@ -89,9 +86,6 @@ export default function HomeScreen({ navigation }) {
 
   // FETCH / Fonction pour quitter le groupe
   const quitTrip = () => {
-    // console.log("user avant delete trip:", user);
-    // console.log("infos modal :", infosModalTrip);
-    // console.log("les trips du user:", trips);
     const token = user.token;
     const tokenTrip = infosModalTrip.tokenTripModal;
   
@@ -152,9 +146,9 @@ export default function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </Modal>
         <View style={styles.header}>
-          <Logo style={{flexDirection: 'row'}} />
+          <Logo style={{flexDirection: 'row'}} onPress={() => navigation.navigate("Signin")}/>
           <View style={styles.userContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate("Signin")} activeOpacity={0.8}>
+            <TouchableOpacity onPress={() => navigation.navigate("Profil")} activeOpacity={0.5}>
               <SvgUser width={40} height={40} fill={GLOBAL_COLOR.PRIMARY} />
             </TouchableOpacity>
           </View>

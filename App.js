@@ -55,6 +55,7 @@ const TabNavigator = () => {
   );
 };
 
+
 export default function App() {
   // Initialisation des fonts Google
   let [fontsLoaded] = useFonts({
@@ -76,6 +77,7 @@ export default function App() {
           <Stack.Screen name="NewTrip" component={NewTripScreen}/>
           <Stack.Screen name="Event" component={EventScreen} />
           <Stack.Screen name="NewEvent" component={NewEventScreen} />
+          <Stack.Screen name="Profil" component={ProfilScreen} />
         </Stack.Navigator>
       </NavigationContainer>
       </PersistGate>

@@ -11,17 +11,36 @@ export default styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
+    flexDirection: 'row',
     width: "100%",
     height: "8%",
     backgroundColor: GLOBAL_COLOR.PRIMARY,
     display: "flex",
-    justifyContent: "center",
+    justifyContent: 'space-between',
     alignItems: "center",
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   headerText: {
     color: GLOBAL_COLOR.TERTIARY,
     fontWeight: "bold",
+    fontSize: 25,
+  },
+  headerText2: {
+    color: GLOBAL_COLOR.TERTIARY,
+    fontWeight: "bold",
     fontSize: 20,
+  },
+  headerText3: {
+    color: GLOBAL_COLOR.PRIMARY,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  btnHome: {
+    backgroundColor: GLOBAL_COLOR.PRIMARY,
+    borderColor: GLOBAL_COLOR.TERTIARY,
+    borderWidth: 2,
+    borderRadius: 5,
   },
   name: {
     width: "100%",
