@@ -163,7 +163,7 @@ export default function HomeScreen({ navigation }) {
           <View style={styles.listTrips}>
             {
               // Si un trip est enregistré, on affiche la liste, sinon on envoie un message de remplacement
-              tripList.length ? tripList : <Text>Aucun Trip renseigné</Text>
+              tripList.length ? tripList : <Text style={styles.noTrip}>Aucun Trip renseigné</Text>
             }
           </View>
         </ScrollView>

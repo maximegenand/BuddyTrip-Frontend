@@ -6,6 +6,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 export default styles = StyleSheet.create({
   container: {
     flex: 1,
+    position: 'relative',
     backgroundColor: GLOBAL_COLOR.TERTIARY,
   },
   header: {
@@ -21,10 +22,16 @@ export default styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.TERTIARY,
     borderRadius: 20,
   },
-
   listTrips: {
     alignItems: "center",
     width: "100%",
+  },
+  noTrip: {
+    color: GLOBAL_COLOR.PRIMARY,
+    paddingTop: 50,
+    fontSize: 20,
+    fontWeight: 700,
+    fontStyle: 'italic',
   },
   tripContainer: {
     width: "90%",
@@ -93,8 +100,10 @@ export default styles = StyleSheet.create({
   },
   add: {
     position: 'absolute',
-    bottom: 15,
-    right: 15,
+    bottom: 0,
+    width: '100%',
+    paddingVertical: 20,
     alignItems: "center",
+    backgroundColor: 'red',
   },
 });
