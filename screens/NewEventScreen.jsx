@@ -10,12 +10,12 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { SelectList } from "react-native-dropdown-select-list";
+import { format, parse, compareDesc } from "date-fns";
 import { BACK_URL } from '@env';
 
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
 import styles from "../styles/NewEventStyles";
-import { format, parse, compareDesc } from "date-fns";
 
 //Import components
 import HeaderNav from "../components/HeaderNewTrip";
@@ -39,10 +39,10 @@ export default function NewEventScreen({ route, navigation }) {
   const user = useSelector((state) => state.user.value);
   const trips = useSelector((state) => state.trips.value);
   const events = useSelector((state) => state.events.value);
-  
+
   const dispatch = useDispatch();
 
-  // On gère la partie edition ou nouveau trip en regardant les params qui nous sont envoyés
+  // On gère la partie edition ou nouvel event en regardant les params qui nous sont envoyés
 
   // Si on a un tokenEvent, c'est qu'on édite
   let event = {};
