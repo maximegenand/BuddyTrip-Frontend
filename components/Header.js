@@ -7,15 +7,17 @@ export default function Header({ navigation, title, participants, handlePress, s
   return (
     <View style={[styles.header, style]}>
       <View style={styles.header_Left}>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')} activeOpacity={0.8}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')} activeOpacity={0.5}>
           <FontAwesome style={styles.fleche} name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.header_text} onPress={handlePress}>
+      </View>
+      <TouchableOpacity style={styles.header_text} onPress={handlePress}>
           <Text style={styles.name}>{title}</Text>
           <Text style={styles.buddys}>{participants}</Text>
-        </TouchableOpacity>
-      </View>
-      <FontAwesome style={styles.bell} name="bell" size={30} color={GLOBAL_COLOR.TERTIARY} />
+      </TouchableOpacity>
+      <TouchableOpacity activeOpacity={0.5}>
+        <FontAwesome style={styles.bell} name="bell" size={30} color={GLOBAL_COLOR.TERTIARY} />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -27,25 +29,32 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        
+        paddingLeft: 10,
+        paddingRight: 10,
     },
     header_Left : {
         display: 'flex',
         flexDirection: 'row',
-        marginLeft : 10,
+    },
+    header_text :{
+      flexDirection: 'column',
+      alignItems: 'center',
     },
     name: {
-        fontWeight: 'bold',
-        color: GLOBAL_COLOR.TERTIARY,
+      fontSize: 18,
+      fontWeight: 'bold',
+      color: GLOBAL_COLOR.TERTIARY,
+      margin: 5,
     },
     buddys : {
         color : GLOBAL_COLOR.TERTIARY,
+        fontSize: 12,
+        fontStyle: 'italic',
     },
     fleche : {
         marginRight: 10,
     },
     bell : {
-        marginRight: 10,
     },
     header_text : {
       maxWidth: 200
