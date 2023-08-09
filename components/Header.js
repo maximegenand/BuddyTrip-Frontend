@@ -22,8 +22,6 @@ export default function Header({ navigation, title, participants, handlePress, s
 
 const styles = StyleSheet.create({
     header : {
-        width : screenWidth,
-        height : screenHeight * 0.13,
         backgroundColor : GLOBAL_COLOR.PRIMARY,
         display: 'flex',
         flexDirection: 'row',

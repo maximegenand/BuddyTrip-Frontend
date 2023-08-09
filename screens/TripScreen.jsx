@@ -123,41 +123,50 @@ export default function TripScreen({ route, navigation }) {
   const allParticipantsModal = affichageParticipants.map((participant) => participant.username).join(", ");
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Modal animationType="fade" transparent={true} visible={modalVisible}>
-        <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
-          <View style={styles.bulleModal}>
-            <Text style={styles.modalTitle}>{trip.name}</Text>
+    <>
+      <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
+      <SafeAreaView style={styles.container}>
+        <Modal animationType="fade" transparent={true} visible={modalVisible}>
+          <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
+            <View style={styles.bulleModal}>
+              <Text style={styles.modalTitle}>{trip.name}</Text>
+            </View>
+            <View style={styles.bulleModal}>
+              <Text style={styles.modalTitle}>{trip.description}</Text>
+            </View>
+            <View style={styles.bulleModal}>
+              <Text style={styles.modalTitle}>{allParticipantsModal}</Text>
+            </View>
+          </TouchableOpacity>
+        </Modal>
+        <Header
+          navigation={navigation}
+          title={trip.name}
+          participants={formattedUsername}
+          handlePress={() => setModalVisible(true)}
+          style={styles.header}
+        />
+        <View style={styles.planning}>
+          <View style={styles.calendrierEvent}>
+            <View style={styles.calendrier}>
+              <TouchableOpacity style={styles.fleche_left} onPress={onPreviousDate}>
+                <FontAwesome name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
+              </TouchableOpacity>
+              {dateScreen}
+              <TouchableOpacity style={styles.fleche_left} onPress={onNextDate}>
+                <FontAwesome name="arrow-right" size={30} color={GLOBAL_COLOR.TERTIARY} />
+              </TouchableOpacity>
+            </View>
+            <ScrollView style={styles.events}>{eventsScreen}</ScrollView>
+            <BoutonAdd
+              onPress={() =>
+                navigation.navigate("NewEvent", { screen: "NewEvent", tokenTrip, currentDate: currentDate.toJSON() })
+              }
+              buttonStyle={styles.boutonAdd}
+            />
           </View>
-          <View style={styles.bulleModal}>
-            <Text style={styles.modalTitle}>{trip.description}</Text>
-          </View>
-          <View style={styles.bulleModal}>
-            <Text style={styles.modalTitle}>{allParticipantsModal}</Text>
-          </View>
-        </TouchableOpacity>
-      </Modal>
-      <Header navigation={navigation} title={trip.name} participants={formattedUsername} handlePress={() => setModalVisible(true) } />
-      <View style={styles.planning}>
-        <View style={styles.calendrierEvent}>
-          <View style={styles.calendrier}>
-            <TouchableOpacity style={styles.fleche_left} onPress={onPreviousDate}>
-              <FontAwesome name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
-            </TouchableOpacity>
-            {dateScreen}
-            <TouchableOpacity style={styles.fleche_left} onPress={onNextDate}>
-              <FontAwesome name="arrow-right" size={30} color={GLOBAL_COLOR.TERTIARY} />
-            </TouchableOpacity>
-          </View>
-          <ScrollView style={styles.events}>
-            {eventsScreen}
-          </ScrollView>
-          <BoutonAdd
-            onPress={() => navigation.navigate("NewEvent",  { screen: "NewEvent", tokenTrip, currentDate: currentDate.toJSON() })}
-            buttonStyle={styles.boutonAdd}
-          />
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </>
   );
 }
