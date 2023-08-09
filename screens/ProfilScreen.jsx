@@ -13,7 +13,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { BACK_URL } from "@env";
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
-import {} from "../redux/reducers/user";
+import { logout } from "../redux/reducers/user";
 import {} from "../redux/reducers/trips";
 import {} from "../redux/reducers/events";
 
@@ -27,7 +27,12 @@ export default function ProfilScreen({ navigation }) {
   // 2. UseEffect, UseState, UseRef
 
   // 3. Functions
-console.log(events)
+
+  // fonction pour se Deconnecter
+  const handleLogout = () => {
+    dispatch(logout());
+    navigation.navigate("Signin");
+  };
 
   // 4. Return Component
   return (
@@ -48,12 +53,14 @@ console.log(events)
               <Text style={styles.textBrut}>Username :</Text>
               <Text style={styles.textVar}>{user.username}</Text>
             </View>
-            <FontAwesome
-              style={styles.iconEdit}
-              name="edit"
-              size={20}
-              color={GLOBAL_COLOR.SECONDARY}
-            />
+            <TouchableOpacity>
+              <FontAwesome
+                style={styles.iconEdit}
+                name="edit"
+                size={20}
+                color={GLOBAL_COLOR.SECONDARY}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.lines} />
           <View style={styles.name}>
@@ -61,34 +68,44 @@ console.log(events)
               <Text style={styles.textBrut}>Email :</Text>
               <Text style={styles.textVar}>{user.email}</Text>
             </View>
-            <FontAwesome
-              style={styles.iconEdit}
-              name="edit"
-              size={20}
-              color={GLOBAL_COLOR.SECONDARY}
-            />
+            <TouchableOpacity>
+              <FontAwesome
+                style={styles.iconEdit}
+                name="edit"
+                size={20}
+                color={GLOBAL_COLOR.SECONDARY}
+              />
+            </TouchableOpacity>
           </View>
           <View style={styles.lines} />
           <View style={styles.name}>
             <View style={styles.containerImg}>
               <Text style={styles.textBrutPhotoProfil}>Photo de profil :</Text>
-              <BuddyBubble
-                size={50}
-                i={1}
-                buddy={{ username: user.username, image: null }}
-              />
+              <BuddyBubble size={50} i={1} buddy={{ username: user.username, image: null }} />
             </View>
-            <FontAwesome
-              style={styles.iconEdit}
-              name="edit"
-              size={20}
-              color={GLOBAL_COLOR.SECONDARY}
-            />
+            <TouchableOpacity>
+              <FontAwesome
+                style={styles.iconEdit}
+                name="edit"
+                size={20}
+                color={GLOBAL_COLOR.SECONDARY}
+              />
+            </TouchableOpacity>
           </View>
-          <View style={styles.lines} />
-          <View style={styles.containerFriends}>
-            <TouchableOpacity style={styles.allFriends}>
-              <Text style={styles.textAmis}>Liste d'amis</Text>
+          <TouchableOpacity style={styles.containerFriends}>
+            <Text style={styles.textAmis}>Liste d'amis</Text>
+            <FontAwesome name="arrow-right" size={25} color={GLOBAL_COLOR.TERTIARY} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.containerFriends}>
+            <Text style={styles.textAmis}>Archive</Text>
+            <FontAwesome name="arrow-right" size={25} color={GLOBAL_COLOR.TERTIARY} />
+          </TouchableOpacity>
+          <View style={styles.gestion}>
+            <TouchableOpacity style={styles.containerGestion}>
+              <Text style={styles.textGestion}>Supprimer mon compte</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleLogout()} style={styles.containerGestion}>
+              <Text style={styles.textGestion}>Me déconnecter</Text>
             </TouchableOpacity>
           </View>
         </View>

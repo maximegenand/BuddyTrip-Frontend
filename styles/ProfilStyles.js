@@ -39,12 +39,12 @@ export default styles = StyleSheet.create({
   textBrut: {
     color: GLOBAL_COLOR.SECONDARY,
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     marginLeft: 20,
   },
   textVar: {
     color: "red",
-    fontSize: "17",
+    fontSize: 17,
     color: GLOBAL_COLOR.SECONDARY,
     marginLeft: 10,
   },
@@ -57,20 +57,24 @@ export default styles = StyleSheet.create({
     marginRight: 20,
   },
   allFriends: {
-    backgroundColor: GLOBAL_COLOR.SECONDARY,
-    padding: 10,
-    paddingLeft: 35,
-    paddingRight: 35,
-    borderRadius: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginLeft: 20,
+    marginRight: 20
   },
   containerFriends: {
-    width: "100%",
+    width: "80%",
     height: "10%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    backgroundColor: GLOBAL_COLOR.PRIMARY,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 20
   },
   textAmis: {
     fontSize: 20,
@@ -92,8 +96,28 @@ export default styles = StyleSheet.create({
   textBrutPhotoProfil: {
     color: GLOBAL_COLOR.SECONDARY,
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     marginLeft: 20,
     marginRight: 30,
   },
+  gestion : {
+    width: '100%',
+    height: '15%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    marginTop: 70
+  },
+  containerGestion: {
+    backgroundColor: GLOBAL_COLOR.PRIMARY,
+    width: '40%',
+    padding: 10,
+    borderRadius: 5
+  },
+  textGestion : {
+    color: GLOBAL_COLOR.TERTIARY,
+    fontWeight: 'bold',
+    textAlign: 'center'
+  }
 });
