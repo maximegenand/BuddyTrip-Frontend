@@ -66,7 +66,7 @@ export default function TripScreen({ route, navigation }) {
   const initialDate = () => {
     const dateNow = new Date(format(new Date(), "yyyy-MM-dd"));
     // Si on a passé un paramètre dans la route, on affiche le jour selectionné
-    if(route.params?.date) return new Date(route.params.date);
+    if (route.params?.date) return new Date(route.params.date);
     // Si le jour actuel est plus récent que le 1er jour du Trip, on affiche aujourd'hui, sinon on affiche le 1er jour du trip
     if (compareDesc(dateNow, dateStart) === 1) return dateStart;
     return dateNow;
@@ -95,25 +95,20 @@ export default function TripScreen({ route, navigation }) {
 
   //On récupère les infos des events que l'on souhaite afficher
   const eventsTrip = events.filter(
-    (event) =>
-      event.tokenTrip === trip.tokenTrip && compareDesc(new Date(event.date), currentDate) === 0
+    (event) => event.tokenTrip === trip.tokenTrip && compareDesc(new Date(event.date), currentDate) === 0
   );
   // Affichage des events
   const eventsScreen = eventsTrip.map((event) => (
     <Event
       key={event.tokenEvent}
       event={event}
-      handlePress={() =>
-        navigation.navigate("Event", { screen: "Event", tokenEvent: event.tokenEvent })
-      }
+      handlePress={() => navigation.navigate("Event", { screen: "Event", tokenEvent: event.tokenEvent })}
     />
   ));
 
   // code permettant d'afficher les 4 premiers participants du voyage dans le header
   const affichageParticipants = trip.participants;
-  const quatrePremiers = affichageParticipants
-    .slice(0, 4)
-    .map((participant) => participant.username);
+  const quatrePremiers = affichageParticipants.slice(0, 4).map((participant) => participant.username);
   const formattedUsername = quatrePremiers
     .map((username, i) => {
       if (i === quatrePremiers.length - 1) {
@@ -125,9 +120,7 @@ export default function TripScreen({ route, navigation }) {
     .join(", ");
 
   // allParticipantsModal => afficher la liste des participants pour la Modal
-  const allParticipantsModal = affichageParticipants
-    .map((participant) => participant.username)
-    .join(", ");
+  const allParticipantsModal = affichageParticipants.map((participant) => participant.username).join(", ");
 
   return (
     <SafeAreaView style={styles.container}>

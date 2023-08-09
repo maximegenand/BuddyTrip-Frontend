@@ -35,6 +35,7 @@ export default function ProfilScreen({ navigation }) {
   };
 
   // 4. Return Component
+  
   return (
     <>
       <StatusBar
@@ -45,7 +46,11 @@ export default function ProfilScreen({ navigation }) {
       <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
       <SafeAreaView>
         <View style={styles.header}>
+          <TouchableOpacity style={styles.btnHome} onPress={() => navigation.navigate("Home")}>
+            <Text style={styles.headerText2}>Home</Text>
+          </TouchableOpacity>
           <Text style={styles.headerText}>Profil</Text>
+          <Text style={styles.headerText3}>Home</Text>
         </View>
         <View style={styles.container}>
           <View style={styles.name}>

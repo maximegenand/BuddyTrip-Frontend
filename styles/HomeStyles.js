@@ -15,12 +15,7 @@ export default styles = StyleSheet.create({
     height: 60,
     padding: 10,
     backgroundColor: GLOBAL_COLOR.PRIMARY,
-  },
-  userContainer: {
-    width: 40,
-    height: 40,
-    backgroundColor: GLOBAL_COLOR.TERTIARY,
-    borderRadius: 20,
+    alignItems: 'center',
   },
   listTrips: {
     alignItems: "center",

@@ -20,6 +20,7 @@ import styles from "../styles/HomeStyles";
 import Logo from "../components/Logo";
 import SvgUser from "../components/svg/SvgUser";
 import BoutonAdd from "../components/BoutonAdd";
+import BuddyBubble from "../components/BuddyBubble";
 
 //Import modules
 import { formatPeriod } from "../modules/dates";
@@ -63,9 +64,6 @@ export default function HomeScreen({ navigation }) {
 
   // FETCH / Fonction pour supprimer le groupe
   const handleDeleteTrip = () => {
-    // console.log("user avant delete trip:", user);
-    // console.log("infos modal :", infosModalTrip);
-    // console.log("les trips du user:", trips);
     const token = user.token;
     const tokenTrip = infosModalTrip.tokenTripModal;
   
@@ -89,9 +87,6 @@ export default function HomeScreen({ navigation }) {
 
   // FETCH / Fonction pour quitter le groupe
   const quitTrip = () => {
-    // console.log("user avant delete trip:", user);
-    // console.log("infos modal :", infosModalTrip);
-    // console.log("les trips du user:", trips);
     const token = user.token;
     const tokenTrip = infosModalTrip.tokenTripModal;
   
@@ -152,12 +147,10 @@ export default function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </Modal>
         <View style={styles.header}>
-          <Logo style={{flexDirection: 'row'}} />
-          <View style={styles.userContainer}>
-            <TouchableOpacity onPress={() => navigation.navigate("Signin")} activeOpacity={0.8}>
-              <SvgUser width={40} height={40} fill={GLOBAL_COLOR.PRIMARY} />
-            </TouchableOpacity>
-          </View>
+          <Logo style={{flexDirection: 'row'}} onPress={() => navigation.navigate("Signin")}/>
+          <TouchableOpacity style={styles.userContainer} onPress={() => navigation.navigate("Profil")} activeOpacity={0.5}>
+            <BuddyBubble size={50} i={1} buddy={{ username: user.username, image: null }} />
+          </TouchableOpacity>
         </View>
         <ScrollView style={styles.scrollContainer}>
           <View style={styles.listTrips}>

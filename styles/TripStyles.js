@@ -8,6 +8,9 @@ export default styles = StyleSheet.create({
         height: screenHeight,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
+    header : {
+        height: 60,
+    },
     day : {
         width: screenWidth * 0.5,
         height: screenHeight * 0.1,

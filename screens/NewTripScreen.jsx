@@ -138,7 +138,7 @@ export default function NewTripScreen({ navigation }) {
         return;
       }
 
-      // Mise à jour de l'état startDate ou endDate en convertissant la date formatée en objet Date
+      // Récupérer la date formaté et la convertir en objet Date
       const [startDay, startMonth, startYear] = startDateText.split("/");
       const parsedStartDate = new Date(`${startYear}-${startMonth}-${startDay}`);
 
