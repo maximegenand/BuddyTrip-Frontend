@@ -223,7 +223,8 @@ export default function NewEventScreen({ route, navigation }) {
         // sauvegarder dans le reducer le nouvel event 
         dispatch(addEvent(newEvent));
         // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
-        navigation.navigate("Event", { screen: "Event", tokenEvent: newEvent.tokenEvent, isNew: true })
+        await navigation.navigate("Event", { screen: "Event", tokenEvent: newEvent.tokenEvent, isNew: true });
+        setModalLoadingVisible(false);
       }
     } catch (error) {
     console.error("Erreur lors de l'envoi de l'event au serveur :", error);
