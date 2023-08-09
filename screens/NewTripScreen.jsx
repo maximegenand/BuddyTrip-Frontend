@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Keyboard,
 } from "react-native";
+import { format } from "date-fns";
 import { BACK_URL } from "@env";
 
 // Import styles
@@ -27,15 +28,26 @@ import { isValidDate } from "../modules/isValidDate";
 
 // Import redux
 import { useSelector, useDispatch } from "react-redux";
-import { addTrip } from "../redux/reducers/trips";
+import { addTrip, updateTrip } from "../redux/reducers/trips";
 
 
-export default function NewTripScreen({ navigation }) {
+export default function NewTripScreen({ route, navigation }) {
 
 // 1. Redux storage
   const user = useSelector((state) => state.user.value);
+  const trips = useSelector((state) => state.trips.value);
+  const events = useSelector((state) => state.events.value);
+
   const dispatch = useDispatch();
 
+  // On gère la partie edition ou nouveau trip en regardant les params qui nous sont envoyés
+
+  // Si on a un tokenTrip, c'est qu'on édite
+  let trip = {};
+  if (route.params?.tokenTrip) {
+    trip = trips.find((e) => e.tokenTrip === route.params.tokenTrip);
+    //return console.log(trip)
+  }
 
 // 2. UseEffect, UseState, UseRef
 
@@ -45,10 +57,10 @@ export default function NewTripScreen({ navigation }) {
   const [buddiesSelected, setBuddiesSelected] = useState([]);
 
   // États pour gérer les valeurs des champs
-  const [tripName, setTripName] = useState("");
-  const [startDateText, setStartDateText] = useState("");
-  const [endDateText, setEndDateText] = useState("");
-  const [description, setDescription] = useState("");
+  const [tripName, setTripName] = useState(trip.name ?? "");
+  const [startDateText, setStartDateText] = useState(trip.dateStart ? format(new Date(trip.dateStart), "dd'/'MM'/'yyyy") : "");
+  const [endDateText, setEndDateText] = useState(trip.dateEnd ? format(new Date(trip.dateEnd), "dd'/'MM'/'yyyy") : "");
+  const [description, setDescription] = useState(trip.description ?? "");
   const [textError, setTextError] = useState("");
 
   // Permet de supprimer le message d'erreur dès que l'utilisateur tape un nouveau texte
@@ -138,7 +150,7 @@ export default function NewTripScreen({ navigation }) {
         return;
       }
 
-      // Récupérer la date formaté et la convertir en objet Date
+      // Mise à jour de l'état startDate ou endDate en convertissant la date formatée en objet Date
       const [startDay, startMonth, startYear] = startDateText.split("/");
       const parsedStartDate = new Date(`${startYear}-${startMonth}-${startDay}`);
 
@@ -155,6 +167,7 @@ export default function NewTripScreen({ navigation }) {
 
       // Création de l'objet tripData avec les champs non vides
       const tripData = {
+        tokenTrip: trip.tokenTrip ?? null,
         name: tripName,
         dateStart: parsedStartDate,
         dateEnd: parsedEndDate,
@@ -164,21 +177,26 @@ export default function NewTripScreen({ navigation }) {
 
       // Envoyer la demande de création du voyage au serveur via une requête POST
       const response = await fetch(`${BACK_URL}/trips/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        method: trip.tokenTrip ? "PUT": "POST", // Si on a deja un tokenEvent on sait qu'il faut seulement mettre à jour
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token: user.token, trip: tripData }),
       });
 
       // Attendre la réponse du serveur et la traiter comme JSON
       const responseData = await response.json();
-      console.log("Réponse du serveur:", responseData);
+      //console.log("Réponse du serveur:", responseData);
 
       // Si la réponse du backend est true, rediriger l'utilisateur vers HomeScreen
-      if (responseData.result === true) {
-        dispatch(addTrip(responseData.trip));
-        await navigation.navigate("Home");
+      if (responseData.result) {
+        if (trip.tokenTrip) {
+          // On sauvegarde le retour dans le reducer, en faisant un update si c'est un mise à jour, ou un ajout si c'est un nouveau
+          dispatch(updateTrip(responseData.trip));
+          await navigation.goBack();
+        }
+        else {
+          dispatch(addTrip(responseData.trip));
+          await navigation.navigate("Home");
+        }
         setModalLoadingVisible(false);
       }
     } catch (error) {
