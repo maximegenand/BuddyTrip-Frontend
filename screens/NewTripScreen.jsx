@@ -8,8 +8,6 @@ import {
   Platform,
   SafeAreaView,
   Keyboard,
-  Modal,
-  ActivityIndicator,
 } from "react-native";
 import { BACK_URL } from "@env";
 
@@ -99,11 +97,11 @@ export default function NewTripScreen({ navigation }) {
     Keyboard.dismiss();
   };
 
-  // Fonction pour gérer les changements de texte dans le champ de saisie de la date de début
+  // Fonction pour gérer les changements de texte dans le champ de saisie de la date
   const handleDateChange = (text, name) => {
     // Formater le texte de la date pour qu'il ait le format "JJ/MM/AAAA"
     const formattedDate = formatDate(text);
-    // Mettre à jour l'état startDateText avec la date formatée
+    // Mettre à jour l'état avec la date formatée
     name === 'start' && setStartDateText(formattedDate);
     name === 'end' && setEndDateText(formattedDate);
   };
@@ -199,7 +197,7 @@ export default function NewTripScreen({ navigation }) {
       <SafeAreaView style={styles.screen}>
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
           <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
-            <HeaderNav navigation={navigation} />
+            <HeaderNav title="Nouveau Trip" navigation={navigation} />
             <View style={styles.content}>
               <Text style={styles.textError}>{textError}</Text>
               <InputComponent
@@ -212,18 +210,20 @@ export default function NewTripScreen({ navigation }) {
               <InputComponent
                 key="dateStart"
                 name="dateStart"
-                type="date"
+                type="numeric"
                 placeholder="Date de début (JJ/MM/AAAA)"
                 onInputChange={handleInputChange}
                 value={startDateText}
+                maxLength={10}
               />
               <InputComponent
                 key="dateEnd"
                 name="dateEnd"
-                type="date"
+                type="numeric"
                 placeholder="Date de fin (JJ/MM/AAAA)"
                 onInputChange={handleInputChange}
                 value={endDateText}
+                maxLength={10}
               />
               <InputComponent
                 key="description"
