@@ -3,8 +3,6 @@ import {
   View, 
   Text,
   TouchableOpacity,
-  Button,
-  Br,
   StatusBar,
   SafeAreaView,
   ScrollView,
@@ -25,7 +23,6 @@ import BoutonAdd from "../components/BoutonAdd";
 
 //Import modules
 import { formatPeriod } from "../modules/dates";
-import { useNavigation } from "@react-navigation/native";
 
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
@@ -35,41 +32,17 @@ import {} from "../redux/reducers/events";
 
 export default function HomeScreen({ navigation }) {
 
-  // 1. Redux storage
+// 1. Redux storage
   const user = useSelector((state) => state.user.value);
   const trips = useSelector((state) => state.trips.value);
   const events = useSelector((state) => state.events.value);
   const dispatch = useDispatch();
 
-  // 2. UseEffect, UseState, UseRef
+// 2. UseEffect, UseState, UseRef
   const [modalVisible, setModalVisible] = useState(false);
   const [infosModalTrip, setInfosModalTrip] = useState({});
 
-  // 3. Functions
-  const navigationTokenTrip = useNavigation();
-
-  const handlePressTokenTrip = (tokenTrip) => {
-    const dataToSend = tokenTrip;
-    navigation.navigate("TabNavigator", { screen: "Trip", params: { tokenTrip: tokenTrip } });
-  };
-
-  // Fonction d'affichage de la liste des Trips
-  const tripList = trips.map((trip) => (
-    <TouchableOpacity
-      style={styles.tripContainer}
-      key={trip.tokenTrip}
-      onLongPress={() => handleModalSuppression(trip.tokenTrip)}
-      onPress={() => handlePressTokenTrip(trip.tokenTrip)}
-    >
-      <Text style={styles.tripTitle}>{trip.name}</Text>
-      <View style={styles.tripSubContainer}>
-        <Text style={styles.tripParticipants}>{trip.participants.length} participants</Text>
-        <Text style={styles.tripDate}>
-          {formatPeriod([new Date(trip.dateStart), new Date(trip.dateEnd)])}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  ));
+// 3. Functions
 
   // Fonction de récuperation des elements du trips pour la Modal
   const handleModalSuppression = (tokenTrip) => {
@@ -140,7 +113,26 @@ export default function HomeScreen({ navigation }) {
       });
   };
 
-  // 4. Return Component
+// 4. Return Component
+
+  // Fonction d'affichage de la liste des Trips
+  const tripList = trips.map((trip) => (
+    <TouchableOpacity
+      style={styles.tripContainer}
+      key={trip.tokenTrip}
+      onLongPress={() => handleModalSuppression(trip.tokenTrip)}
+      onPress={() => navigation.navigate("TabNavigator", { screen: "Trip", params: {tokenTrip: trip.tokenTrip }})}
+    >
+      <Text style={styles.tripTitle}>{trip.name}</Text>
+      <View style={styles.tripSubContainer}>
+        <Text style={styles.tripParticipants}>{trip.participants.length} participants</Text>
+        <Text style={styles.tripDate}>
+          {formatPeriod([new Date(trip.dateStart), new Date(trip.dateEnd)])}
+        </Text>
+      </View>
+    </TouchableOpacity>
+  ));
+
   return (
     <>
       <StatusBar translucent={false} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
