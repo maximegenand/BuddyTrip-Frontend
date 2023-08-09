@@ -126,16 +126,21 @@ export default function TripScreen({ route, navigation }) {
     <>
       <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
       <SafeAreaView style={styles.container}>
-        <Modal animationType="fade" transparent={true} visible={modalVisible}>
+        <Modal animationType="fade" transparent={true} visible={modalVisible} statusBarTranslucent={true}>
           <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
-            <View style={styles.bulleModal}>
-              <Text style={styles.modalTitle}>{trip.name}</Text>
-            </View>
-            <View style={styles.bulleModal}>
-              <Text style={styles.modalTitle}>{trip.description}</Text>
-            </View>
-            <View style={styles.bulleModal}>
-              <Text style={styles.modalTitle}>{allParticipantsModal}</Text>
+              <View style={styles.modalInner}>
+              <TouchableOpacity style={styles.modalIcon} activeOpacity={0.8} onPress={() => {navigation.navigate("NewTrip",  { screen: "NewTrip", tokenTrip }); setModalVisible(false)}}>
+                <FontAwesome style={styles.bell} name="edit" size={30} color={GLOBAL_COLOR.TERTIARY} />
+              </TouchableOpacity>
+              <View style={styles.modalBubble}>
+                <Text style={styles.modalTitle}>{trip.name}</Text>
+              </View>
+              <View style={styles.modalBubble}>
+                <Text style={styles.modalTitle}>{trip.description}</Text>
+              </View>
+              <View style={styles.modalBubble}>
+                <Text style={styles.modalTitle}>{allParticipantsModal}</Text>
+              </View>
             </View>
           </TouchableOpacity>
         </Modal>
