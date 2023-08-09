@@ -21,7 +21,10 @@ export const eventsSlice = createSlice({
       state.value = action.payload;
     },
     updateEvent: (state, action) => {
-      state.value = state.value.map((data) => data.tokenEvent !== action.payload.tokenEvent ? data : action.payload);
+      const newEventsList = state.value.map((data) => data.tokenEvent !== action.payload.tokenEvent ? data : action.payload);
+      // On trie la liste des events dans l'ordre chronologique
+      newEventsList.sort((a, b) => new Date(a.timeStart) - new Date(b.timeStart));
+      state.value = newEventsList;
     },
     deleteEvent: (state, action) => {
       state.value = state.value.filter((data) => data.tokenEvent !== action.payload);
