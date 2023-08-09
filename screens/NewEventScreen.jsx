@@ -381,8 +381,8 @@ export default function NewEventScreen({ route, navigation }) {
                 </>
               )
             }
-            <TouchableOpacity style={styles.btnSave}>
-              <Text style={styles.textSave} onPress={() => handleAddEvent()}>Enregistrer</Text>
+            <TouchableOpacity style={styles.btnSave} onPress={() => handleAddEvent()}>
+              <Text style={styles.textSave}>Enregistrer</Text>
             </TouchableOpacity>
             <View style={styles.space} />
           </ScrollView>
