@@ -353,7 +353,7 @@ export default function NewEventScreen({ route, navigation }) {
                         placeholder="Places disponibles"
                         onInputChange={handleInputChange}
                         value={seats}
-                        maxLength="2"
+                        maxLength={2}
                       />
                     )
                   }
