@@ -17,7 +17,10 @@ export default function Event({ event, handlePress }) {
           <Text style={styles.name}>{event.name}</Text>
           <Text style={styles.participants}>{event.participants.length} participants : {event.participants.map(e => e.username)}</Text>
         </View>
-        <Text style={styles.createur}>{event.user.username}</Text>
+        <View>
+          <Text></Text>
+          <Text style={styles.createur}>{event.user.username}</Text>
+        </View>
     </TouchableOpacity>
   );
 }
@@ -25,7 +28,7 @@ export default function Event({ event, handlePress }) {
 const styles = StyleSheet.create({
   container : {
     width: screenWidth * 0.95,
-    height: screenHeight * 0.14,
+    height: '100%',
     backgroundColor : GLOBAL_COLOR.SECONDARY,
     borderRadius: 5,
     display: 'flex',
@@ -46,7 +49,7 @@ const styles = StyleSheet.create({
   name : {
     color: GLOBAL_COLOR.TERTIARY,
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 18,
     marginBottom: 10,
   },
   participants : {
