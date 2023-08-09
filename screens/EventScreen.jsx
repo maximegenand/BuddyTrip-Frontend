@@ -42,7 +42,8 @@ export default function EventScreen({ route, navigation }) {
   // On recupère les infos de l'évènement dans le storage grâce à son tokenEvent
   const tokenEvent = route.params.tokenEvent;
   const event = events.find((e) => e.tokenEvent === tokenEvent);
-// vérification si le user est participant à l'event ou pas 
+  const isCreator = event.user.tokenUser === user.tokenUser
+// vérification si le user est participant à l'event ou pas
   const isParticipant = event.participants.find(
     (e) => e.tokenUser === user.tokenUser
   );
@@ -156,34 +157,30 @@ export default function EventScreen({ route, navigation }) {
           <FontAwesome name={iconHeader.current} size={30} color={GLOBAL_COLOR.TERTIARY} />
         </View>
         <View style={styles.body}>
+          {/* Afficher le bouton d'edition pour le createur */
+          isCreator && (
+          <TouchableOpacity style={styles.edit} activeOpacity={0.8} onPress={() => navigation.navigate("NewEvent",  { screen: "NewEvent", tokenEvent })}>
+            <FontAwesome name="edit" size={30} color={GLOBAL_COLOR.SECONDARY} />
+          </TouchableOpacity>
+          )}
           <View style={styles.buddiesContainer}>
-            <Text style={styles.titleBuddies}>Buddies déjà inscrits :</Text>
+            <Text style={styles.titleBuddies}>Buddies :</Text>
             <View style={styles.buddiesContent}>
-                <BuddiesBar style={styles.bubbles} buddies={participants} max={5} />
-              <TouchableOpacity style={styles.buttonAddBuddy}>
-                {/* Afficher une icône en fonction de l'état */}
-                {event.user.tokenUser === user.tokenUser ? (
-                  <FontAwesome
-                    name="check"
-                    size={30}
-                    color={GLOBAL_COLOR.SECONDARY}
-                  />
-                ) : isParticipant ? (
-                  <FontAwesome
-                    name="minus"
-                    size={30}
-                    color={GLOBAL_COLOR.SECONDARY}
-                    onPress={handleDelMePress}
-                  />
-                ) : (
-                  <FontAwesome
-                    name="plus"
-                    size={30}
-                    color={GLOBAL_COLOR.SECONDARY}
-                    onPress={handleAddMePress}
-                  />
-                )}
-              </TouchableOpacity>
+              <BuddiesBar style={styles.bubbles} buddies={participants} max={5} />
+              {/* Afficher une icône en fonction de l'état */
+              isCreator ? (
+                <View style={styles.buttonAddBuddy}>
+                  <FontAwesome name="check" size={30} color={GLOBAL_COLOR.SECONDARY} />
+                </View>
+              ) : isParticipant ? (
+                <TouchableOpacity style={styles.buttonAddBuddy} activeOpacity={0.8} onPress={handleDelMePress}>
+                  <FontAwesome name="minus" size={30} color={GLOBAL_COLOR.SECONDARY} />
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity style={styles.buttonAddBuddy} activeOpacity={0.8} onPress={handleAddMePress}>
+                  <FontAwesome name="plus" size={30} color={GLOBAL_COLOR.SECONDARY} />
+                </TouchableOpacity>
+              )}
             </View>
           </View>
           <View style={styles.infos}>

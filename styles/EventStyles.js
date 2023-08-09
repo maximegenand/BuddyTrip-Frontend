@@ -37,7 +37,19 @@ export default styles = StyleSheet.create({
     },
     body: {
         flex: 1,
+        position: 'relative',
         alignItems: 'center'
+    },
+    edit: {
+        position: 'absolute',
+        top: -15,
+        right: 0,
+        paddingTop: 5,
+        paddingRight: 5,
+        paddingBottom: 15,
+        paddingLeft: 15,
+        backgroundColor: 'white',
+        borderBottomLeftRadius: 100,
     },
     buddiesContainer: {
         alignSelf: 'center',

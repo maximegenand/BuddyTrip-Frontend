@@ -42,9 +42,21 @@ export default function NewEventScreen({ route, navigation }) {
   
   const dispatch = useDispatch();
 
-  // Import des paramètres tokenTrip et date depuis la navigation TripScreen => EventScreen
-  const tokenTrip = route.params.tokenTrip;
-  const currentDate = route.params.currentDate;
+  // On gère la partie edition ou nouveau trip en regardant les params qui nous sont envoyés
+
+  // Si on a un tokenEvent, c'est qu'on édite
+  let event = {};
+  if (route.params.tokenEvent) {
+    event = events.find((e) => e.tokenEvent === route.params.tokenEvent);
+    //console.log(event)
+  }
+  // Sinon c'est qu'on créé un nouvel event, et on récupère on a un TokenTrip et une date depuis TripScreen
+  else {
+    event.tokenTrip = route.params.tokenTrip;
+    event.date = route.params.currentDate;
+  }
+  
+  //return console.log(event);
 
 // 2. UseEffect, UseState, UseRef
 
@@ -52,14 +64,14 @@ export default function NewEventScreen({ route, navigation }) {
   const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
 
   // États pour gérer les valeurs des champs
-  const [title, setTitle] = useState("");
-  const [date, setDate] = useState(format(new Date(currentDate), "dd'/'MM'/'yyyy"));
-  const [description, setDescription] = useState("");
-  const [timeStart, setTimeStart] = useState("");
-  const [timeEnd, setTimeEnd] = useState("");
-  const [ticket, setTicket] = useState("");
-  const [seats, setSeats] = useState("");
-  const [place, setPlace] = useState("");
+  const [title, setTitle] = useState(event.name ?? "");
+  const [date, setDate] = useState(format(new Date(event.date), "dd'/'MM'/'yyyy"));
+  const [description, setDescription] = useState(event.description ?? "");
+  const [timeStart, setTimeStart] = useState(event.timeStart ? format(new Date(event.timeStart), "hh':'mm") : "");
+  const [timeEnd, setTimeEnd] = useState(event.timeEnd ? format(new Date(event.timeEnd), "hh':'mm") : "");
+  const [ticket, setTicket] = useState(event.ticket ?? "");
+  const [seats, setSeats] = useState(event.seats ?? "");
+  const [place, setPlace] = useState(event.place ?? "");
   const [textError, setTextError] = useState("");
 
   // Permet de supprimer le message d'erreur dès que l'utilisateur tape un nouveau texte
@@ -68,16 +80,24 @@ export default function NewEventScreen({ route, navigation }) {
   }, [title, date, description, timeStart, timeEnd, ticket, seats, place])
 
   // ETAT rendu conditionnel en fonction de l'event
-  const [transport, setTransport] = useState(false);
-  const [activity, setActivity] = useState(false);
+  const [transport, setTransport] = useState(event.category && event.category.includes("travel"));
+  const [activity, setActivity] = useState(event.category && event.category === "activity");
 
   // Gestion de la selection du mode de transport
-  const [transportSelected, setTransportSelected] = useState("");
   const listSelection = [
     { key: "car", value: "Voiture" },
     { key: "train", value: "Train" },
     { key: "plane", value: "Avion" },
   ];
+  // Si on édite un transport, on récupère la key du transport depuis event.category
+  const initialTransport = event.category && event.category.includes("travel") && event.category.slice(7);
+  // On défini le state du transport avec la valeur retournée, ou vide si ce n'est pas un trajet ou que c'est un nouvel event
+  const [transportSelected, setTransportSelected] = useState(initialTransport ?? "");
+  // On défini le défaultValue pour la selectionList
+  const initialObject = initialTransport ? listSelection.find(e => e.key === transportSelected) : undefined;
+  //console.log(initialObject);
+
+  //if
 
 
   // 3. Functions
@@ -100,7 +120,7 @@ export default function NewEventScreen({ route, navigation }) {
   };
 
   // Fonction pour gérer les changements de texte dans le champ de saisie de la date
-  const handleDateChange = (text, name) => {
+  const handleDateChange = (text) => {
     // Formater le texte de la date pour qu'il ait le format "JJ/MM/AAAA"
     const formattedDate = formatDate(text);
     // Mettre à jour l'état avec la date formatée
@@ -197,7 +217,7 @@ export default function NewEventScreen({ route, navigation }) {
     }
 
     const eventData = {
-      tokenTrip,
+      tokenTrip: event.tokenTrip,
       category: categorySave,
       name: title,
       date: dateSave,
@@ -211,7 +231,7 @@ export default function NewEventScreen({ route, navigation }) {
 
     try {
       const response = await fetch(`${BACK_URL}/events/`, {
-        method: "POST",
+        method: event.tokenEvent ? "PUT": "POST", // Si on a deja un tokenEvent on sait qu'il faut seulement mettre à jour
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({token: user.token, event: eventData}),
       });
@@ -221,10 +241,17 @@ export default function NewEventScreen({ route, navigation }) {
 
       if (responseData.result) {
         const newEvent = responseData.event
-        // sauvegarder dans le reducer le nouvel event 
-        dispatch(addEvent(newEvent));
-        // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
-        await navigation.navigate("Event", { screen: "Event", tokenEvent: newEvent.tokenEvent, isNew: true });
+        // On sauvegarde le retour dans le reducer, en faisant un update si c'est un mise à jour, ou un ajout si c'est un nouveau
+        if (event.tokenEvent) {
+          dispatch(updateEvent(newEvent));
+          // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
+          await navigation.goBack();
+        }
+        else {
+          dispatch(addEvent(newEvent));
+          // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
+          await navigation.navigate("Event", { screen: "Event", tokenEvent: newEvent.tokenEvent, isNew: true });
+        }
         setModalLoadingVisible(false);
       }
     } catch (error) {
@@ -317,6 +344,7 @@ export default function NewEventScreen({ route, navigation }) {
                       boxStyles={styles.insideList}
                       dropdownStyles={styles.insideList}
                       inputStyles={styles.textList}
+                      defaultOption={initialObject}
                     />
                   </View>
                   <InputComponent
