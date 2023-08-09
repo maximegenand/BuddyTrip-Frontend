@@ -47,10 +47,9 @@ export default function InputComponent(props) {
       autoCapitalize: "none",
       keyboardType: "email-address",
     }
-    else if (props.type === 'date') params = {
+    else if (props.type === 'numeric') params = {
       autoComplete: "off",
       keyboardType: "numeric",
-      maxLength: 10,
     }
     else if (props.type === 'description') params = {
       multiline: true,
@@ -72,8 +71,10 @@ export default function InputComponent(props) {
         onChangeText={(value) => props.onInputChange(props.name, value)}
         value={props.value}
         {...params}
+        {...props}
       />
       {props.type === 'date' && <View style={styles.icon}><FontAwesome name="calendar" size={30} color={GLOBAL_COLOR.SECONDARY} /></View>}
+      {props.type === 'time' && <View style={styles.icon}><FontAwesome name="clock-o" size={30} color={GLOBAL_COLOR.SECONDARY} /></View>}
     </View>
   );
 };
