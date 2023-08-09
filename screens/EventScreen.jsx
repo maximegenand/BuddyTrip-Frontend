@@ -38,10 +38,9 @@ export default function EventScreen({ route, navigation }) {
  
   // 2. UseEffect, UseState, UseRef
 
-  
- 
+
   // On recupère les infos de l'évènement dans le storage grâce à son tokenEvent
-  const tokenEvent = route.params.params.tokenEvent;
+  const tokenEvent = route.params.tokenEvent;
   const event = events.find((e) => e.tokenEvent === tokenEvent);
 // vérification si le user est participant à l'event ou pas 
   const isParticipant = event.participants.find(
@@ -50,6 +49,7 @@ export default function EventScreen({ route, navigation }) {
 
   // On destructure les données
   const {
+    tokenTrip,
     user: userEvent,
     participants,
     date,
@@ -134,7 +134,12 @@ export default function EventScreen({ route, navigation }) {
           <TouchableOpacity
             style={styles.return}
             activeOpacity={0.8}
-            onPress={() => navigation.goBack()}
+            // Si on envoie un paramètre isNew, c'est que l'event viens d'etre enregistré et que le goback doit etre modifié
+            onPress={
+              route.params?.isNew ?
+                () => navigation.navigate("TabNavigator", { screen: "Trip", params: {tokenTrip, date }})
+                : () => navigation.goBack()
+            }
           >
             <FontAwesome
               name="arrow-left"
