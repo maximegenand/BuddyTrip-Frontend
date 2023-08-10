@@ -215,7 +215,7 @@ export default function NewTripScreen({ route, navigation }) {
       <SafeAreaView style={styles.screen}>
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
           <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
-            <HeaderNav title="Nouveau Trip" navigation={navigation} />
+            <HeaderNav title={trip.tokenTrip ? "Mettre à jour le Trip" : "Nouveau Trip"} navigation={navigation} />
             <View style={styles.content}>
               <Text style={styles.textError}>{textError}</Text>
               <InputComponent

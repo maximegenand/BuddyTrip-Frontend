@@ -268,7 +268,7 @@ export default function NewEventScreen({ route, navigation }) {
       <LoadingModal visible={modalLoadingVisible} />
       <SafeAreaView style={styles.container}>
         <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
-          <HeaderNav title="Nouvel événement" navigation={navigation} />
+          <HeaderNav title={event.tokenEvent ? "Mettre à jour l'événement" : "Nouvel événement"} navigation={navigation} />
           <ScrollView style={styles.body}>
             <Text style={styles.textError}>{textError}</Text>
             <InputComponent
