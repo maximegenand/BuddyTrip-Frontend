@@ -114,21 +114,13 @@ export default function TripScreen({ route, navigation }) {
     />
   ));
 
-  // code permettant d'afficher les 4 premiers participants du voyage dans le header
-  const affichageParticipants = trip.participants;
-  const quatrePremiers = affichageParticipants.slice(0, 4).map((participant) => participant.username);
-  const formattedUsername = quatrePremiers
-    .map((username, i) => {
-      if (i === quatrePremiers.length - 1) {
-        return username + "...";
-      } else {
-        return username;
-      }
-    })
-    .join(", ");
+  // Affichage des 4 premiers participants du voyage dans le header
+  const listParticipants = [user.username, ...trip.participants.map(participant => participant.username)];
+  let formattedListFour = listParticipants.slice(0, 4).join(", ");
+  if (listParticipants.length > 4) formattedListFour += " ...";
 
   // allParticipantsModal => afficher la liste des participants pour la Modal
-  const allParticipantsModal = affichageParticipants.map((participant) => participant.username).join(", ");
+  const allParticipantsModal = listParticipants.join(", ");
 
   const uriBackground = "https://res.cloudinary.com/djjyzmssb/image/upload/v1691664601/background_x2cjvc.png";
 
@@ -157,7 +149,7 @@ export default function TripScreen({ route, navigation }) {
         <Header
           navigation={navigation}
           title={trip.name}
-          participants={formattedUsername}
+          participants={formattedListFour}
           handlePress={() => setModalVisible(true)}
           style={styles.header}
         />
