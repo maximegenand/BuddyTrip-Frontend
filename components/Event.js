@@ -26,6 +26,10 @@ export default function Event({ event, handlePress }) {
     return <SvgPeople style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
   }
 
+  // Affichage du nombre de participants
+  let participantsText = `${event.participants.length} participant`;
+  if (event.participants.length > 1) participantsText += "s";
+
   return (
     <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={styles.date}>
@@ -35,7 +39,7 @@ export default function Event({ event, handlePress }) {
       </View>
       <View style={styles.where}>
         <Text style={styles.name}>{event.name}</Text>
-        <Text style={styles.participants}>{event.participants.length} participants</Text>
+        <Text style={styles.participants}>{participantsText}</Text>
       </View>
       <View style={styles.userBubble}>
         <BuddyBubble key={event.user.tokenUser} buddy={event.user} i={0} size={30} />
@@ -68,7 +72,8 @@ const styles = StyleSheet.create({
   date : {
     width: '20%',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
+    gap: 3,
   },
   hour : {
     color: GLOBAL_COLOR.PRIMARY,
