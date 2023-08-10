@@ -53,6 +53,19 @@ export default function ProfilScreen({ navigation }) {
           <Text style={styles.headerText3}>Home</Text>
         </View>
         <View style={styles.container}>
+        <View style={styles.name}>
+            <View style={styles.containerImg}>
+              <BuddyBubble size={50} i={-1} buddy={user} />
+            </View>
+            <TouchableOpacity>
+              <FontAwesome
+                style={styles.iconEdit}
+                name="edit"
+                size={20}
+                color={GLOBAL_COLOR.SECONDARY}
+              />
+            </TouchableOpacity>
+          </View>
           <View style={styles.name}>
             <View style={styles.containerText}>
               <Text style={styles.textBrut}>Username :</Text>
@@ -83,20 +96,6 @@ export default function ProfilScreen({ navigation }) {
             </TouchableOpacity>
           </View>
           <View style={styles.lines} />
-          <View style={styles.name}>
-            <View style={styles.containerImg}>
-              <Text style={styles.textBrutPhotoProfil}>Photo de profil :</Text>
-              <BuddyBubble size={50} i={1} buddy={{ username: user.username, image: null }} />
-            </View>
-            <TouchableOpacity>
-              <FontAwesome
-                style={styles.iconEdit}
-                name="edit"
-                size={20}
-                color={GLOBAL_COLOR.SECONDARY}
-              />
-            </TouchableOpacity>
-          </View>
           <TouchableOpacity style={styles.containerFriends}>
             <Text style={styles.textAmis}>Liste d'amis</Text>
             <FontAwesome name="arrow-right" size={25} color={GLOBAL_COLOR.TERTIARY} />
