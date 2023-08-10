@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Button, ScrollView, Modal, SafeAreaView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, Modal, SafeAreaView, ImageBackground } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { addDays, format, compareDesc } from "date-fns";
 import { BACK_URL } from "@env";
@@ -100,13 +100,6 @@ export default function TripScreen({ route, navigation }) {
     }
   };
 
-  const dateScreen = (
-    <View style={styles.day}>
-      <Text style={styles.jour}>{getDayOfWeek(currentDate)}</Text>
-      <Text style={styles.date}>{formatDate(currentDate, true)} </Text>
-    </View>
-  );
-
   //On récupère les infos des events que l'on souhaite afficher
   const eventsTrip = events.filter(
     (event) => event.tokenTrip === trip.tokenTrip && compareDesc(new Date(event.date), currentDate) === 0
@@ -135,6 +128,8 @@ export default function TripScreen({ route, navigation }) {
 
   // allParticipantsModal => afficher la liste des participants pour la Modal
   const allParticipantsModal = affichageParticipants.map((participant) => participant.username).join(", ");
+
+  const uriBackground = "https://res.cloudinary.com/djjyzmssb/image/upload/v1691664601/background_x2cjvc.png";
 
   return (
     <>
@@ -165,25 +160,26 @@ export default function TripScreen({ route, navigation }) {
           handlePress={() => setModalVisible(true)}
           style={styles.header}
         />
-        <View style={styles.planning}>
-          <View style={styles.calendrierEvent}>
-            <View style={styles.calendrier}>
-              <TouchableOpacity style={styles.fleche_left} onPress={onPreviousDate}>
-                <FontAwesome  name="arrow-left" size={40} color={GLOBAL_COLOR.PRIMARY} />
-              </TouchableOpacity>
-              {dateScreen}
-              <TouchableOpacity style={styles.fleche_left} onPress={onNextDate}>
-                <FontAwesome name="arrow-right" size={40} color={GLOBAL_COLOR.PRIMARY} />
-              </TouchableOpacity>
+        <View style={styles.content}>
+          <View style={styles.calendarContainer}>
+          <ImageBackground source={{uri: uriBackground}} style={styles.calendarBackground} resizeMode="stretch">
+            <TouchableOpacity style={styles.flecheLeft} onPress={onPreviousDate}>
+              <FontAwesome  name="arrow-left" size={40} color={GLOBAL_COLOR.PRIMARY} />
+            </TouchableOpacity>
+            <View style={styles.dateContainer}>
+              <Text style={styles.day}>{getDayOfWeek(currentDate)}</Text>
+              <Text style={styles.date}>{formatDate(currentDate, true)} </Text>
             </View>
-            <ScrollView style={styles.events}>{eventsScreen}</ScrollView>
-            <BoutonAdd
-              onPress={() =>
-                navigation.navigate("NewEvent", { screen: "NewEvent", tokenTrip, currentDate: currentDate.toJSON() })
-              }
-              buttonStyle={styles.boutonAdd}
-            />
+            <TouchableOpacity style={styles.flecheRight} onPress={onNextDate}>
+              <FontAwesome name="arrow-right" size={40} color={GLOBAL_COLOR.PRIMARY} />
+            </TouchableOpacity>
+          </ImageBackground>
           </View>
+          <View style={globalsStyles.xlines} />
+          <ScrollView style={styles.events}>
+            {eventsScreen}
+          </ScrollView>
+          <BoutonAdd onPress={() => navigation.navigate("NewEvent", { screen: "NewEvent", tokenTrip, currentDate: currentDate.toJSON() })} buttonStyle={styles.boutonAdd} />
         </View>
       </SafeAreaView>
     </>

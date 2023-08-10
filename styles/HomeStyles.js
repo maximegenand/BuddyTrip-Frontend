@@ -1,12 +1,11 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { GLOBAL_COLOR } from "./globals";
+import { GLOBAL_COLOR, globalsStyles } from "./globals";
 import { FontDisplay } from "expo-font";
 const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 export default styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative',
     backgroundColor: GLOBAL_COLOR.TERTIARY,
   },
   header: {
@@ -17,9 +16,13 @@ export default styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.PRIMARY,
     alignItems: 'center',
   },
-  listTrips: {
-    alignItems: "center",
+  scrollContainer: {
+    flex: 1,
     width: "100%",
+  },
+  content: {
+    width: "100%",
+    marginBottom: 100,
   },
   noTrip: {
     color: GLOBAL_COLOR.PRIMARY,
@@ -28,18 +31,33 @@ export default styles = StyleSheet.create({
     fontWeight: 700,
     fontStyle: 'italic',
   },
+  monthContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '90%',
+    gap: 20,
+    marginTop: 40,
+
+  },
+  monthLine: {
+    flex: 1,
+    height: 2,
+    backgroundColor: GLOBAL_COLOR.PRIMARY,
+  },
+  monthText: {
+    color: GLOBAL_COLOR.PRIMARY,
+    fontSize: 20,
+    fontFamily: "Montserrat-Alternates-SemiBold-Italic",
+  },
   tripContainer: {
     position: 'relative',
     left: -1,
     flexDirection: 'row',
     width: "95%",
     marginRight: "5%",
-    marginVertical: 20,
-
+    marginVertical: 15,
     backgroundColor: 'white',
-    //borderWidth: 1,
-    //borderColor: GLOBAL_COLOR.SECONDARY,
-    //borderRadius: 10,
     shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
     shadowOpacity: 0.3, // Ajustez l'opacité souhaitée
     shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
@@ -56,20 +74,14 @@ export default styles = StyleSheet.create({
     backgroundColor: 'white',
     borderWidth: 1,
     borderColor: GLOBAL_COLOR.SECONDARY,
-    //borderRadius: 10,
-    /*shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
-    shadowOpacity: 0.3, // Ajustez l'opacité souhaitée
-    shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
-    elevation: 5, // Ajoutez la valeur d'élévation souhaitée*/
-  },
-  tripTitle: {
-    //textAlign: "center",
-    color: GLOBAL_COLOR.SECONDARY,
-    fontSize: 22,
   },
   tripSubContainer: {
-    //flexDirection: "row",
+    flex: 1,
     justifyContent: "space-between",
+  },
+  tripTitle: {
+    color: GLOBAL_COLOR.SECONDARY,
+    fontSize: 22,
   },
   tripParticipants: {
     color: GLOBAL_COLOR.SECONDARY,
@@ -78,11 +90,31 @@ export default styles = StyleSheet.create({
     width: 100,
     textAlign: 'center',
     color: GLOBAL_COLOR.SECONDARY,
+    fontStyle: 'italic',
   },
-  scrollContainer: {
-    flex: 1,
-    width: "100%",
+
+  removeButton: {
+    backgroundColor: GLOBAL_COLOR.PRIMARY,
+    padding: 10,
+    borderRadius: 10,
   },
+  removeButtonText: {
+    color: GLOBAL_COLOR.TERTIARY,
+  },
+  add: {
+    position: 'absolute',
+    bottom: 20,
+    width: '100%',
+    alignItems: "center",
+  },
+  boutonAdd: {
+    shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
+    shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+    shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+    elevation: 5, // Ajoutez la valeur d'élévation souhaitée
+  },
+
+  // Modale
   modalContainer: {
     justifyContent: "center",
     alignItems: "center",
@@ -113,26 +145,4 @@ export default styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-
-  removeButton: {
-    backgroundColor: GLOBAL_COLOR.PRIMARY,
-    padding: 10,
-    borderRadius: 10,
-  },
-  removeButtonText: {
-    color: GLOBAL_COLOR.TERTIARY,
-  },
-  add: {
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    paddingVertical: 20,
-    alignItems: "center",
-  },
-  boutonAdd: {
-    shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
-    shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
-    shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
-    elevation: 5, // Ajoutez la valeur d'élévation souhaitée
-  }
 });

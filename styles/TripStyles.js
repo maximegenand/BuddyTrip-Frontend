@@ -8,63 +8,6 @@ export default styles = StyleSheet.create({
         height: screenHeight,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
-    header : {
-        height: 60,
-    },
-    day: {
-        width: screenWidth * 0.5,
-        height: screenHeight * 0.1,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10,
-    },
-    calendrier : {
-        width : screenWidth,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems : 'center',
-        margin: 10,
-    },
-    jour: {
-        color: GLOBAL_COLOR.TERTIARY,
-        fontWeight: 'bold',
-        fontSize: 20,
-        paddingBottom: 5,
-    },
-    date : {
-        color: GLOBAL_COLOR.TERTIARY,
-    },
-    fleche_left : {
-        width: screenWidth * 0.16,
-        height: screenHeight * 0.08,
-        borderRadius: 50,
-        backgroundColor: GLOBAL_COLOR.TERTIARY,
-        justifyContent: 'center',
-        alignItems: 'center',
-        // shadowColor: 'black',
-        // shadowOffset: { width: 0, height: 2 }, // Ajustez l'offset souhaité
-        // shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
-        // shadowRadius: 3, // Ajustez le rayon de l'ombre souhaité
-        // elevation: 5, // Ajoutez la valeur d'élévation souhaitée
-    },
-    planning : {
-        height : screenHeight * 0.79,
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    calendrierEvent : {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position :'relative'
-    },
-    events : {
-        overflow :'scroll',
-    },
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -101,8 +44,71 @@ export default styles = StyleSheet.create({
         backgroundColor : GLOBAL_COLOR.TERTIARY,
         borderRadius: 10,
     },
+    header : {
+        height: 60,
+    },
+    content: {
+        flex: 1,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    calendarContainer: {
+        width: '100%',
+    },
+    calendarBackground: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 30,
+        paddingBottom: 30,
+
+    },
+    flecheLeft : {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        width: 70,
+        height: 70,
+        padding: 10,
+        //borderRadius: 25,
+        //backgroundColor: 'red',
+        // shadowColor: 'black',
+        // shadowOffset: { width: 0, height: 2 }, // Ajustez l'offset souhaité
+        // shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+        // shadowRadius: 3, // Ajustez le rayon de l'ombre souhaité
+        // elevation: 5, // Ajoutez la valeur d'élévation souhaitée
+    },
+    dateContainer: {
+        //height: screenHeight * 0.1,
+        //backgroundColor: GLOBAL_COLOR.PRIMARY,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 150,
+        //borderRadius: 10,
+    },
+    day: {
+        color: GLOBAL_COLOR.PRIMARY,
+        fontWeight: 'bold',
+        fontSize: 20,
+        paddingBottom: 5,
+    },
+    date : {
+        color: GLOBAL_COLOR.PRIMARY,
+    },
+    flecheRight: {
+        flex: 1,
+        justifyContent: 'center',
+        width: 70,
+        height: 70,
+        padding: 10,
+        //backgroundColor: 'red',
+    },
+    events : {
+        overflow :'scroll',
+        paddingHorizontal: "5%",
+    },
     boutonAdd: {
-        bottom: screenHeight * 0.04,
+        bottom: 10,
         shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
         shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
         shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité

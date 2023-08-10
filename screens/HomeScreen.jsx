@@ -8,7 +8,8 @@ import {
   ScrollView,
   Modal,
 } from "react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { format, isSameMonth } from "date-fns";
+import { fr } from 'date-fns/locale'
 import { BACK_URL } from "@env";
 
 
@@ -108,26 +109,50 @@ export default function HomeScreen({ navigation }) {
       });
   };
 
+  let monthPrec = '';
+
 // 4. Return Component
 
   // Fonction d'affichage de la liste des Trips
-  const tripList = trips.map((trip) => (
-    <TouchableOpacity
-      style={styles.tripContainer}
-      key={trip.tokenTrip}
-      onLongPress={() => handleModalSuppression(trip.tokenTrip)}
-      onPress={() => navigation.navigate("TabNavigator", { screen: "Trip", params: {tokenTrip: trip.tokenTrip }})}
-    >
-      <View style={styles.tripContainerInner}>
-        <View style={styles.tripSubContainer}>
-          <Text style={styles.tripTitle}>{trip.name}</Text>
-          <Text style={styles.tripParticipants}>{trip.participants.length} buddies</Text>
-        </View>
-        <Text style={styles.tripDate}>{formatPeriod([new Date(trip.dateStart), new Date(trip.dateEnd)])}</Text>
+  const tripList = trips.map((trip) => {
+    const buddiesCount = trip.participants.length;
+    let buddyList = `${buddiesCount} buddies`;
+    if (buddiesCount === 1) buddyList = '1 buddy';
+    else if (buddiesCount === 0) buddyList = '';
+
+    // On vérifie que le mois du trip précédant est identique
+    const isScreenMonth = isSameMonth(new Date(trip.dateStart), new Date(monthPrec));
+    monthPrec = trip.dateStart;
+    // S'il ne l'est pas on affiche un titre avant le trip
+    const titleMonth = !isScreenMonth ? (
+      <View style={styles.monthContainer}>
+        <View style={styles.monthLine}></View>
+        <Text style={styles.monthText}>{format(new Date(trip.dateStart), 'MMMM yyyy', { locale: fr })}</Text>
+        <View style={[styles.monthLine, {flex: 2}]}></View>
       </View>
-      <View styles={styles.chevron}></View>
-    </TouchableOpacity>
-  ));
+    ) : null;
+
+    return (
+    <>
+      {titleMonth}
+      <TouchableOpacity
+        style={styles.tripContainer}
+        key={trip.tokenTrip}
+        onLongPress={() => handleModalSuppression(trip.tokenTrip)}
+        onPress={() => navigation.navigate("TabNavigator", { screen: "Trip", params: {tokenTrip: trip.tokenTrip }})}
+      >
+        <View style={styles.tripContainerInner}>
+          <View style={styles.tripSubContainer}>
+            <Text style={styles.tripTitle}>{trip.name}</Text>
+            <Text style={styles.tripParticipants}>{buddyList}</Text>
+          </View>
+          <Text style={styles.tripDate}>{formatPeriod([new Date(trip.dateStart), new Date(trip.dateEnd)])}</Text>
+        </View>
+        <View styles={styles.chevron}></View>
+      </TouchableOpacity>
+    </>
+    )
+  });
 
   return (
     <>
@@ -143,18 +168,18 @@ export default function HomeScreen({ navigation }) {
               <View style={styles.modalButton}>
                 <ModalButton onPress={() => handleDeleteTrip()} text="Supprimer le Trip" />
                 <ModalButton onPress={() => quitTrip()} text="Quitter le Trip" />
-            </View>
+              </View>
             </View>
           </TouchableOpacity>
         </Modal>
         <View style={styles.header}>
           <Logo style={{flexDirection: 'row'}} onPress={() => navigation.navigate("Signin")}/>
-          <TouchableOpacity style={styles.userContainer} onPress={() => navigation.navigate("Profil")} activeOpacity={0.5}>
+          <TouchableOpacity onPress={() => navigation.navigate("Profil")} activeOpacity={0.5}>
             <BuddyBubble size={50} i={1} buddy={{ username: user.username, image: null }} />
           </TouchableOpacity>
         </View>
         <ScrollView style={styles.scrollContainer}>
-          <View style={styles.listTrips}>
+          <View style={styles.content}>
             {
               // Si un trip est enregistré, on affiche la liste, sinon on envoie un message de remplacement
               tripList.length ? tripList : <Text style={styles.noTrip}>Aucun Trip renseigné</Text>
