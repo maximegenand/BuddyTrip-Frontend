@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { GLOBAL_COLOR } from './globals';
+import { globalsStyles, GLOBAL_COLOR } from './globals';
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
@@ -37,26 +37,14 @@ export default styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        position: 'relative',
-        alignItems: 'center'
-    },
-    edit: {
-        position: 'absolute',
-        top: -15,
-        right: 0,
-        paddingTop: 5,
-        paddingRight: 5,
-        paddingBottom: 15,
-        paddingLeft: 15,
-        backgroundColor: 'white',
-        borderBottomLeftRadius: 100,
-        shadowOffset: { width: 0, height: 2 }, // Ajustez l'offset souhaité
-        shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
-        shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
-        elevation: 5, // Ajoutez la valeur d'élévation souhaitée
+        alignItems: 'center',
+        flexDirection: 'column',
     },
     buddiesContainer: {
+        width: "90%",
         alignSelf: 'center',
+        justifyContent: 'flex-start',
+        // backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
     titleBuddies: {
         position: 'relative',
@@ -66,25 +54,22 @@ export default styles = StyleSheet.create({
         paddingTop: 5,
         paddingHorizontal: 10,
         fontSize: 16,
-        fontWeight: 700,
-        borderTopLeftRadius: 15,
-        borderTopRightRadius: 15,
+        fontWeight: "bold",
         color: GLOBAL_COLOR.SECONDARY,
-        borderColor: GLOBAL_COLOR.SECONDARY,
-        borderWidth: 2,
-        backgroundColor: 'white',
     },
     buddiesContent: {
         flexDirection: 'row',
         alignItems: 'center',
+        width: "65%",
         height: 60,
         borderTopRightRadius: 30,
-        borderBottomLeftRadius: 15,
+        borderTopLeftRadius: 30,
+        borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30,
-        backgroundColor: GLOBAL_COLOR.SECONDARY,
+        borderColor: GLOBAL_COLOR.SECONDARY, // Couleur de la bordure
+        borderWidth: 2, // Épaisseur de la bordure
     },
     bubbles: {
-        //flex: 1,
         flexGrow: 1,
         alignSelf: 'center',
         marginHorizontal: 20,
@@ -94,11 +79,12 @@ export default styles = StyleSheet.create({
         right: -1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor : 'white',
         width: 60,
         height: 60,
-        borderTopRightRadius: 30,
-        borderBottomRightRadius: 30,
+        borderLeftColor: GLOBAL_COLOR.SECONDARY, // Couleur de la bordure à gauche
+        borderLeftWidth: 2,
+        // borderTopRightRadius: 30,
+        // borderBottomRightRadius: 30,
     },  
     buddysWord : {
         color : GLOBAL_COLOR.TERTIARY,
@@ -106,31 +92,64 @@ export default styles = StyleSheet.create({
         fontSize: 15,
         padding: 20
     },
-    lines : {
-        width : screenWidth * 0.8,
-        marginTop: 20,
-        marginBottom: 20,
-        borderBottomColor: GLOBAL_COLOR.PRIMARY,
-        borderBottomWidth: StyleSheet.hairlineWidth, 
-    } ,
-    desc : {
-        maxWidth: 500,
-        // wordWrap: 'break-word',
-        color: GLOBAL_COLOR.SECONDARY,
-        fontSize: 17,
-    },
-    infos : {
+    containerInfos : {
         marginTop: 15,
-        height : '71%',
-        width: '85%',
+        height : '75%',
+        width: '90%',
+        position: 'relative',
+        backgroundColor: 'white',
+        borderColor: GLOBAL_COLOR.SECONDARY,
+        borderWidth: 2,
+        borderRadius: 10,
+        shadowOffset: { width: 1, height: 4 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.3, // Ajustez l'opacité souhaitée
+        shadowRadius: 4, // Ajustez le rayon de l'ombre souhaité
+        elevation: 5, // Ajoutez la valeur d'élévation souhaitée
+    },
+    infos: {
+        justifyContent: 'flex-start',
+        marginLeft: 10,
+        marginTop: 10,
+        // backgroundColor: 'red',
+    },
+    edit: {
+        position: 'absolute',
+        top: 2,
+        right: 2,
+        paddingTop: 5,
+        paddingRight: 5,
+        paddingBottom: 15,
+        paddingLeft: 15,
+        backgroundColor: 'white',
     },
     textInfos : {
         marginBottom: 5,
         fontSize: 18,
-        color: GLOBAL_COLOR.SECONDARY
+        color: GLOBAL_COLOR.SECONDARY,
+        // marginTop: 5,
+        // marginLeft: 5,
     },
     textInfosBold: {
         fontWeight: 'bold'
+    },
+    line: {
+        alignItems: "center",
+    },
+    lines : {
+        width : "90%",
+        marginTop: 20,
+        marginBottom: 20,
+        borderBottomColor: GLOBAL_COLOR.PRIMARY,
+        // borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomWidth: 1, 
+    },
+    description:{
+        alignItems: 'center',
+    },
+    desc : {
+        // wordWrap: 'break-word',
+        color: GLOBAL_COLOR.SECONDARY,
+        fontSize: 17,
     },
     interetText : {
         fontWeight: 'bold',
