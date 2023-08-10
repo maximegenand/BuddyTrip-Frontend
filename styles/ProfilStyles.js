@@ -84,24 +84,25 @@ export default styles = StyleSheet.create({
     marginRight: 20
   },
   containerFriends: {
-    width: "80%",
-    height: "10%",
-    display: 'flex',
+    width: "60%",
+    height: "8%",
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: GLOBAL_COLOR.PRIMARY,
+    backgroundColor: GLOBAL_COLOR.TERTIARY,
+    borderWidth: 2,
+    borderColor: GLOBAL_COLOR.PRIMARY,
     padding: 10,
     borderRadius: 10,
     marginTop: 20,
-    shadowOffset: { width: 0, height: 4 }, // Ajustez l'offset souhaité
-    shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+    shadowOffset: { width: 0, height: 3 }, // Ajustez l'offset souhaité
+    shadowOpacity: 0.2, // Ajustez l'opacité souhaitée
     shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
     elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
   textAmis: {
     fontSize: 20,
-    color: GLOBAL_COLOR.TERTIARY,
+    color: GLOBAL_COLOR.PRIMARY,
     fontWeight: "bold",
   },
   imgProfil: {
@@ -126,19 +127,18 @@ export default styles = StyleSheet.create({
   gestion : {
     width: '100%',
     height: '15%',
-    display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    marginTop: 70
+    marginTop: 80,
   },
   containerGestion: {
     backgroundColor: GLOBAL_COLOR.PRIMARY,
     width: '40%',
     padding: 10,
     borderRadius: 5,
-    shadowOffset: { width: 0, height: 4 }, // Ajustez l'offset souhaité
-    shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+    shadowOffset: { width: 0, height: 3 }, // Ajustez l'offset souhaité
+    shadowOpacity: 0.2, // Ajustez l'opacité souhaitée
     shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
     elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
