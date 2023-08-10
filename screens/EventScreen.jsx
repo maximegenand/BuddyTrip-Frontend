@@ -11,6 +11,11 @@ import styles from "../styles/EventStyles";
 
 //Import components
 import BuddiesBar from "../components/BuddiesBar";
+import SvgCar from "../components/svg/SvgCar";
+import SvgPlane from "../components/svg/SvgPlane";
+import SvgTrain from "../components/svg/SvgTrain";
+import SvgActivity from "../components/svg/SvgActivity";
+import SvgPeople from "../components/svg/SvgPeople";
 
 //Import modules
 import { formatDate } from "../modules/dates";
@@ -61,6 +66,15 @@ export default function EventScreen({ route, navigation }) {
   // 3. Functions
 
   // On sélectionne l'icone en fonction de la catégorie de l'event
+  const findCategory = (cat) => {
+    const width = 40;
+    const height = 40;
+    const fill = GLOBAL_COLOR.TERTIARY;
+    if (cat === 'travel car') return <SvgCar style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
+    else if (cat === 'travel plane') return <SvgPlane style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
+    else if (cat === 'travel train') return <SvgTrain style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
+    return <SvgPeople style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
+  }
   const iconHeader = useRef(findCategory(category));
 
   // Au clique sur le plus ça envoi les info au back et met à jour l'état du fontawsome
@@ -132,7 +146,7 @@ export default function EventScreen({ route, navigation }) {
             </Text>
             <Text style={styles.titleBy}>Ajouté par {userEvent.username}</Text>
           </View>
-          <FontAwesome name={iconHeader.current} size={30} color={GLOBAL_COLOR.TERTIARY} />
+          {iconHeader.current}
         </View>
         <View style={styles.body}>
           <View style={styles.buddiesContainer}>

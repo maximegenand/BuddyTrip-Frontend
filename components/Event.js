@@ -11,6 +11,7 @@ import SvgCar from "./svg/SvgCar";
 import SvgPlane from "./svg/SvgPlane";
 import SvgTrain from "./svg/SvgTrain";
 import SvgActivity from "./svg/SvgActivity";
+import SvgPeople from "./svg/SvgPeople";
 
 export default function Event({ event, handlePress }) {
 
@@ -22,7 +23,7 @@ export default function Event({ event, handlePress }) {
     if (category === 'travel car') return <SvgCar style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
     else if (category === 'travel plane') return <SvgPlane style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
     else if (category === 'travel train') return <SvgTrain style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
-    return <SvgActivity style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
+    return <SvgPeople style={{ alignSelf: "center" }} width={width} height={height} fill={fill} />
   }
 
   return (
