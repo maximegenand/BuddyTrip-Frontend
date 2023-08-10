@@ -27,7 +27,7 @@ export default function BuddyBubble(props) {
             style={[styles.image, { borderRadius: props.size / 2 }]}
           />
         ):(
-          <Text style={styles.initiale}>{props.buddy.username.slice(0,1).toUpperCase()}</Text>
+          <Text style={[styles.initiale, {fontSize: props.size / 2}]}>{props.buddy.username.slice(0,1).toUpperCase()}</Text>
         )
       )}
     </View>
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     },
     initiale: {
       color: GLOBAL_COLOR.SECONDARY,
-      fontSize: 20,
       fontWeight: 700,
     },
     add: {
