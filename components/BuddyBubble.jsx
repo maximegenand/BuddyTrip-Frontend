@@ -8,15 +8,20 @@ export default function BuddyBubble(props) {
       styles.bubble,
       {
         zIndex: 100 - props.i,
-        left: -0.4 * props.size * props.i,
+        left: -0.3 * props.size * props.i,
         width: props.size,
         height: props.size,
         borderRadius: props.size / 2,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 3 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.2, // Ajustez l'opacité souhaitée
+        shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+        elevation: 5, // Ajoutez la valeur d'élévation souhaitée
       }
     ]}>
       {  // On affiche l'image de l'utilisateur si elle existe, sinon la première lettre de son nom
       props.add ? (
-        <Text style={[styles.add, {fontSize: props.size / 3, paddingRight: props.size / 7}]}>+{props.add}</Text>
+        <Text style={[styles.add, {fontSize: props.size / 3, paddingRight: props.size / 10}]}>+{props.add}2</Text>
       ) : (
         props.buddy.image ? (
           <Image
@@ -49,7 +54,7 @@ const styles = StyleSheet.create({
     },
     initiale: {
       color: GLOBAL_COLOR.SECONDARY,
-      fontWeight: 700,
+      fontFamily: "Montserrat-Alternates-SemiBold-Italic",
     },
     add: {
       alignSelf: 'flex-end',
