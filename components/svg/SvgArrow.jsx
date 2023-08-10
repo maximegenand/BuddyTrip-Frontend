@@ -5,10 +5,10 @@ import Svg, { G, Path } from "react-native-svg";
 
 export default SvgArrow = (props) => {
 
-  let direction = "M6 12h12m0 0-5-5m5 5-5 5"; // Right
-  if (props?.direction === "left") direction = "M6 12h12M6 12l5-5m-5 5 5 5";
-  if (props?.direction === "up") direction = "M12 6V18M12 6L7 11M12 6L17 11";
-  if (props?.direction === "down") direction = "M12 6V18M12 18L7 13M12 18L17 13";
+  let rotation = 0; // Right
+  if (props?.direction === "left") rotation = 180;
+  if (props?.direction === "up") rotation = 270;
+  if (props?.direction === "down") direction = 90;
 
   return (
   <Svg
@@ -16,6 +16,8 @@ export default SvgArrow = (props) => {
     width={props.width}
     height={props.height}
     viewBox="0 0 24 24"
+    rotation={rotation}
+    showShadow={true}
     {...props}
   >
 
@@ -24,7 +26,7 @@ export default SvgArrow = (props) => {
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={2}
-        d={direction}
+        d="M6 12h12m0 0-5-5m5 5-5 5"
       />
 
   </Svg>
