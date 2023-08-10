@@ -6,7 +6,7 @@ export default styles = StyleSheet.create({
     screen: {
         width: screenWidth,
         height: screenHeight,
-        backgroundColor: GLOBAL_COLOR.SECONDARY,
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
     container:{
         flex: 1,
@@ -33,8 +33,9 @@ export default styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         backgroundColor: GLOBAL_COLOR.PRIMARY,
-        shadowOffset: { width: 0, height: 4 }, // Ajustez l'offset souhaité
-        shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 3 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.2, // Ajustez l'opacité souhaitée
         shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
         elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
@@ -49,9 +50,10 @@ export default styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
         borderRadius: 10,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
-        shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
-        shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+        backgroundColor: GLOBAL_COLOR.QUATERNARY,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 3 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.2, // Ajustez l'opacité souhaitée
         shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
         elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
