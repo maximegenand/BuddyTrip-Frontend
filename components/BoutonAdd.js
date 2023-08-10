@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
       width: 90,
       height: 90,
       borderRadius: 100,
-      backgroundColor: GLOBAL_COLOR.PRIMARY,
+      backgroundColor: GLOBAL_COLOR.QUATERNARY,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
       width: 80,
       height: 80,
       borderRadius: 100,
-      backgroundColor: GLOBAL_COLOR.PRIMARY,
+      backgroundColor: GLOBAL_COLOR.QUATERNARY,
       position: "absolute",
     },
     plus: {
