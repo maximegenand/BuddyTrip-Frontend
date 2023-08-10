@@ -13,13 +13,13 @@ export default function Event({ event, handlePress }) {
           <FontAwesome style={styles.car} name={findCategory(event.category)} size={30} color={GLOBAL_COLOR.TERTIARY} />
           <Text style={styles.hour}>{event.timeEnd && format(new Date(event.timeEnd), "HH:mm")}</Text>
         </View>
-        <View style={styles.ou}>
+        <View style={styles.où}>
           <Text style={styles.name}>{event.name}</Text>
-          <Text style={styles.participants}>{event.participants.length} participants : {event.participants.map(e => e.username)}</Text>
+          <Text style={styles.participants}>{event.participants.length} participants</Text>
         </View>
-        <View>
-          <Text></Text>
-          <Text style={styles.createur}>{event.user.username}</Text>
+        <View style={styles.createur}>
+          <Text style={styles.text}>créateur:</Text>
+          <Text style={styles.text}>{event.user.username}</Text>
         </View>
     </TouchableOpacity>
   );
@@ -27,15 +27,16 @@ export default function Event({ event, handlePress }) {
 
 const styles = StyleSheet.create({
   container : {
-    width: screenWidth * 0.95,
-    height: '100%',
+    // width: "95%",
+    // width:370,
+    width: screenWidth*0.92,
+    // height: '100%',
+    height:  screenHeight*0.12,
     backgroundColor : GLOBAL_COLOR.SECONDARY,
     borderRadius: 5,
-    display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 10,
+    // padding: 10,
     margin: 5,
     shadowColor: 'black',
     shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
@@ -44,7 +45,7 @@ const styles = StyleSheet.create({
     elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
   date : {
-    display: 'flex',
+    width: '20%',
     flexDirection: 'column',
     alignItems: 'center'
   },
@@ -60,14 +61,17 @@ const styles = StyleSheet.create({
   participants : {
     color: GLOBAL_COLOR.TERTIARY,
   },
-  ou : {
-    displai: 'flex',
+  où : {
+    width: '60%',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  createur : {
+  createur:{
+    width: '20%',
+    marginBottom:50,
+  },
+  text : {
     color: GLOBAL_COLOR.TERTIARY,
-    marginBottom : 50,
   },
   car : {
     marginTop: 5,
