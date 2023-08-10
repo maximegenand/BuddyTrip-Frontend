@@ -175,7 +175,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.header}>
           <Logo style={{flexDirection: 'row'}} onPress={() => navigation.navigate("Signin")}/>
           <TouchableOpacity onPress={() => navigation.navigate("Profil")} activeOpacity={0.5}>
-            <BuddyBubble size={50} i={1} buddy={{ username: user.username, image: null }} />
+            <BuddyBubble size={50} i={1} buddy={user} />
           </TouchableOpacity>
         </View>
         <ScrollView style={styles.scrollContainer}>
