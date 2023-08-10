@@ -165,9 +165,9 @@ export default function HomeScreen({ navigation }) {
               <View style={styles.titleModalContainer}>
                 <Text style={styles.modalTitle}>{infosModalTrip.titleTripModal}</Text>
               </View>
-              <View style={styles.modalButton}>
-                <ModalButton onPress={() => handleDeleteTrip()} text="Supprimer le Trip" />
-                <ModalButton onPress={() => quitTrip()} text="Quitter le Trip" />
+              <View style={styles.btnModal}>
+                <ModalButton onPress={() => handleDeleteTrip()} text="Supprimer Trip" />
+                <ModalButton onPress={() => quitTrip()} text="Quitter Trip" />
               </View>
             </View>
           </TouchableOpacity>

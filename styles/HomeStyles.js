@@ -38,7 +38,6 @@ export default styles = StyleSheet.create({
     width: '90%',
     gap: 20,
     marginTop: 40,
-
   },
   monthLine: {
     flex: 1,
@@ -93,15 +92,6 @@ export default styles = StyleSheet.create({
     color: GLOBAL_COLOR.SECONDARY,
     fontStyle: 'italic',
   },
-
-  removeButton: {
-    backgroundColor: GLOBAL_COLOR.PRIMARY,
-    padding: 10,
-    borderRadius: 10,
-  },
-  removeButtonText: {
-    color: GLOBAL_COLOR.TERTIARY,
-  },
   add: {
     position: 'absolute',
     bottom: 20,
@@ -117,33 +107,56 @@ export default styles = StyleSheet.create({
 
   // Modale
   modalContainer: {
-    justifyContent: "center",
-    alignItems: "center",
     flex: 1,
-    backgroundColor: "transparent",
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 100,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
     width: "80%",
-    height: "25%",
-    backgroundColor: "white",
+    height: "30%",
     borderRadius: 5,
+    borderWidth:2,
+    borderColor: GLOBAL_COLOR.PRIMARY,
+    backgroundColor: "white",
+    alignItems: 'center',
     justifyContent: "space-evenly",
     alignItems: "center",
-    backgroundColor: GLOBAL_COLOR.SECONDARY,
-    padding: 10,
   },
   titleModalContainer: {
-    backgroundColor: GLOBAL_COLOR.TERTIARY,
+    backgroundColor: GLOBAL_COLOR.QUATERNARY,
     borderRadius: 5,
     padding: 10,
+    width:'60%',
+    height: '25%',
     alignItems: "center",
-    display: "flex",
     justifyContent: "center",
     alignItems: "center",
   },
   modalTitle: {
-    color: GLOBAL_COLOR.SECONDARY,
+    color: GLOBAL_COLOR.TERTIARY,
     fontWeight: "bold",
     textAlign: "center",
+    fontSize: 20,
+  },
+  btnModal:{
+    width: '50%',
+    height: '40%',
+    bottom: -20,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  removeButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: GLOBAL_COLOR.PRIMARY,
+    borderRadius: 10,
+    width: '80%',
+    height: '35%',
+  },
+  removeButtonText: {
+    color: GLOBAL_COLOR.TERTIARY,
   },
 });

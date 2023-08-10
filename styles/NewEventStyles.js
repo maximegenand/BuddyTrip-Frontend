@@ -4,7 +4,7 @@ import { GLOBAL_COLOR } from './globals';
 export default styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: GLOBAL_COLOR.SECONDARY,
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
     header: {
         flexDirection: 'row',
@@ -56,7 +56,7 @@ export default styles = StyleSheet.create({
     line : {
         marginVertical: 20,
         borderBottomColor: GLOBAL_COLOR.PRIMARY,
-        borderBottomWidth: StyleSheet.hairlineWidth,                                     
+        borderBottomWidth: 1,                                     
     },
     selectList: {
         marginBottom: 20,
@@ -76,9 +76,10 @@ export default styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
         borderRadius: 10,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
-        shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
-        shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+        backgroundColor: GLOBAL_COLOR.QUATERNARY,
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 3 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.2, // Ajustez l'opacité souhaitée
         shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
         elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
