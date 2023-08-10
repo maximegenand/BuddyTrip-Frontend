@@ -6,14 +6,14 @@ export default function Header({ navigation, title, participants, handlePress, s
   return (
     <View style={[styles.header, style]}>
       <TouchableOpacity style={styles.headerSide} onPress={() => navigation.navigate('Home')} activeOpacity={0.5}>
-        <FontAwesome name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
+        <FontAwesome name="arrow-left" size={30} color='white' />
       </TouchableOpacity>
       <TouchableOpacity style={styles.headerCenter} onPress={handlePress}>
           <Text numberOfLines={1} ellipsizeMode="middle" style={styles.title}>{title}</Text>
           <Text style={styles.buddies}>{participants}</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.headerSide} activeOpacity={0.5}>
-        <FontAwesome name="bell" size={30} color={GLOBAL_COLOR.TERTIARY} />
+        <FontAwesome name="bell" size={30} color='white' />
       </TouchableOpacity>
     </View>
   );

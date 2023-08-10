@@ -21,6 +21,11 @@ import styles from "../styles/NewEventStyles";
 import HeaderNav from "../components/HeaderNewTrip";
 import LoadingModal from "../components/LoadingModal";
 import InputComponent from "../components/Input";
+import SvgCar from "../components/svg/SvgCar";
+import SvgPlane from "../components/svg/SvgPlane";
+import SvgTrain from "../components/svg/SvgTrain";
+import SvgActivity from "../components/svg/SvgActivity";
+import SvgPeople from "../components/svg/SvgPeople";
 
 //Import modules
 import { formatDate } from "../modules/formatDate";
@@ -96,6 +101,10 @@ export default function NewEventScreen({ route, navigation }) {
   // On défini le défaultValue pour la selectionList
   const initialObject = initialTransport ? listSelection.find(e => e.key === transportSelected) : undefined;
   //console.log(initialObject);
+  let iconTransport = <SvgCar style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
+  if (transportSelected === "train") iconTransport = <SvgTrain style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
+  if (transportSelected === "plane")iconTransport = <SvgPlane style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
+
 
 
   // 3. Functions
@@ -266,11 +275,10 @@ export default function NewEventScreen({ route, navigation }) {
       <StatusBar translucent={false} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
       <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
       <LoadingModal visible={modalLoadingVisible} />
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.screen}>
         <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
           <HeaderNav title={event.tokenEvent ? "Mettre à jour l'événement" : "Nouvel événement"} navigation={navigation} />
-          <ScrollView style={styles.body}>
-            <Text style={styles.textError}>{textError}</Text>
+          <ScrollView style={styles.content}>
             <InputComponent
               key="title"
               name="title"
@@ -291,14 +299,14 @@ export default function NewEventScreen({ route, navigation }) {
               <Text style={styles.textCategorie}>Selectionner une categorie :</Text>
               <View style={styles.bubblesContainer}>
                 <TouchableOpacity style={[styles.bubble, {opacity: transport ? 1 : 0.5}]} onPress={handleTransportPress}>
-                  <FontAwesome name="car" size={30} color={GLOBAL_COLOR.PRIMARY} />
+                  {iconTransport}
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.bubble, {opacity: activity ? 1 : 0.5}]} onPress={handleActivityPress}>
-                  <FontAwesome name="play" size={30} color={GLOBAL_COLOR.PRIMARY} />
+                  <SvgPeople style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />
                 </TouchableOpacity>
               </View>
             </View>
-            <View style={styles.line} />
+            <View style={[globalsStyles.lines, {alignSelf: 'center'}]} />
             {
               // input si bouton Activity = true
               activity && (
@@ -409,6 +417,7 @@ export default function NewEventScreen({ route, navigation }) {
                 </>
               )
             }
+            <Text style={styles.textError}>{textError}</Text>
             <TouchableOpacity style={styles.btnSave} onPress={() => handleAddEvent()}>
               <Text style={styles.textSave}>Enregistrer</Text>
             </TouchableOpacity>

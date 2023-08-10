@@ -4,32 +4,18 @@ const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
     screen: {
-        width: screenWidth,
-        height: screenHeight,
-        backgroundColor: GLOBAL_COLOR.TERTIARY,
-    },
-    container:{
         flex: 1,
+        backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
     content: {
         flex: 1,
-        paddingTop: 10,
+        paddingTop: 20,
         paddingHorizontal: '10%',
         paddingBottom: 20,
     },
-    textError: {
-        height: 30,
-        marginBottom: 10,
-        textAlign: 'center',
-        color: '#750000',
-        fontSize: 20,
-        fontWeight: 700,
-        textShadowColor: 'white',
-        textShadowRadius: 10,
-    },
     btnBuddy: {
         alignSelf: 'center',
-        marginVertical: 0,
+        marginBottom: 20,
         padding: 10,
         borderRadius: 10,
         backgroundColor: GLOBAL_COLOR.PRIMARY,
@@ -43,10 +29,22 @@ export default styles = StyleSheet.create({
         fontSize: 12,
         color: 'white',
     },
+    textError: {
+        height: 30,
+        marginBottom: 10,
+        textAlign: 'center',
+        color: '#750000',
+        fontSize: 20,
+        fontWeight: 700,
+        textShadowColor: 'white',
+        textShadowRadius: 10,
+    },
     btnAdd: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 20,
+        marginHorizontal: "5%",
+        marginTop: 10,
+        marginBottom: 20,
         paddingHorizontal: 20,
         paddingVertical: 10,
         borderRadius: 10,
@@ -62,4 +60,7 @@ export default styles = StyleSheet.create({
         fontWeight: "bold",
         color: 'white',
     },
+    space: {
+        height: 20,
+    }
 })

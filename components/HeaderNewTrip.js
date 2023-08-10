@@ -1,41 +1,41 @@
 import { View, StyleSheet, Text, Dimensions, TouchableOpacity } from "react-native";
 import { GLOBAL_COLOR } from "../styles/globals";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 export default function HeaderNav({ navigation, title }) {
   return (
     <View style={styles.header}>
-      <TouchableOpacity onPress={() => navigation.goBack()} activeOpacity={0.8}>
-        <FontAwesome style={styles.fleche} name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
+      <TouchableOpacity style={styles.headerSide} onPress={() => navigation.goBack()} activeOpacity={0.8}>
+        <FontAwesome name="arrow-left" size={30} color='white' />
       </TouchableOpacity>
-      <Text style={styles.text}>{title}</Text>
-      <Text style={styles.right}></Text>
+      <View style={styles.headerCenter}>
+        <Text numberOfLines={1} ellipsizeMode="middle" style={styles.title}>{title}</Text>
+      </View>
+      <View style={styles.headerSide}></View>
     </View>
   );
 }
 const styles = StyleSheet.create({
   header: {
-    width: screenWidth,
-    height: 60,
-    backgroundColor: GLOBAL_COLOR.PRIMARY,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: 10,
+    backgroundColor: GLOBAL_COLOR.PRIMARY,
   },
-  text: {
-    fontWeight: "bold",
-    color: GLOBAL_COLOR.TERTIARY,
+  headerSide: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 60,
+    height: 60,
+  },
+  headerCenter: {
+    flex: 1,
+    gap: 5,
+    paddingHorizontal: 5,
+  },
+  title: {
+    color: 'white',
     fontSize: 20,
+    fontWeight: 700,
   },
-  buddys: {
-    color: GLOBAL_COLOR.TERTIARY,
-  },
-  fleche: {
-    //padding:10,
-  },
-  right: {
-    padding: 20,
-  }
 });

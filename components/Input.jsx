@@ -86,6 +86,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 20,
+    borderWidth: 2,
+    borderColor: GLOBAL_COLOR.SECONDARY,
     borderRadius: 5,
     backgroundColor: 'white',
   },
@@ -101,6 +103,8 @@ const styles = StyleSheet.create({
   },
   input : {
     flex: 1,
+    position: 'relative',
+    top: 3,
     marginVertical: 10,
     marginHorizontal: '5%',
     fontSize: 16,

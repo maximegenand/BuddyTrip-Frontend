@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import {
   View,
+  ScrollView,
   Text,
   StatusBar,
   TouchableOpacity,
@@ -213,53 +214,52 @@ export default function NewTripScreen({ route, navigation }) {
       <LoadingModal visible={modalLoadingVisible} />
       <AddBuddyTrip modalVisible={modalBuddyVisible} data={dataUsers} setBuddiesSelected={setBuddiesSelected} buddiesSelected={buddiesSelected} handleModal={handleModal} />
       <SafeAreaView style={styles.screen}>
-        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === "ios" ? "padding" : "height"}>
-          <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
-            <HeaderNav title={trip.tokenTrip ? "Mettre à jour le Trip" : "Nouveau Trip"} navigation={navigation} />
-            <View style={styles.content}>
-              <Text style={styles.textError}>{textError}</Text>
-              <InputComponent
-                key="name"
-                name="name"
-                placeholder="Nom du groupe"
-                onInputChange={handleInputChange}
-                value={tripName}
-              />
-              <InputComponent
-                key="dateStart"
-                name="dateStart"
-                type="numeric"
-                placeholder="Date de début (JJ/MM/AAAA)"
-                onInputChange={handleInputChange}
-                value={startDateText}
-                maxLength={10}
-              />
-              <InputComponent
-                key="dateEnd"
-                name="dateEnd"
-                type="numeric"
-                placeholder="Date de fin (JJ/MM/AAAA)"
-                onInputChange={handleInputChange}
-                value={endDateText}
-                maxLength={10}
-              />
-              <InputComponent
-                key="description"
-                name="description"
-                type="description"
-                placeholder="Description du voyage"
-                onInputChange={handleInputChange}
-                value={description}
-              />
-              <TouchableOpacity style={styles.btnBuddy} onPress={handleModal}>
-                <Text style={styles.buddyText}>Sélectionner des buddies - <Text style={{fontWeight: "bold"}}>{buddiesSelected.length}/50</Text></Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btnAdd} onPress={handleAddTrip}>
-                <Text style={styles.btnText}>Add Trip</Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
+        <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
+          <HeaderNav title={trip.tokenTrip ? "Mettre à jour le Trip" : "Nouveau Trip"} navigation={navigation} />
+          <ScrollView style={styles.content}>
+            <InputComponent
+              key="name"
+              name="name"
+              placeholder="Nom du groupe"
+              onInputChange={handleInputChange}
+              value={tripName}
+            />
+            <InputComponent
+              key="dateStart"
+              name="dateStart"
+              type="numeric"
+              placeholder="Date de début (JJ/MM/AAAA)"
+              onInputChange={handleInputChange}
+              value={startDateText}
+              maxLength={10}
+            />
+            <InputComponent
+              key="dateEnd"
+              name="dateEnd"
+              type="numeric"
+              placeholder="Date de fin (JJ/MM/AAAA)"
+              onInputChange={handleInputChange}
+              value={endDateText}
+              maxLength={10}
+            />
+            <InputComponent
+              key="description"
+              name="description"
+              type="description"
+              placeholder="Description du voyage"
+              onInputChange={handleInputChange}
+              value={description}
+            />
+            <TouchableOpacity style={styles.btnBuddy} onPress={handleModal}>
+              <Text style={styles.buddyText}>Sélectionner des buddies - <Text style={{fontWeight: "bold"}}>{buddiesSelected.length}/50</Text></Text>
+            </TouchableOpacity>
+            <Text style={styles.textError}>{textError}</Text>
+            <TouchableOpacity style={styles.btnAdd} onPress={handleAddTrip}>
+              <Text style={styles.btnText}>Ajouter le Trip</Text>
+            </TouchableOpacity>
+            <View style={styles.space}></View>
+          </ScrollView>
+        </TouchableOpacity>
       </SafeAreaView>
     </>
   );

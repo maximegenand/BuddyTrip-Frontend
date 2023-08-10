@@ -2,37 +2,15 @@ import { StyleSheet } from 'react-native';
 import { GLOBAL_COLOR } from './globals';
 
 export default styles = StyleSheet.create({
-    container: {
+    screen: {
         flex: 1,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
-    header: {
-        flexDirection: 'row',
-        alignItems : 'center',
-        height: 60,
-        paddingHorizontal: 10,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
-    },
-    title: {
-        marginLeft: 20,
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: GLOBAL_COLOR.TERTIARY,
-    },
-    body: {
+    content: {
+        flex: 1,
         paddingTop: 10,
         paddingHorizontal: '10%',
         paddingBottom: 20,
-    },
-    textError: {
-        height: 30,
-        marginBottom: 10,
-        textAlign: 'center',
-        color: '#750000',
-        fontSize: 20,
-        fontWeight: 700,
-        textShadowColor: 'white',
-        textShadowRadius: 10,
     },
     textCategorie: {
         marginBottom: 10,
@@ -63,16 +41,29 @@ export default styles = StyleSheet.create({
     },
     insideList: {
         backgroundColor: 'white',
-        borderWidth: 0,
+        borderWidth: 2,
+        borderColor: GLOBAL_COLOR.SECONDARY,
         borderRadius: 5,
     },
     textList: {
         fontSize: 16,
     },
+    textError: {
+        height: 30,
+        marginBottom: 10,
+        textAlign: 'center',
+        color: '#750000',
+        fontSize: 20,
+        fontWeight: 700,
+        textShadowColor: 'white',
+        textShadowRadius: 10,
+    },
     btnSave: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 20,
+        marginHorizontal: "5%",
+        marginTop: 10,
+        marginBottom: 20,
         paddingHorizontal: 20,
         paddingVertical: 10,
         borderRadius: 10,
