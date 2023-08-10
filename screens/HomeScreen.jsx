@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, Fragment } from "react";
 import {
   View, 
   Text,
@@ -109,23 +109,23 @@ export default function HomeScreen({ navigation }) {
       });
   };
 
-  let monthPrec = '';
-
-// 4. Return Component
-
+  
+  // 4. Return Component
+  
   // Fonction d'affichage de la liste des Trips
   const tripList = trips.map((trip) => {
     const buddiesCount = trip.participants.length;
     let buddyList = `${buddiesCount} buddies`;
     if (buddiesCount === 1) buddyList = '1 buddy';
     else if (buddiesCount === 0) buddyList = '';
-
+    
     // On vérifie que le mois du trip précédant est identique
+    let monthPrec = '';
     const isScreenMonth = isSameMonth(new Date(trip.dateStart), new Date(monthPrec));
     monthPrec = trip.dateStart;
     // S'il ne l'est pas on affiche un titre avant le trip
     const titleMonth = !isScreenMonth ? (
-      <View style={styles.monthContainer}>
+      <View key={trip.dateStart} style={styles.monthContainer}>
         <View style={styles.monthLine}></View>
         <Text style={styles.monthText}>{format(new Date(trip.dateStart), 'MMMM yyyy', { locale: fr })}</Text>
         <View style={[styles.monthLine, {flex: 2}]}></View>
@@ -133,11 +133,10 @@ export default function HomeScreen({ navigation }) {
     ) : null;
 
     return (
-    <>
+    <Fragment key={trip.tokenTrip}>
       {titleMonth}
       <TouchableOpacity
         style={styles.tripContainer}
-        key={trip.tokenTrip}
         onLongPress={() => handleModalSuppression(trip.tokenTrip)}
         onPress={() => navigation.navigate("TabNavigator", { screen: "Trip", params: {tokenTrip: trip.tokenTrip }})}
       >
@@ -150,7 +149,7 @@ export default function HomeScreen({ navigation }) {
         </View>
         <View styles={styles.chevron}></View>
       </TouchableOpacity>
-    </>
+    </Fragment>
     )
   });
 
@@ -175,7 +174,7 @@ export default function HomeScreen({ navigation }) {
         <View style={styles.header}>
           <Logo style={{flexDirection: 'row'}} onPress={() => navigation.navigate("Signin")}/>
           <TouchableOpacity onPress={() => navigation.navigate("Profil")} activeOpacity={0.5}>
-            <BuddyBubble size={50} i={1} buddy={user} />
+            <BuddyBubble key={user.tokenUser} size={50} i={0} buddy={user} />
           </TouchableOpacity>
         </View>
         <ScrollView style={styles.scrollContainer}>
