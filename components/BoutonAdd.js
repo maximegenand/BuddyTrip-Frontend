@@ -1,12 +1,13 @@
 import { View, StyleSheet, Text, TouchableOpacity, Dimensions } from "react-native";
 import { GLOBAL_COLOR } from '../styles/globals';
+import SvgAdd from "./svg/SvgAdd";
 export default function BoutonAdd(props) {
 
   return (
     <TouchableOpacity  style={[styles.container, props.buttonStyle]} onPress={props.onPress}>
       <View style={styles.innerCircle} />
       <View style={styles.innerCircle2} />
-      <Text style={styles.plus}>+</Text>
+      <SvgAdd style={{ alignSelf: "center" }} width={40} height={40} fill={GLOBAL_COLOR.TERTIARY} />
     </TouchableOpacity>
   );
 }

@@ -5,6 +5,8 @@ import { findCategory } from "../modules/findCategory";
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 import { addDays, format } from "date-fns";
 
+import BuddyBubble from "./BuddyBubble";
+
 import SvgCar from "./svg/SvgCar";
 import SvgPlane from "./svg/SvgPlane";
 import SvgTrain from "./svg/SvgTrain";
@@ -25,19 +27,18 @@ export default function Event({ event, handlePress }) {
 
   return (
     <TouchableOpacity style={styles.container} onPress={handlePress}>
-        <View style={styles.date}>
-          <Text style={styles.hour}>{format(new Date(event.timeStart), "HH:mm")}</Text>
-          {icon(event.category)}
-          <Text style={styles.hour}>{event.timeEnd && format(new Date(event.timeEnd), "HH:mm")}</Text>
-        </View>
-        <View style={styles.where}>
-          <Text style={styles.name}>{event.name}</Text>
-          <Text style={styles.participants}>{event.participants.length} participants</Text>
-        </View>
-        <View style={styles.createur}>
-          <Text style={styles.text}>créateur:</Text>
-          <Text style={styles.text}>{event.user.username}</Text>
-        </View>
+      <View style={styles.date}>
+        <Text style={styles.hour}>{format(new Date(event.timeStart), "HH'h'mm")}</Text>
+        {icon(event.category)}
+        <Text style={styles.hour}>{event.timeEnd && format(new Date(event.timeEnd), "HH'h'mm")}</Text>
+      </View>
+      <View style={styles.where}>
+        <Text style={styles.name}>{event.name}</Text>
+        <Text style={styles.participants}>{event.participants.length} participants</Text>
+      </View>
+      <View style={styles.userBubble}>
+        <BuddyBubble key={event.user.tokenUser} buddy={event.user} i={0} size={30} />
+      </View>
     </TouchableOpacity>
   );
 }
@@ -81,9 +82,12 @@ const styles = StyleSheet.create({
     color: GLOBAL_COLOR.PRIMARY,
   },
   where: {
-    width: '60%',
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  userBubble: {
+    alignSelf: 'flex-start',
   },
   createur:{
     width: '20%',

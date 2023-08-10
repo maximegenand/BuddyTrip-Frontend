@@ -4,8 +4,7 @@ const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
     container : {
-        width: screenWidth,
-        height: screenHeight,
+        flex: 1,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
     modalContainer: {
@@ -48,6 +47,7 @@ export default styles = StyleSheet.create({
         height: 60,
     },
     content: {
+        position: 'relative',
         flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -69,14 +69,6 @@ export default styles = StyleSheet.create({
         alignItems: 'flex-end',
         width: 70,
         height: 70,
-        padding: 10,
-        //borderRadius: 25,
-        //backgroundColor: 'red',
-        // shadowColor: 'black',
-        // shadowOffset: { width: 0, height: 2 }, // Ajustez l'offset souhaité
-        // shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
-        // shadowRadius: 3, // Ajustez le rayon de l'ombre souhaité
-        // elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
     dateContainer: {
         //height: screenHeight * 0.1,
@@ -100,15 +92,19 @@ export default styles = StyleSheet.create({
         justifyContent: 'center',
         width: 70,
         height: 70,
-        padding: 10,
-        //backgroundColor: 'red',
     },
     events : {
+        width: '100%',
         overflow :'scroll',
         paddingHorizontal: "5%",
     },
+    add: {
+        position: 'absolute',
+        bottom: 20,
+        width: '100%',
+        alignItems: "center",
+    },
     boutonAdd: {
-        bottom: 10,
         shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
         shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
         shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité

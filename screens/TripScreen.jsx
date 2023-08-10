@@ -12,6 +12,7 @@ import styles from "../styles/TripStyles";
 import Header from "../components/Header";
 import Event from "../components/Event";
 import BoutonAdd from "../components/BoutonAdd";
+import SvgArrow from "../components/svg/SvgArrow";
 
 //Import modules
 import { formatDate, formatPeriod } from "../modules/dates";
@@ -164,22 +165,23 @@ export default function TripScreen({ route, navigation }) {
           <View style={styles.calendarContainer}>
           <ImageBackground source={{uri: uriBackground}} style={styles.calendarBackground} resizeMode="stretch">
             <TouchableOpacity style={styles.flecheLeft} onPress={onPreviousDate}>
-              <FontAwesome  name="arrow-left" size={40} color={GLOBAL_COLOR.PRIMARY} />
+              <SvgArrow width={60} height={60} fill={GLOBAL_COLOR.PRIMARY} direction="left" />
             </TouchableOpacity>
             <View style={styles.dateContainer}>
               <Text style={styles.day}>{getDayOfWeek(currentDate)}</Text>
               <Text style={styles.date}>{formatDate(currentDate, true)} </Text>
             </View>
             <TouchableOpacity style={styles.flecheRight} onPress={onNextDate}>
-              <FontAwesome name="arrow-right" size={40} color={GLOBAL_COLOR.PRIMARY} />
+              <SvgArrow width={60} height={60} fill={GLOBAL_COLOR.PRIMARY} />
             </TouchableOpacity>
           </ImageBackground>
           </View>
-          <View style={globalsStyles.xlines} />
           <ScrollView style={styles.events}>
             {eventsScreen}
           </ScrollView>
-          <BoutonAdd onPress={() => navigation.navigate("NewEvent", { screen: "NewEvent", tokenTrip, currentDate: currentDate.toJSON() })} buttonStyle={styles.boutonAdd} />
+          <View style={styles.add}>
+            <BoutonAdd onPress={() => navigation.navigate("NewEvent", { screen: "NewEvent", tokenTrip, currentDate: currentDate.toJSON() })} buttonStyle={styles.boutonAdd} />
+          </View>
         </View>
       </SafeAreaView>
     </>
