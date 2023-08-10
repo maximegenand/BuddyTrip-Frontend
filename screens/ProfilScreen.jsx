@@ -1,5 +1,4 @@
-import { useRef, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, StatusBar, SafeAreaView, Image } from "react-native";
+import { View, Text, TouchableOpacity, StatusBar, SafeAreaView, Dimensions, Image } from "react-native";
 
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
@@ -7,21 +6,20 @@ import styles from "../styles/ProfilStyles";
 
 //Import components
 import BuddyBubble from "../components/BuddyBubble";
+import SvgArrow from "../components/svg/SvgArrow";
+import SvgHome from "../components/svg/SvgHome";
 
 //Import modules
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { BACK_URL } from "@env";
+
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/reducers/user";
-import {} from "../redux/reducers/trips";
-import {} from "../redux/reducers/events";
+
 
 export default function ProfilScreen({ navigation }) {
   // 1. Redux storage
   const user = useSelector((state) => state.user.value);
-  const trips = useSelector((state) => state.trips.value);
-  const events = useSelector((state) => state.events.value);
   const dispatch = useDispatch();
 
   // 2. UseEffect, UseState, UseRef
@@ -44,65 +42,47 @@ export default function ProfilScreen({ navigation }) {
         barStyle="light-content"
       />
       <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
-      <SafeAreaView>
+      <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity style={styles.btnHome} onPress={() => navigation.navigate("Home")}>
-            <Text style={styles.headerText2}>Home</Text>
+            <SvgHome width={40} height={40} fill="white" />
           </TouchableOpacity>
           <Text style={styles.headerText}>Profil</Text>
-          <Text style={styles.headerText3}>Home</Text>
+          <View style={styles.btnHome}></View>
         </View>
-        <View style={styles.container}>
-        <View style={styles.name}>
-            <View style={styles.containerImg}>
-              <BuddyBubble size={50} i={-1} buddy={user} />
+        <View style={styles.content}>
+          <TouchableOpacity style={styles.imgContainer} activeOpacity={1}>
+            <BuddyBubble size={Dimensions.get("window").width / 2} i={0} buddy={user} />
+            <TouchableOpacity style={styles.imgEdit} activeOpacity={0.8}>
+              <FontAwesome name="edit" size={30} color={GLOBAL_COLOR.SECONDARY} />
+            </TouchableOpacity>
+          </TouchableOpacity>
+          <View style={globalsStyles.lines} />
+          <View style={styles.infos}>
+            <View style={styles.textContainer}>
+              <View style={styles.textContainerInnerLeft}>
+                <Text style={styles.textInfosBold}>Username :</Text>
+                <Text style={styles.textInfosBold}>Email :</Text>
+                <Text style={styles.textInfosBold}>Password :</Text>
+              </View>
+              <View style={styles.textContainerInnerRight}>
+                <Text style={styles.textInfos}>{user.username}</Text>
+                <Text style={styles.textInfos}>{user.email}</Text>
+                <Text style={styles.textInfos}>***********</Text>
+              </View>
             </View>
-            <TouchableOpacity>
-              <FontAwesome
-                style={styles.iconEdit}
-                name="edit"
-                size={20}
-                color={GLOBAL_COLOR.SECONDARY}
-              />
+            <TouchableOpacity style={styles.imgEdit}>
+              <FontAwesome name="edit" size={30} color={GLOBAL_COLOR.SECONDARY} />
             </TouchableOpacity>
           </View>
-          <View style={styles.name}>
-            <View style={styles.containerText}>
-              <Text style={styles.textBrut}>Username :</Text>
-              <Text style={styles.textVar}>{user.username}</Text>
-            </View>
-            <TouchableOpacity>
-              <FontAwesome
-                style={styles.iconEdit}
-                name="edit"
-                size={20}
-                color={GLOBAL_COLOR.SECONDARY}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.lines} />
-          <View style={styles.name}>
-            <View style={styles.containerText}>
-              <Text style={styles.textBrut}>Email :</Text>
-              <Text style={styles.textVar}>{user.email}</Text>
-            </View>
-            <TouchableOpacity>
-              <FontAwesome
-                style={styles.iconEdit}
-                name="edit"
-                size={20}
-                color={GLOBAL_COLOR.SECONDARY}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.lines} />
+          <View style={globalsStyles.lines} />
           <TouchableOpacity style={styles.containerFriends}>
-            <Text style={styles.textAmis}>Liste d'amis</Text>
-            <FontAwesome name="arrow-right" size={25} color={GLOBAL_COLOR.PRIMARY} />
+            <Text style={styles.textFriends}>Liste d'amis</Text>
+            <SvgArrow width={40} height={40} fill={GLOBAL_COLOR.TERTIARY} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.containerFriends}>
-            <Text style={styles.textAmis}>Archive</Text>
-            <FontAwesome name="arrow-right" size={25} color={GLOBAL_COLOR.PRIMARY} />
+            <Text style={styles.textFriends}>Archives</Text>
+            <SvgArrow width={40} height={40} fill={GLOBAL_COLOR.TERTIARY} />
           </TouchableOpacity>
           <View style={styles.gestion}>
             <TouchableOpacity style={styles.containerGestion}>

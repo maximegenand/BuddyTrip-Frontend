@@ -4,133 +4,102 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
 
 export default styles = StyleSheet.create({
   container: {
-    width: screenWidth,
-    height: screenHeight,
-    backgroundColor: GLOBAL_COLOR.TERTIARY,
-    display: "flex",
-    alignItems: "center",
+    flex: 1,
   },
   header: {
     flexDirection: 'row',
-    width: "100%",
-    height: "8%",
-    backgroundColor: GLOBAL_COLOR.PRIMARY,
-    display: "flex",
     justifyContent: 'space-between',
     alignItems: "center",
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  headerText: {
-    color: GLOBAL_COLOR.TERTIARY,
-    fontWeight: "bold",
-    fontSize: 25,
-  },
-  headerText2: {
-    color: GLOBAL_COLOR.TERTIARY,
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  headerText3: {
-    color: GLOBAL_COLOR.PRIMARY,
-    fontWeight: "bold",
-    fontSize: 20,
+    width: "100%",
+    height: 60,
+    backgroundColor: GLOBAL_COLOR.PRIMARY,
   },
   btnHome: {
-    backgroundColor: GLOBAL_COLOR.PRIMARY,
-    borderColor: GLOBAL_COLOR.TERTIARY,
-    borderWidth: 2,
-    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 60,
+    height: 60,
   },
-  name: {
-    width: "100%",
-    height: "10%",
+  headerText: {
+    color: 'white',
+    fontSize: 25,
+    fontWeight: 700,
+  },
+  content: {
+    flex: 1,
     display: "flex",
-    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-  },
-  lines: {
-    width: screenWidth * 0.9,
-    borderBottomColor: GLOBAL_COLOR.PRIMARY,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  textBrut: {
-    color: GLOBAL_COLOR.SECONDARY,
-    fontWeight: "bold",
-    fontSize: 17,
-    marginLeft: 20,
-  },
-  textVar: {
-    color: "red",
-    fontSize: 17,
-    color: GLOBAL_COLOR.SECONDARY,
-    marginLeft: 10,
-  },
-  containerText: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  iconEdit: {
-    marginRight: 20,
-  },
-  allFriends: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginLeft: 20,
-    marginRight: 20
-  },
-  containerFriends: {
-    width: "60%",
-    height: "8%",
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    paddingTop: 50,
     backgroundColor: GLOBAL_COLOR.TERTIARY,
+  },
+  imgContainer: {
+    position: 'relative',
+  },
+  imgEdit: {
+    position: 'absolute',
+    zIndex: 100,
+    bottom: 10,
+    right: 0,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 50,
+    height: 50,
+    backgroundColor: 'white',
     borderWidth: 2,
     borderColor: GLOBAL_COLOR.PRIMARY,
-    padding: 10,
+    borderRadius: 25,
+  },
+  infos: {
+    width: "90%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  textContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    gap: 10,
+  },
+  textContainerInnerLeft: {
+    alignItems: 'flex-end',
+  },
+  textInfosBold: {
+    color: GLOBAL_COLOR.PRIMARY,
+    fontWeight: 700,
+    fontSize: 16,
+  },
+  textInfos: {
+    color: GLOBAL_COLOR.PRIMARY,
+    fontSize: 17,
+  },
+  containerFriends: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: "60%",
+    height: 50,
+    marginVertical: 10,
+    paddingLeft: 10,
+    backgroundColor: GLOBAL_COLOR.QUATERNARY,
+    //borderWidth: 2,
+    borderColor: GLOBAL_COLOR.PRIMARY,
     borderRadius: 10,
-    marginTop: 20,
     shadowOffset: { width: 0, height: 3 }, // Ajustez l'offset souhaité
     shadowOpacity: 0.2, // Ajustez l'opacité souhaitée
     shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
     elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
-  textAmis: {
+  textFriends: {
     fontSize: 20,
-    color: GLOBAL_COLOR.PRIMARY,
-    fontWeight: "bold",
-  },
-  imgProfil: {
-    marginLeft: 20,
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  containerImg: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textBrutPhotoProfil: {
-    color: GLOBAL_COLOR.SECONDARY,
-    fontWeight: "bold",
-    fontSize: 17,
-    marginLeft: 20,
-    marginRight: 30,
+    color: GLOBAL_COLOR.TERTIARY,
+    fontWeight: 700,
   },
   gestion : {
-    width: '100%',
-    height: '15%',
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    alignItems: 'center',
-    marginTop: 80,
+    alignItems: 'flex-end',
+    width: '100%',
+    paddingBottom: 20,
   },
   containerGestion: {
     backgroundColor: GLOBAL_COLOR.PRIMARY,
@@ -143,8 +112,8 @@ export default styles = StyleSheet.create({
     elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
   textGestion : {
-    color: GLOBAL_COLOR.TERTIARY,
-    fontWeight: 'bold',
+    color: 'white',
+    fontWeight: 700,
     textAlign: 'center'
   }
 });
