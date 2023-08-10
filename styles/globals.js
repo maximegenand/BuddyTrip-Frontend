@@ -6,9 +6,10 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : StatusBarManager.HEIGHT
 
 // Couleurs globales de l'app
 const GLOBAL_COLOR = {
-    PRIMARY : '#cc2f06',
-    SECONDARY: '#e9671f',
-    TERTIARY : '#f7dbc6',
+    PRIMARY : '#e67451',
+    SECONDARY: '#eb834a',
+    TERTIARY : '#fdf2ec',
+    QUATERNARY : '#fba70e',
 };
 
 const globalsStyles = StyleSheet.create({
