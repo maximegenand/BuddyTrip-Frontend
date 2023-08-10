@@ -35,7 +35,7 @@ export default styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.SECONDARY,
     borderRadius: 10,
     shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
-    shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+    shadowOpacity: 0.3, // Ajustez l'opacité souhaitée
     shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
     elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
