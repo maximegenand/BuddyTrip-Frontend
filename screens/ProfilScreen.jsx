@@ -98,11 +98,11 @@ export default function ProfilScreen({ navigation }) {
           <View style={styles.lines} />
           <TouchableOpacity style={styles.containerFriends}>
             <Text style={styles.textAmis}>Liste d'amis</Text>
-            <FontAwesome name="arrow-right" size={25} color={GLOBAL_COLOR.TERTIARY} />
+            <FontAwesome name="arrow-right" size={25} color={GLOBAL_COLOR.PRIMARY} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.containerFriends}>
             <Text style={styles.textAmis}>Archive</Text>
-            <FontAwesome name="arrow-right" size={25} color={GLOBAL_COLOR.TERTIARY} />
+            <FontAwesome name="arrow-right" size={25} color={GLOBAL_COLOR.PRIMARY} />
           </TouchableOpacity>
           <View style={styles.gestion}>
             <TouchableOpacity style={styles.containerGestion}>
