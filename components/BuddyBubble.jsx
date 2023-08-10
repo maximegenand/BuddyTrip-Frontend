@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: GLOBAL_COLOR.TERTIARY,
         borderWidth: 2,
-        borderColor: GLOBAL_COLOR.PRIMARY,
+        borderColor: GLOBAL_COLOR.SECONDARY,
     },
     image: {
         borderWidth: 2,

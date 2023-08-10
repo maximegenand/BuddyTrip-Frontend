@@ -43,33 +43,33 @@ export default styles = StyleSheet.create({
     buddiesContainer: {
         width: "90%",
         alignSelf: 'center',
-        justifyContent: 'flex-start',
-        // backgroundColor: GLOBAL_COLOR.TERTIARY,
+        alignItems : 'center',
     },
-    titleBuddies: {
-        position: 'relative',
-        bottom: -2,
-        alignSelf: 'flex-start',
-        marginRight: 59,
-        paddingTop: 5,
-        paddingHorizontal: 10,
-        fontSize: 16,
+    lineContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    textTitleBuddies: {
+        marginHorizontal: 2,
+        fontSize: 18,
         fontWeight: "bold",
         color: GLOBAL_COLOR.SECONDARY,
+    },
+    Line: {
+        flex: 1,
+        height: 2.5,
+        backgroundColor: GLOBAL_COLOR.PRIMARY,
     },
     buddiesContent: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: "65%",
+        width: "100%",
         height: 60,
-        borderTopRightRadius: 30,
-        borderTopLeftRadius: 30,
-        borderBottomLeftRadius: 30,
-        borderBottomRightRadius: 30,
-        borderColor: GLOBAL_COLOR.SECONDARY, // Couleur de la bordure
-        borderWidth: 2, // Épaisseur de la bordure
+        borderColor: GLOBAL_COLOR.SECONDARY,
     },
     bubbles: {
+        flexShrink: 1,
         flexGrow: 1,
         alignSelf: 'center',
         marginHorizontal: 20,
@@ -83,8 +83,6 @@ export default styles = StyleSheet.create({
         height: 60,
         borderLeftColor: GLOBAL_COLOR.SECONDARY, // Couleur de la bordure à gauche
         borderLeftWidth: 2,
-        // borderTopRightRadius: 30,
-        // borderBottomRightRadius: 30,
     },  
     buddysWord : {
         color : GLOBAL_COLOR.TERTIARY,
@@ -101,9 +99,9 @@ export default styles = StyleSheet.create({
         borderColor: GLOBAL_COLOR.SECONDARY,
         borderWidth: 2,
         borderRadius: 10,
-        shadowOffset: { width: 1, height: 4 }, // Ajustez l'offset souhaité
+        shadowOffset: { width: 1, height: 3 }, // Ajustez l'offset souhaité
         shadowOpacity: 0.3, // Ajustez l'opacité souhaitée
-        shadowRadius: 4, // Ajustez le rayon de l'ombre souhaité
+        shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
         elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
     infos: {
@@ -162,5 +160,5 @@ export default styles = StyleSheet.create({
         color: GLOBAL_COLOR.SECONDARY,
         marginBottom: 10
     }
-    
+
 });

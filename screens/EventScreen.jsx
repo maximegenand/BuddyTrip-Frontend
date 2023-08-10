@@ -136,7 +136,11 @@ export default function EventScreen({ route, navigation }) {
         </View>
         <View style={styles.body}>
           <View style={styles.buddiesContainer}>
-            <Text style={styles.titleBuddies}>Buddies</Text>
+            <View style={styles.lineContainer}>
+              <View style={styles.Line}></View>
+              <Text style={styles.textTitleBuddies}>Buddies</Text>
+              <View style={styles.Line}></View>
+            </View>
             <View style={styles.buddiesContent}>
               <BuddiesBar style={styles.bubbles} buddies={participants} max={5} />
               {
