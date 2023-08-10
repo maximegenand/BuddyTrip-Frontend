@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Linking, SafeAreaView, StatusBar } from "react-native";
+import { View, Text, TouchableOpacity, Linking, SafeAreaView, StatusBar, ActivityIndicator } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { format } from "date-fns";
 import { fr } from "date-fns/esm/locale";
@@ -11,6 +11,8 @@ import styles from "../styles/EventStyles";
 
 //Import components
 import BuddiesBar from "../components/BuddiesBar";
+import SvgAdd from "../components/svg/SvgAdd";
+import SvgMinus from "../components/svg/SvgMinus";
 import SvgCar from "../components/svg/SvgCar";
 import SvgPlane from "../components/svg/SvgPlane";
 import SvgTrain from "../components/svg/SvgTrain";
@@ -36,6 +38,8 @@ export default function EventScreen({ route, navigation }) {
 
   // 2. UseEffect, UseState, UseRef
 
+  // Affichage du loader lors du fetch pour s'ajouter/s'enlever de l'event
+  const [ isLoad, setIsLoad ] = useState(false);
   // On recupère les infos de l'évènement dans le storage grâce à son tokenEvent
   const tokenEvent = route.params.tokenEvent;
   const event = events.find((e) => e.tokenEvent === tokenEvent);
@@ -79,6 +83,7 @@ export default function EventScreen({ route, navigation }) {
 
   // Au clique sur le plus ça envoi les info au back et met à jour l'état du fontawsome
   const handleAddMePress = async () => {
+    setIsLoad(true);
     try {
       const response = await fetch(`${BACK_URL}/events/participant`, {
         method: "POST",
@@ -97,10 +102,12 @@ export default function EventScreen({ route, navigation }) {
     } catch (error) {
       console.error("Erreur lors de l'envoi de l'event au serveur :", error);
     }
+    setIsLoad(false);
   };
 
   // Au clique sur le moins ça envoi les info au back et met à jour l'état du fontawsome
   const handleDelMePress = async () => {
+    setIsLoad(true);
     try {
       const response = await fetch(`${BACK_URL}/events/participant`, {
         method: "delete",
@@ -119,6 +126,7 @@ export default function EventScreen({ route, navigation }) {
     } catch (error) {
       console.error("Erreur lors de l'envoi de l'event au serveur :", error);
     }
+    setIsLoad(false);
   };
 
   // 4. Return Component
@@ -129,7 +137,7 @@ export default function EventScreen({ route, navigation }) {
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
           <TouchableOpacity
-            style={styles.return}
+            style={styles.headerSide}
             activeOpacity={0.8}
             // Si on envoie un paramètre isNew, c'est que l'event viens d'etre enregistré et que le goback doit etre modifié
             onPress={
@@ -140,13 +148,15 @@ export default function EventScreen({ route, navigation }) {
           >
             <FontAwesome name="arrow-left" size={30} color={GLOBAL_COLOR.TERTIARY} />
           </TouchableOpacity>
-          <View style={styles.titleContainer}>
+          <View style={styles.headerCenter}>
             <Text numberOfLines={1} ellipsizeMode="middle" style={styles.title}>
               {name}
             </Text>
             <Text style={styles.titleBy}>Ajouté par {userEvent.username}</Text>
           </View>
-          {iconHeader.current}
+          <View style={styles.headerSide}>
+            {iconHeader.current}
+          </View>
         </View>
         <View style={styles.body}>
           <View style={styles.buddiesContainer}>
@@ -162,6 +172,10 @@ export default function EventScreen({ route, navigation }) {
                 isCreator ? (
                   <View>
                     {/* <FontAwesome name="check" size={30} color={GLOBAL_COLOR.SECONDARY} /> */}
+                  </View>
+                ) : isLoad ? (
+                  <View style={styles.buttonAddBuddy}>
+                    <ActivityIndicator size="small" color={GLOBAL_COLOR.SECONDARY} />
                   </View>
                 ) : isParticipant ? (
                   <TouchableOpacity style={styles.buttonAddBuddy} activeOpacity={0.8} onPress={handleDelMePress}>
