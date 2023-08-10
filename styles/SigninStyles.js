@@ -15,7 +15,7 @@ export default styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: STATUSBAR_HEIGHT,
-    backgroundColor: GLOBAL_COLOR.SECONDARY+'CC', // 0.8 d'opacity - format #rrggbbaa -> https://borderleft.com/toolbox/rrggbbaa/
+    backgroundColor: GLOBAL_COLOR.SECONDARY+'B3', // 0.8 d'opacity - format #rrggbbaa -> https://borderleft.com/toolbox/rrggbbaa/
   },
   safeView: {
     flex: 1,
@@ -53,7 +53,7 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 10,
-    backgroundColor: GLOBAL_COLOR.PRIMARY,
+    backgroundColor: GLOBAL_COLOR.QUATERNARY,
     shadowOffset: { width: 0, height: 4 }, // Ajustez l'offset souhaité
     shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
     shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
