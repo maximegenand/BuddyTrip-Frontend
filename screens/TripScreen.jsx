@@ -89,7 +89,15 @@ export default function TripScreen({ route, navigation }) {
   const getDayOfWeek = (date) => {
     const daysOfWeek = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
     const dayIndex = date.getDay();
-    return daysOfWeek[dayIndex];
+    
+    const today = new Date();
+    const isToday = date.toDateString() === today.toDateString();
+    
+    if (isToday) {
+      return "Aujourd'hui";
+    } else {
+      return daysOfWeek[dayIndex];
+    }
   };
 
   const dateScreen = (
@@ -161,7 +169,7 @@ export default function TripScreen({ route, navigation }) {
           <View style={styles.calendrierEvent}>
             <View style={styles.calendrier}>
               <TouchableOpacity style={styles.fleche_left} onPress={onPreviousDate}>
-                <FontAwesome name="arrow-left" size={40} color={GLOBAL_COLOR.PRIMARY} />
+                <FontAwesome  name="arrow-left" size={40} color={GLOBAL_COLOR.PRIMARY} />
               </TouchableOpacity>
               {dateScreen}
               <TouchableOpacity style={styles.fleche_left} onPress={onNextDate}>

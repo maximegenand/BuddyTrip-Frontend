@@ -33,6 +33,10 @@ export default styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         backgroundColor: GLOBAL_COLOR.PRIMARY,
+        shadowOffset: { width: 0, height: 4 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+        shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+        elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
     buddyText: {
         fontSize: 12,
@@ -46,6 +50,10 @@ export default styles = StyleSheet.create({
         paddingVertical: 10,
         borderRadius: 10,
         backgroundColor: GLOBAL_COLOR.PRIMARY,
+        shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+        shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+        elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
     btnText: {
         fontSize: 20,

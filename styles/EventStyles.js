@@ -50,6 +50,10 @@ export default styles = StyleSheet.create({
         paddingLeft: 15,
         backgroundColor: 'white',
         borderBottomLeftRadius: 100,
+        shadowOffset: { width: 0, height: 2 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+        shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+        elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
     buddiesContainer: {
         alignSelf: 'center',

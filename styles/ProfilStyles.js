@@ -93,7 +93,11 @@ export default styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.PRIMARY,
     padding: 10,
     borderRadius: 10,
-    marginTop: 20
+    marginTop: 20,
+    shadowOffset: { width: 0, height: 4 }, // Ajustez l'offset souhaité
+    shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+    shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+    elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
   textAmis: {
     fontSize: 20,
@@ -132,7 +136,11 @@ export default styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.PRIMARY,
     width: '40%',
     padding: 10,
-    borderRadius: 5
+    borderRadius: 5,
+    shadowOffset: { width: 0, height: 4 }, // Ajustez l'offset souhaité
+    shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+    shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+    elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
   textGestion : {
     color: GLOBAL_COLOR.TERTIARY,

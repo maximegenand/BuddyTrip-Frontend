@@ -36,7 +36,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,
-    margin: 5
+    margin: 5,
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
+    shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+    shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+    elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
   date : {
     display: 'flex',

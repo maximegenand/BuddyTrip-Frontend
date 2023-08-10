@@ -40,10 +40,15 @@ export default styles = StyleSheet.create({
     fleche_left : {
         width: screenWidth * 0.16,
         height: screenHeight * 0.08,
-        borderRadius: 70,
+        borderRadius: 50,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
         justifyContent: 'center',
         alignItems: 'center',
+        shadowColor: 'black',
+        shadowOffset: { width: 0, height: 2 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+        shadowRadius: 3, // Ajustez le rayon de l'ombre souhaité
+        elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
     planning : {
         height : screenHeight * 0.79,
@@ -98,5 +103,9 @@ export default styles = StyleSheet.create({
     },
     boutonAdd: {
         bottom: screenHeight * 0.04,
+        shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
+        shadowOpacity: 0.4, // Ajustez l'opacité souhaitée
+        shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+        elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
 });

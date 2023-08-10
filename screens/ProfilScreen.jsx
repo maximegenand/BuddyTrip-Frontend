@@ -107,10 +107,10 @@ export default function ProfilScreen({ navigation }) {
           </TouchableOpacity>
           <View style={styles.gestion}>
             <TouchableOpacity style={styles.containerGestion}>
-              <Text style={styles.textGestion}>Supprimer mon compte</Text>
+              <Text style={styles.textGestion}>Supprimer Compte</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleLogout()} style={styles.containerGestion}>
-              <Text style={styles.textGestion}>Me déconnecter</Text>
+              <Text style={styles.textGestion}>Déconnexion</Text>
             </TouchableOpacity>
           </View>
         </View>
