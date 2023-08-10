@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         position: 'relative',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: GLOBAL_COLOR.TERTIARY,
+        backgroundColor: 'white',
         borderWidth: 2,
         borderColor: GLOBAL_COLOR.SECONDARY,
     },

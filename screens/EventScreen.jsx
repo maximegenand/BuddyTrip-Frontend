@@ -146,8 +146,8 @@ export default function EventScreen({ route, navigation }) {
               {
                 /* Afficher une icône en fonction de l'état */
                 isCreator ? (
-                  <View style={styles.buttonAddBuddy}>
-                    <FontAwesome name="check" size={30} color={GLOBAL_COLOR.SECONDARY} />
+                  <View>
+                    {/* <FontAwesome name="check" size={30} color={GLOBAL_COLOR.SECONDARY} /> */}
                   </View>
                 ) : isParticipant ? (
                   <TouchableOpacity style={styles.buttonAddBuddy} activeOpacity={0.8} onPress={handleDelMePress}>
