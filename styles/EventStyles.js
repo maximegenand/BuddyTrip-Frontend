@@ -162,4 +162,5 @@ export default styles = StyleSheet.create({
         color: GLOBAL_COLOR.SECONDARY,
         marginBottom: 10
     }
+    
 });

@@ -108,7 +108,6 @@ export default function EventScreen({ route, navigation }) {
   };
 
   // 4. Return Component
-
   return (
     <>
       <StatusBar translucent={false} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
