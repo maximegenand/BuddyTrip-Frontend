@@ -4,36 +4,35 @@ const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
     container : {
-        width : screenWidth,
-        height: screenHeight,
+        flex: 1,
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 15,
-        padding: 10,
         backgroundColor: GLOBAL_COLOR.PRIMARY,
     },
-    return: {
-        alignSelf: 'flex-start',
+    headerSide: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 60,
+        height: 60,
     },
-    titleContainer: {
+    headerCenter: {
         flex: 1,
-        marginHorizontal: 20,
-        overflow: 'hidden',
+        gap: 5,
+        paddingHorizontal: 5,
     },
     title: {
-        marginBottom: 0,
-        fontSize: 24,
-        fontWeight: 'bold',
-        color: GLOBAL_COLOR.TERTIARY,
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 700,
     },
     titleBy: {
-        fontSize: 14,
+        color : 'white',
+        fontSize: 12,
         fontStyle: 'italic',
-        color: GLOBAL_COLOR.TERTIARY,
     },
     body: {
         flex: 1,
@@ -49,6 +48,7 @@ export default styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
+        gap: 10,
     },
     textTitleBuddies: {
         marginHorizontal: 2,
@@ -59,7 +59,7 @@ export default styles = StyleSheet.create({
     Line: {
         flex: 1,
         height: 2.5,
-        backgroundColor: GLOBAL_COLOR.PRIMARY,
+        backgroundColor: GLOBAL_COLOR.SECONDARY,
     },
     buddiesContent: {
         flexDirection: 'row',

@@ -44,7 +44,7 @@ export default styles = StyleSheet.create({
         borderRadius: 10,
     },
     header : {
-        height: 60,
+        //height: 60,
     },
     content: {
         position: 'relative',
@@ -80,7 +80,7 @@ export default styles = StyleSheet.create({
     },
     day: {
         color: GLOBAL_COLOR.PRIMARY,
-        fontWeight: 'bold',
+        fontFamily: "Montserrat-Alternates-SemiBold-Italic",
         fontSize: 20,
         paddingBottom: 5,
     },
