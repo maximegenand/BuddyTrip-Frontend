@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import {
   SafeAreaView,
+  Keyboard,
   KeyboardAvoidingView,
   ImageBackground,
   Modal,
@@ -56,6 +57,11 @@ export default function SigninScreen({ navigation }) {
 
 
   // 3. Functions
+
+  // Fonction pour masquer le clavier lorsque l'utilisateur appuie en dehors du champ de saisie
+  const dismissKeyboard = () => {
+    Keyboard.dismiss();
+  };
 
   // Fonction de connection
   const handleConnect = async () => {
@@ -133,6 +139,7 @@ export default function SigninScreen({ navigation }) {
       >
         <View style={styles.modal}><ActivityIndicator size="large" color="#750000" /></View>
       </Modal>
+      <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
       <SafeAreaView style={styles.container}>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -176,6 +183,7 @@ export default function SigninScreen({ navigation }) {
           <View></View>
         </KeyboardAvoidingView>
       </SafeAreaView>
+      </TouchableOpacity>
     </ImageBackground>
   );
 }
