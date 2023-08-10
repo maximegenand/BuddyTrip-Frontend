@@ -24,7 +24,14 @@ const globalsStyles = StyleSheet.create({
         fontWeight: '700',
         textAlign: 'center',
         marginVertical: 20,
-    }
+    },
+    lines: {
+        width : '80%',
+        marginTop: 20,
+        marginBottom: 20,
+        borderBottomColor: GLOBAL_COLOR.PRIMARY,
+        borderBottomWidth: StyleSheet.hairlineWidth, 
+    },
 });
 
 
