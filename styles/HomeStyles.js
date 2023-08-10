@@ -29,30 +29,55 @@ export default styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   tripContainer: {
-    width: "90%",
+    position: 'relative',
+    left: -1,
+    flexDirection: 'row',
+    width: "95%",
+    marginRight: "5%",
     marginVertical: 20,
-    padding: 10,
-    backgroundColor: GLOBAL_COLOR.SECONDARY,
-    borderRadius: 10,
+
+    backgroundColor: 'white',
+    //borderWidth: 1,
+    //borderColor: GLOBAL_COLOR.SECONDARY,
+    //borderRadius: 10,
     shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
     shadowOpacity: 0.3, // Ajustez l'opacité souhaitée
     shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
     elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
+  tripContainerInner: {
+    position: 'relative',
+    left: 0,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: GLOBAL_COLOR.SECONDARY,
+    //borderRadius: 10,
+    /*shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
+    shadowOpacity: 0.3, // Ajustez l'opacité souhaitée
+    shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
+    elevation: 5, // Ajoutez la valeur d'élévation souhaitée*/
+  },
   tripTitle: {
-    textAlign: "center",
-    color: GLOBAL_COLOR.TERTIARY,
+    //textAlign: "center",
+    color: GLOBAL_COLOR.SECONDARY,
     fontSize: 22,
   },
   tripSubContainer: {
-    flexDirection: "row",
+    //flexDirection: "row",
     justifyContent: "space-between",
   },
   tripParticipants: {
-    color: GLOBAL_COLOR.TERTIARY,
+    color: GLOBAL_COLOR.SECONDARY,
   },
   tripDate: {
-    color: GLOBAL_COLOR.TERTIARY,
+    width: 100,
+    textAlign: 'center',
+    color: GLOBAL_COLOR.SECONDARY,
   },
   scrollContainer: {
     flex: 1,

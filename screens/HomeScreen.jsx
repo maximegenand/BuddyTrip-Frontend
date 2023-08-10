@@ -118,13 +118,14 @@ export default function HomeScreen({ navigation }) {
       onLongPress={() => handleModalSuppression(trip.tokenTrip)}
       onPress={() => navigation.navigate("TabNavigator", { screen: "Trip", params: {tokenTrip: trip.tokenTrip }})}
     >
-      <Text style={styles.tripTitle}>{trip.name}</Text>
-      <View style={styles.tripSubContainer}>
-        <Text style={styles.tripParticipants}>{trip.participants.length} participants</Text>
-        <Text style={styles.tripDate}>
-          {formatPeriod([new Date(trip.dateStart), new Date(trip.dateEnd)])}
-        </Text>
+      <View style={styles.tripContainerInner}>
+        <View style={styles.tripSubContainer}>
+          <Text style={styles.tripTitle}>{trip.name}</Text>
+          <Text style={styles.tripParticipants}>{trip.participants.length} buddies</Text>
+        </View>
+        <Text style={styles.tripDate}>{formatPeriod([new Date(trip.dateStart), new Date(trip.dateEnd)])}</Text>
       </View>
+      <View styles={styles.chevron}></View>
     </TouchableOpacity>
   ));
 
