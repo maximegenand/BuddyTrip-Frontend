@@ -155,7 +155,7 @@ export default function TripScreen({ route, navigation }) {
           handlePress={() => setModalVisible(true)}
           style={styles.header}
         />
-        <View style={styles.content}>
+        <View style={styles.innerContainer}>
           <View style={styles.calendarContainer}>
           <ImageBackground source={{uri: uriBackground}} style={styles.calendarBackground} resizeMode="stretch">
             <TouchableOpacity style={styles.flecheLeft} onPress={onPreviousDate}>
@@ -170,15 +170,17 @@ export default function TripScreen({ route, navigation }) {
             </TouchableOpacity>
           </ImageBackground>
           </View>
-          <ScrollView style={styles.events}>
-            { // On affiche les events s'ils existents
-            eventsScreen.length > 0 ?
-              eventsScreen :
-              isLoad ? // Sinon si on est en train de fetch on affiche la roue
-                <ActivityIndicator size="large" color={GLOBAL_COLOR.SECONDARY} /> :
-                // Sinon on affiche un message qu'aucun evenement n'existe aujourd'hui
-                <Text style={styles.noEvent}>Aucun événement</Text>
-            }
+          <ScrollView style={styles.scrollContainer}>
+            <View style={styles.content}>
+              { // On affiche les events s'ils existents
+              eventsScreen.length > 0 ?
+                eventsScreen :
+                isLoad ? // Sinon si on est en train de fetch on affiche la roue
+                  <ActivityIndicator size="large" color={GLOBAL_COLOR.SECONDARY} /> :
+                  // Sinon on affiche un message qu'aucun evenement n'existe aujourd'hui
+                  <Text style={styles.noEvent}>Aucun événement</Text>
+              }
+            </View>
           </ScrollView>
           <View style={styles.add}>
             <BoutonAdd onPress={() => navigation.navigate("NewEvent", { screen: "NewEvent", tokenTrip, currentDate: currentDate.toJSON() })} buttonStyle={styles.boutonAdd} />

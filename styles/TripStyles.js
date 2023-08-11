@@ -46,7 +46,7 @@ export default styles = StyleSheet.create({
     header : {
         //height: 60,
     },
-    content: {
+    innerContainer: {
         position: 'relative',
         flex: 1,
         justifyContent: 'space-between',
@@ -56,6 +56,7 @@ export default styles = StyleSheet.create({
         width: '100%',
     },
     calendarBackground: {
+        zIndex: 100,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -93,10 +94,16 @@ export default styles = StyleSheet.create({
         width: 70,
         height: 70,
     },
-    events : {
+    scrollContainer: {
+        marginTop: -20,
+        paddingTop: 20,
         width: '100%',
-        overflow :'scroll',
         paddingHorizontal: "5%",
+        backgroundColor: 'red'
+    },
+    content: {
+        width: "100%",
+        marginBottom: 100,
     },
     noEvent: {
         alignSelf: 'center',
