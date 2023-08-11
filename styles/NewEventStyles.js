@@ -7,7 +7,6 @@ export default styles = StyleSheet.create({
         backgroundColor: GLOBAL_COLOR.TERTIARY,
     },
     content: {
-        flex: 1,
         paddingTop: 10,
         paddingHorizontal: '10%',
         paddingBottom: 20,
