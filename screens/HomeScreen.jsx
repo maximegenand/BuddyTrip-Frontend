@@ -172,7 +172,7 @@ export default function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </Modal>
         <View style={styles.header}>
-          <Logo style={{flexDirection: 'row'}} onPress={() => navigation.navigate("Signin")}/>
+          <Logo style={{flexDirection: 'row'}} />
           <TouchableOpacity onPress={() => navigation.navigate("Profil")} activeOpacity={0.5}>
             <BuddyBubble key={user.tokenUser} size={50} i={0} buddy={user} />
           </TouchableOpacity>
