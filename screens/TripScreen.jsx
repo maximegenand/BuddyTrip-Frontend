@@ -134,7 +134,7 @@ export default function TripScreen({ route, navigation }) {
           <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
               <View style={styles.modalInner}>
               <TouchableOpacity style={styles.modalIcon} activeOpacity={0.8} onPress={() => {navigation.navigate("NewTrip",  { screen: "NewTrip", tokenTrip }); setModalVisible(false)}}>
-                <FontAwesome style={styles.bell} name="edit" size={30} color={GLOBAL_COLOR.TERTIARY} />
+                <FontAwesome style={styles.bell} name="edit" size={30} color={GLOBAL_COLOR.SECONDARY} />
               </TouchableOpacity>
               <View style={styles.modalBubble}>
                 <Text style={styles.modalTitle}>{trip.name}</Text>

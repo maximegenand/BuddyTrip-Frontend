@@ -1,17 +1,9 @@
-import { useRef, useState, useEffect} from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  SafeAreaView,
-  ScrollView,
-  Keyboard,
-  KeyboardAvoidingView,
-} from "react-native";
+import { useRef, useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Keyboard, KeyboardAvoidingView } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { SelectList } from "react-native-dropdown-select-list";
 import { format, parse, compareDesc } from "date-fns";
-import { BACK_URL } from '@env';
+import { BACK_URL } from "@env";
 
 // Import styles
 import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
@@ -60,10 +52,10 @@ export default function NewEventScreen({ route, navigation }) {
     event.tokenTrip = route.params.tokenTrip;
     event.date = route.params.currentDate;
   }
-  
+
   //return console.log(event);
 
-// 2. UseEffect, UseState, UseRef
+  // 2. UseEffect, UseState, UseRef
 
   // Gère l'affichage de la modale
   const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
@@ -82,7 +74,7 @@ export default function NewEventScreen({ route, navigation }) {
   // Permet de supprimer le message d'erreur dès que l'utilisateur tape un nouveau texte
   useEffect(() => {
     if (textError) setTextError(null);
-  }, [title, date, description, timeStart, timeEnd, ticket, seats, place])
+  }, [title, date, description, timeStart, timeEnd, ticket, seats, place]);
 
   // ETAT rendu conditionnel en fonction de l'event
   const [transport, setTransport] = useState(event.category && event.category.includes("travel"));
@@ -99,27 +91,27 @@ export default function NewEventScreen({ route, navigation }) {
   // On défini le state du transport avec la valeur retournée, ou vide si ce n'est pas un trajet ou que c'est un nouvel event
   const [transportSelected, setTransportSelected] = useState(initialTransport ?? "");
   // On défini le défaultValue pour la selectionList
-  const initialObject = initialTransport ? listSelection.find(e => e.key === transportSelected) : undefined;
+  const initialObject = initialTransport ? listSelection.find((e) => e.key === transportSelected) : undefined;
   //console.log(initialObject);
   let iconTransport = <SvgCar style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
-  if (transportSelected === "train") iconTransport = <SvgTrain style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
-  if (transportSelected === "plane")iconTransport = <SvgPlane style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
-
-
+  if (transportSelected === "train")
+    iconTransport = <SvgTrain style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
+  if (transportSelected === "plane")
+    iconTransport = <SvgPlane style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
 
   // 3. Functions
 
   // Gestion des states des inputs
   const handleInputChange = (name, value) => {
-    if (name === 'title') setTitle(value);
-    else if (name === 'date') handleDateChange(value);
-    else if (name === 'timeStart') handleTimeChange(value, 'start');
-    else if (name === 'timeEnd') handleTimeChange(value, 'end');
-    else if (name === 'place') setPlace(value);
-    else if (name === 'description') setDescription(value);
-    else if (name === 'ticket') setTicket(value);
-    else if (name === 'seats') setSeats(value);
-  }
+    if (name === "title") setTitle(value);
+    else if (name === "date") handleDateChange(value);
+    else if (name === "timeStart") handleTimeChange(value, "start");
+    else if (name === "timeEnd") handleTimeChange(value, "end");
+    else if (name === "place") setPlace(value);
+    else if (name === "description") setDescription(value);
+    else if (name === "ticket") setTicket(value);
+    else if (name === "seats") setSeats(value);
+  };
 
   // Fonction pour masquer le clavier lorsque l'utilisateur appuie en dehors du champ de saisie
   const dismissKeyboard = () => {
@@ -137,9 +129,9 @@ export default function NewEventScreen({ route, navigation }) {
   const handleTimeChange = (text, name) => {
     // Formater le texte du time pour qu'il ait le format "HH:mm"
     const formattedTime = formatTime(text);
-    // Mettre à jour l'état avec le time 
-    name === 'start' && setTimeStart(formattedTime);
-    name === 'end' && setTimeEnd(formattedTime);
+    // Mettre à jour l'état avec le time
+    name === "start" && setTimeStart(formattedTime);
+    name === "end" && setTimeEnd(formattedTime);
   };
 
   const handleTransportPress = () => {
@@ -157,7 +149,6 @@ export default function NewEventScreen({ route, navigation }) {
     setSeats("");
   };
 
-
   // fonction handleAddEvent pour créer un nouveau event
   async function handleAddEvent() {
     // On annule l'action si la modale est affichée
@@ -166,18 +157,23 @@ export default function NewEventScreen({ route, navigation }) {
     setModalLoadingVisible(true);
 
     // On vérifie que les inputs obligatoires sont remplis
-    if(
+    if (
       // On vérifie les champs de base ainsi que si l'utilisateur a coché un transport ou une activité
-      (!title || !date || (!transportSelected && !activity) || !description || !timeStart || !description || !place)
+      !title ||
+      !date ||
+      (!transportSelected && !activity) ||
+      !description ||
+      !timeStart ||
+      !description ||
+      !place ||
       // Si c'est un transport, on vérifie ensuite une heure d'arrivée
-      || (transportSelected && !timeEnd)
+      (transportSelected && !timeEnd)
     ) {
       console.log("Tous les champs doivent être remplis.");
       setModalLoadingVisible(false);
       setTextError("Formulaire incomplet");
       return;
     }
-
 
     // On renseigne les infos dates et heures en format date pour l'enregistrement
     const dateSave = parse(`${date} Z`, "dd'/'MM'/'yyyy X", new Date());
@@ -204,7 +200,7 @@ export default function NewEventScreen({ route, navigation }) {
 
     // Gestion de la catégorie de l'évènement (activity, travel car, travel plane, travel train)
     let categorySave;
-    if (activity) categorySave = 'activity';
+    if (activity) categorySave = "activity";
     else if (transport && transportSelected) categorySave = `travel ${transportSelected}`;
     // On vérifie que la catégorie a bien été selectionnée et si transport qu'il ai bien été choisi
     else {
@@ -235,15 +231,15 @@ export default function NewEventScreen({ route, navigation }) {
       seats: seatsSave,
       ticket,
       description,
-    }
+    };
 
     try {
       const response = await fetch(`${BACK_URL}/events/`, {
-        method: event.tokenEvent ? "PUT": "POST", // Si on a deja un tokenEvent on sait qu'il faut seulement mettre à jour
+        method: event.tokenEvent ? "PUT" : "POST", // Si on a deja un tokenEvent on sait qu'il faut seulement mettre à jour
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({token: user.token, event: eventData}),
+        body: JSON.stringify({ token: user.token, event: eventData }),
       });
-      
+
       const responseData = await response.json();
       // console.log("Réponse du serveur:", responseData);
 
@@ -253,11 +249,14 @@ export default function NewEventScreen({ route, navigation }) {
           dispatch(updateEvent(responseData.event));
           // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
           await navigation.goBack();
-        }
-        else {
+        } else {
           dispatch(addEvent(responseData.event));
           // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
-          await navigation.navigate("Event", { screen: "Event", tokenEvent: responseData.event.tokenEvent, isNew: true });
+          await navigation.navigate("Event", {
+            screen: "Event",
+            tokenEvent: responseData.event.tokenEvent,
+            isNew: true,
+          });
         }
         setModalLoadingVisible(false);
       }
@@ -268,7 +267,6 @@ export default function NewEventScreen({ route, navigation }) {
     }
   }
 
-
   // 4. Return Component
   return (
     <>
@@ -277,152 +275,163 @@ export default function NewEventScreen({ route, navigation }) {
       <LoadingModal visible={modalLoadingVisible} />
       <SafeAreaView style={styles.screen}>
         <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
-          <HeaderNav title={event.tokenEvent ? "Mettre à jour l'événement" : "Nouvel événement"} navigation={navigation} />
-          <ScrollView style={styles.content}>
-            <InputComponent
-              key="title"
-              name="title"
-              placeholder="Titre"
-              onInputChange={handleInputChange}
-              value={title}
-            />
-            <InputComponent
-              key="date"
-              name="date"
-              type="numeric"
-              placeholder="Date (JJ/MM/AAAA)"
-              onInputChange={handleInputChange}
-              value={date}
-              maxLength={10}
-            />
-            <View style={styles.categorie}>
-              <Text style={styles.textCategorie}>Selectionner une categorie :</Text>
-              <View style={styles.bubblesContainer}>
-                <TouchableOpacity style={[styles.bubble, {opacity: transport ? 1 : 0.5}]} onPress={handleTransportPress}>
-                  {iconTransport}
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.bubble, {opacity: activity ? 1 : 0.5}]} onPress={handleActivityPress}>
-                  <SvgPeople style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />
-                </TouchableOpacity>
+          <HeaderNav
+            title={event.tokenEvent ? "Mettre à jour l'événement" : "Nouvel événement"}
+            navigation={navigation}
+          />
+          <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null} >
+            <ScrollView style={styles.content}>
+              <InputComponent
+                key="title"
+                name="title"
+                placeholder="Titre"
+                onInputChange={handleInputChange}
+                value={title}
+              />
+              <InputComponent
+                key="date"
+                name="date"
+                type="numeric"
+                placeholder="Date (JJ/MM/AAAA)"
+                onInputChange={handleInputChange}
+                value={date}
+                maxLength={10}
+              />
+              <View style={styles.categorie}>
+                <Text style={styles.textCategorie}>Selectionner une categorie :</Text>
+                <View style={styles.bubblesContainer}>
+                  <TouchableOpacity
+                    style={[styles.bubble, { opacity: transport ? 1 : 0.5 }]}
+                    onPress={handleTransportPress}
+                  >
+                    {iconTransport}
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.bubble, { opacity: activity ? 1 : 0.5 }]}
+                    onPress={handleActivityPress}
+                  >
+                    <SvgPeople style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View style={[globalsStyles.lines, {alignSelf: 'center'}]} />
-            {
-              // input si bouton Activity = true
-              activity && (
-                <>
-                  <InputComponent
-                    key="timeStart"
-                    name="timeStart"
-                    type="numeric"
-                    placeholder="Heure (HH:mm)"
-                    onInputChange={handleInputChange}
-                    value={timeStart}
-                    maxLength={5}
-                  />
-                  <InputComponent
-                    key="place"
-                    name="place"
-                    placeholder="Lieu"
-                    onInputChange={handleInputChange}
-                    value={place}
-                  />
-                  <InputComponent
-                    key="description"
-                    name="description"
-                    type="description"
-                    placeholder="Description"
-                    onInputChange={handleInputChange}
-                    value={description}
-                  />
-                </>
-              )
-            }
-            {
-              // input si bouton Transport = true
-              transport && (
-                <>
-                  <View style={styles.selectList}>
-                    <SelectList
-                      data={listSelection}
-                      setSelected={key => setTransportSelected(key)}
-                      save="key"
-                      placeholder="Choisir un moyen de transport"
-                      search={false}
-                      boxStyles={styles.insideList}
-                      dropdownStyles={styles.insideList}
-                      inputStyles={styles.textList}
-                      defaultOption={initialObject}
+              <View style={[globalsStyles.lines, { alignSelf: "center" }]} />
+              {
+                // input si bouton Activity = true
+                activity && (
+                  <>
+                    <InputComponent
+                      key="timeStart"
+                      name="timeStart"
+                      type="numeric"
+                      placeholder="Heure (HH:mm)"
+                      onInputChange={handleInputChange}
+                      value={timeStart}
+                      maxLength={5}
                     />
-                  </View>
-                  <InputComponent
-                    key="timeStart"
-                    name="timeStart"
-                    type="numeric"
-                    placeholder="Heure de départ (HH:mm)"
-                    onInputChange={handleInputChange}
-                    value={timeStart}
-                    maxLength={5}
-                  />
-                  <InputComponent
-                    key="timeEnd"
-                    name="timeEnd"
-                    type="numeric"
-                    placeholder="Heure d'arrivée (HH:mm)"
-                    onInputChange={handleInputChange}
-                    value={timeEnd}
-                    maxLength={5}
-                  />
-                  <InputComponent
-                    key="place"
-                    name="place"
-                    placeholder="Lieu de départ"
-                    onInputChange={handleInputChange}
-                    value={place}
-                  />
-                  {
-                    // input si bouton Transport = true
-                    transportSelected === "car" && (
-                      <InputComponent
-                        key="seats"
-                        name="seats"
-                        type="numeric"
-                        placeholder="Places disponibles"
-                        onInputChange={handleInputChange}
-                        value={seats.toString()}
-                        maxLength={2}
+                    <InputComponent
+                      key="place"
+                      name="place"
+                      placeholder="Lieu"
+                      onInputChange={handleInputChange}
+                      value={place}
+                    />
+                    <InputComponent
+                      key="description"
+                      name="description"
+                      type="description"
+                      placeholder="Description"
+                      onInputChange={handleInputChange}
+                      value={description}
+                    />
+                  </>
+                )
+              }
+              {
+                // input si bouton Transport = true
+                transport && (
+                  <>
+                    <View style={styles.selectList}>
+                      <SelectList
+                        data={listSelection}
+                        setSelected={(key) => setTransportSelected(key)}
+                        save="key"
+                        placeholder="Choisir un moyen de transport"
+                        search={false}
+                        boxStyles={styles.insideList}
+                        dropdownStyles={styles.insideList}
+                        inputStyles={styles.textList}
+                        defaultOption={initialObject}
                       />
-                    )
-                  }
-                  {
-                    // input si bouton Transport = true
-                    (transportSelected === "train" || transportSelected === "plane") && (
-                      <InputComponent
-                        key="ticket"
-                        name="ticket"
-                        placeholder="N° billet"
-                        onInputChange={handleInputChange}
-                        value={ticket}
-                      />
-                    )
-                  }
-                  <InputComponent
-                    key="description"
-                    name="description"
-                    type="description"
-                    placeholder="Description"
-                    onInputChange={handleInputChange}
-                    value={description}
-                  />
-                </>
-              )
-            }
-            <Text style={styles.textError}>{textError}</Text>
-            <TouchableOpacity style={styles.btnSave} onPress={() => handleAddEvent()}>
-              <Text style={styles.textSave}>Enregistrer</Text>
-            </TouchableOpacity>
-            <View style={styles.space} />
-          </ScrollView>
+                    </View>
+                    <InputComponent
+                      key="timeStart"
+                      name="timeStart"
+                      type="numeric"
+                      placeholder="Heure de départ (HH:mm)"
+                      onInputChange={handleInputChange}
+                      value={timeStart}
+                      maxLength={5}
+                    />
+                    <InputComponent
+                      key="timeEnd"
+                      name="timeEnd"
+                      type="numeric"
+                      placeholder="Heure d'arrivée (HH:mm)"
+                      onInputChange={handleInputChange}
+                      value={timeEnd}
+                      maxLength={5}
+                    />
+                    <InputComponent
+                      key="place"
+                      name="place"
+                      placeholder="Lieu de départ"
+                      onInputChange={handleInputChange}
+                      value={place}
+                    />
+                    {
+                      // input si bouton Transport = true
+                      transportSelected === "car" && (
+                        <InputComponent
+                          key="seats"
+                          name="seats"
+                          type="numeric"
+                          placeholder="Places disponibles"
+                          onInputChange={handleInputChange}
+                          value={seats.toString()}
+                          maxLength={2}
+                        />
+                      )
+                    }
+                    {
+                      // input si bouton Transport = true
+                      (transportSelected === "train" || transportSelected === "plane") && (
+                        <InputComponent
+                          key="ticket"
+                          name="ticket"
+                          placeholder="N° billet"
+                          onInputChange={handleInputChange}
+                          value={ticket}
+                        />
+                      )
+                    }
+                    <InputComponent
+                      key="description"
+                      name="description"
+                      type="description"
+                      placeholder="Description"
+                      onInputChange={handleInputChange}
+                      value={description}
+                    />
+                  </>
+                )
+              }
+              <Text style={styles.textError}>{textError}</Text>
+              <TouchableOpacity style={styles.btnSave} onPress={() => handleAddEvent()}>
+                <Text style={styles.textSave}>Enregistrer</Text>
+              </TouchableOpacity>
+              <View style={styles.space} />
+            </ScrollView>
+          </KeyboardAvoidingView>
         </TouchableOpacity>
       </SafeAreaView>
     </>

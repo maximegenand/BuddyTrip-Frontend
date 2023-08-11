@@ -125,7 +125,7 @@ export default styles = StyleSheet.create({
     alignItems: "center",
   },
   titleModalContainer: {
-    backgroundColor: GLOBAL_COLOR.QUATERNARY,
+    backgroundColor: GLOBAL_COLOR.TERTIARY,
     borderRadius: 5,
     padding: 10,
     width:'60%',
@@ -135,7 +135,7 @@ export default styles = StyleSheet.create({
     alignItems: "center",
   },
   modalTitle: {
-    color: GLOBAL_COLOR.TERTIARY,
+    color: GLOBAL_COLOR.SECONDARY,
     fontWeight: "bold",
     textAlign: "center",
     fontSize: 20,
