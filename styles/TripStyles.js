@@ -56,6 +56,7 @@ export default styles = StyleSheet.create({
     },
     calendarContainer: {
         width: '100%',
+        zIndex: 100,
     },
     calendarBackground: {
         zIndex: 100,
