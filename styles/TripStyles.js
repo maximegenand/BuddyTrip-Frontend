@@ -101,11 +101,10 @@ export default styles = StyleSheet.create({
         paddingTop: 20,
         width: '100%',
         paddingHorizontal: "5%",
-        backgroundColor: 'red'
     },
     content: {
         width: "100%",
-        marginBottom: 100,
+        marginBottom: 120,
     },
     noEvent: {
         alignSelf: 'center',

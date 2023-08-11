@@ -21,7 +21,7 @@ export default function BuddyBubble(props) {
     ]}>
       {  // On affiche l'image de l'utilisateur si elle existe, sinon la première lettre de son nom
       props.add ? (
-        <Text style={[styles.add, {fontSize: props.size / 3, paddingRight: props.size / 10}]}>+{props.add}2</Text>
+        <Text style={[styles.add, {fontSize: props.size / 3, paddingRight: props.size / 10}]}>+{props.add}</Text>
       ) : (
         props.buddy.image ? (
           <Image
