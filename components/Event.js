@@ -5,6 +5,7 @@ import { findCategory } from "../modules/findCategory";
 const { width:screenWidth, height: screenHeight } = Dimensions.get('window');
 import { addDays, format } from "date-fns";
 
+import { timeToText } from "../modules/formatTime";
 import BuddyBubble from "./BuddyBubble";
 
 import SvgCar from "./svg/SvgCar";
@@ -33,9 +34,9 @@ export default function Event({ event, handlePress }) {
   return (
     <TouchableOpacity style={styles.container} onPress={handlePress}>
       <View style={styles.date}>
-        <Text style={styles.hour}>{format(new Date(event.timeStart), "HH'h'mm")}</Text>
+        <Text style={styles.hour}>{timeToText(event.timeStart)}</Text>
         {icon(event.category)}
-        <Text style={styles.hour}>{event.timeEnd && format(new Date(event.timeEnd), "HH'h'mm")}</Text>
+        <Text style={styles.hour}>{event.timeEnd && timeToText(event.timeEnd)}</Text>
       </View>
       <View style={styles.where}>
         <Text style={styles.name}>{event.name}</Text>
