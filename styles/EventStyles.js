@@ -105,6 +105,7 @@ export default styles = StyleSheet.create({
         elevation: 5, // Ajoutez la valeur d'élévation souhaitée
     },
     infos: {
+        position: 'relative',
         justifyContent: 'flex-start',
         marginLeft: 10,
         marginTop: 10,
@@ -112,13 +113,14 @@ export default styles = StyleSheet.create({
     },
     edit: {
         position: 'absolute',
-        top: 2,
-        right: 2,
-        paddingTop: 5,
-        paddingRight: 5,
-        paddingBottom: 15,
-        paddingLeft: 15,
-        backgroundColor: 'white',
+        zIndex: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 50,
+        height: 50,
+        top: -10,
+        right: 0,
+        padding: 10,
     },
     textInfos : {
         marginBottom: 5,
