@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView, Modal, SafeAreaView, ImageBackground } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, Modal, SafeAreaView, ImageBackground, ActivityIndicator } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { addDays, format, compareDesc } from "date-fns";
 import { BACK_URL } from "@env";
@@ -35,12 +35,14 @@ export default function TripScreen({ route, navigation }) {
 
   // 2. UseEffect, UseState, UseRef
 
+  // Affichage du loader lors du fetch pour récupérer les events
+  const [ isLoad, setIsLoad ] = useState(false);
+
   const [modalVisible, setModalVisible] = useState(false);
   // On récupère le trip dans le backend avec les events et infos, puis on sauvegarde dans le redux storage
   useEffect(() => {
     (async () => {
-      const random = Math.round(Math.random() * 1000);
-      //console.log('TripScreen useEffect - Start',random);
+      setIsLoad(true);
       try {
         const tripFetch = await fetch(`${BACK_URL}/trips/${tokenTrip}?token=${user.token}`);
         const data = await tripFetch.json();
@@ -53,7 +55,7 @@ export default function TripScreen({ route, navigation }) {
       } catch (error) {
         console.error("Error fetching data:", error);
       }
-      //console.log('TripScreen useEffect - End',random);
+      setIsLoad(false);
     })();
   }, []);
 
@@ -169,7 +171,14 @@ export default function TripScreen({ route, navigation }) {
           </ImageBackground>
           </View>
           <ScrollView style={styles.events}>
-            {eventsScreen}
+            { // On affiche les events s'ils existents
+            eventsScreen.length > 0 ?
+              eventsScreen :
+              isLoad ? // Sinon si on est en train de fetch on affiche la roue
+                <ActivityIndicator size="large" color={GLOBAL_COLOR.SECONDARY} /> :
+                // Sinon on affiche un message qu'aucun evenement n'existe aujourd'hui
+                <Text style={styles.noEvent}>No event</Text>
+            }
           </ScrollView>
           <View style={styles.add}>
             <BoutonAdd onPress={() => navigation.navigate("NewEvent", { screen: "NewEvent", tokenTrip, currentDate: currentDate.toJSON() })} buttonStyle={styles.boutonAdd} />
