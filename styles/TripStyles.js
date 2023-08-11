@@ -98,6 +98,13 @@ export default styles = StyleSheet.create({
         overflow :'scroll',
         paddingHorizontal: "5%",
     },
+    noEvent: {
+        alignSelf: 'center',
+        paddingTop: 50,
+        fontSize: 20,
+        fontFamily: "Montserrat-Alternates-SemiBold-Italic",
+        color: GLOBAL_COLOR.PRIMARY,
+    },
     add: {
         position: 'absolute',
         bottom: 20,

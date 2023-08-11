@@ -177,7 +177,7 @@ export default function TripScreen({ route, navigation }) {
               isLoad ? // Sinon si on est en train de fetch on affiche la roue
                 <ActivityIndicator size="large" color={GLOBAL_COLOR.SECONDARY} /> :
                 // Sinon on affiche un message qu'aucun evenement n'existe aujourd'hui
-                <Text style={styles.noEvent}>No event</Text>
+                <Text style={styles.noEvent}>Aucun événement</Text>
             }
           </ScrollView>
           <View style={styles.add}>

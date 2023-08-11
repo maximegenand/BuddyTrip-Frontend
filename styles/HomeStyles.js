@@ -25,11 +25,11 @@ export default styles = StyleSheet.create({
     marginBottom: 100,
   },
   noTrip: {
-    color: GLOBAL_COLOR.PRIMARY,
+    alignSelf: 'center',
     paddingTop: 50,
     fontSize: 20,
-    fontWeight: 700,
-    fontStyle: 'italic',
+    fontFamily: "Montserrat-Alternates-SemiBold-Italic",
+    color: GLOBAL_COLOR.PRIMARY,
   },
   monthContainer: {
     flexDirection: 'row',
