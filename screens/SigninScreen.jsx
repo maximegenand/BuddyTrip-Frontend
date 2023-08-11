@@ -26,7 +26,7 @@ import InputComponent from '../components/Input';
 
 // Import redux
 import { useDispatch, useSelector } from "react-redux";
-import { login } from '../redux/reducers/user';
+import { login, logout } from '../redux/reducers/user';
 import { addAllTrips } from '../redux/reducers/trips';
 import {  } from '../redux/reducers/events';
 
@@ -55,6 +55,43 @@ export default function SigninScreen({ navigation }) {
     if (errorFetch) setErrorFetch(null);
   }, [email, password])
 
+
+  // Connexion automatique - Actif lors du chargement de la page si le user possède un token de connexion (le tokenSession)
+  useEffect(() => {
+    (async () => {
+      if (!user.token) return;
+      // On annule l'action si la modale est affichée
+      if (modalVisible) return;
+      // On affiche la modale le temps du fetch
+      setModalVisible(true);
+      try {
+        // On envoie la donnée de connexion au backend
+        const fetchLogin = await fetch(`${BACK_URL}/users/isconnected?token=${user.token}`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json",},
+          body: JSON.stringify({token: user.token}),
+        });
+        const data = await fetchLogin.json();
+        // Si on a result False, on affiche un message à l'utilisateur
+        if (!data.result) {
+          dispatch(logout());
+          setModalVisible(false);
+          return;
+        }
+        // Si tout est bon on reset les inputs et on redirige sur le home du user
+        setPassword("");
+        dispatch(login(data.user));
+        dispatch(addAllTrips(data.trips));
+        await navigation.navigate("Home");
+        setModalVisible(false);
+      }
+      // Si on a une erreur au moment du fetch, on renvoie une erreur
+      catch (error) {
+        setModalVisible(false);
+        console.error("Erreur lors de l'envoi au serveur :", error);
+      }
+    })();
+  }, []);
 
   // 3. Functions
 
