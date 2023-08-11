@@ -16,11 +16,11 @@
   };
 
   // Fonction pour gérer l'affichage d'une date au format "HH h mm"
-  const timeToText = (text) => {
+  const timeToText = (text, space = "h") => {
     const date = new Date(text);
     const hour = date.getUTCHours().toString().padStart(2, '0');
     const minute = date.getUTCMinutes().toString().padStart(2, '0');
-    return `${hour}h${minute}`;
+    return hour+space+minute;
   }
 
 module.exports = { formatTime, timeToText };

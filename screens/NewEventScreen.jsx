@@ -29,7 +29,7 @@ import SvgPeople from "../components/svg/SvgPeople";
 
 //Import modules
 import { formatDate } from "../modules/formatDate";
-import { formatTime } from "../modules/formatTime";
+import { formatTime, timeToText } from "../modules/formatTime";
 import { isValidDate } from "../modules/isValidDate";
 
 // Import redux
@@ -72,8 +72,8 @@ export default function NewEventScreen({ route, navigation }) {
   const [title, setTitle] = useState(event.name ?? "");
   const [date, setDate] = useState(format(new Date(event.date), "dd'/'MM'/'yyyy"));
   const [description, setDescription] = useState(event.description ?? "");
-  const [timeStart, setTimeStart] = useState(event.timeStart ? format(new Date(event.timeStart), "HH':'mm") : "");
-  const [timeEnd, setTimeEnd] = useState(event.timeEnd ? format(new Date(event.timeEnd), "HH':'mm") : "");
+  const [timeStart, setTimeStart] = useState(event.timeStart ? timeToText(event.timeStart, ":") : "");
+  const [timeEnd, setTimeEnd] = useState(event.timeEnd ? timeToText(event.timeEnd, ":") : "");
   const [ticket, setTicket] = useState(event.ticket ?? "");
   const [seats, setSeats] = useState(event.seats ?? "");
   const [place, setPlace] = useState(event.place ?? "");

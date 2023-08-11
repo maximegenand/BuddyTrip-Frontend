@@ -21,6 +21,7 @@ import SvgPeople from "../components/svg/SvgPeople";
 
 //Import modules
 import { formatDate } from "../modules/dates";
+import { timeToText } from "../modules/formatTime";
 import { findCategory } from "../modules/findCategory";
 
 // Import redux
@@ -210,17 +211,17 @@ export default function EventScreen({ route, navigation }) {
               {category === "activity" ? (
                 <Text style={styles.textInfos}>
                   <Text style={styles.textInfosBold}>Heure :</Text>{" "}
-                  {format(new Date(timeStart), "HH'h'mm", { locale: fr })}
+                  {timeToText(timeStart)}
                 </Text>
               ) : (
                 <>
                   <Text style={styles.textInfos}>
                     <Text style={styles.textInfosBold}>départ :</Text>{" "}
-                    {format(new Date(timeStart), "HH'h'mm", { locale: fr })}
+                    {timeToText(timeStart)}
                   </Text>
                   <Text style={styles.textInfos}>
                     <Text style={styles.textInfosBold}>arrivée :</Text>{" "}
-                    {format(new Date(timeEnd), "HH'h'mm", { locale: fr })}
+                    {timeToText(timeEnd)}
                   </Text>
                 </>
               )}
