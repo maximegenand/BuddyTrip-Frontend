@@ -113,6 +113,7 @@ export default function HomeScreen({ navigation }) {
   // 4. Return Component
   
   // Fonction d'affichage de la liste des Trips
+  let monthPrec = '';
   const tripList = trips.map((trip) => {
     const buddiesCount = trip.participants.length;
     let buddyList = `${buddiesCount} buddies`;
@@ -120,7 +121,6 @@ export default function HomeScreen({ navigation }) {
     else if (buddiesCount === 0) buddyList = '';
     
     // On vérifie que le mois du trip précédant est identique
-    let monthPrec = '';
     const isScreenMonth = isSameMonth(new Date(trip.dateStart), new Date(monthPrec));
     monthPrec = trip.dateStart;
     // S'il ne l'est pas on affiche un titre avant le trip
