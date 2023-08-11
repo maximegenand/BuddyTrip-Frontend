@@ -6,15 +6,7 @@ export default function Logo(props) {
   const size = props.size ? props.size : 50;
 
   return (
-    <TouchableOpacity
-      style={[
-        props.style,
-        {
-          alignItems: "center",
-        },
-      ]}
-      onPress={props.onPress}
-    >
+    <View style={[props.style, {alignItems: "center"}]}>
       <SvgLogo style={{ alignSelf: "center" }} width={size} height={size} fill={GLOBAL_COLOR.TERTIARY} />
       <Text
         style={{
@@ -26,6 +18,6 @@ export default function Logo(props) {
       >
         BuddyTrip
       </Text>
-    </TouchableOpacity>
+    </View>
   );
 }
