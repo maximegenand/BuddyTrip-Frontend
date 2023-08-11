@@ -66,7 +66,7 @@ export default function EventScreen({ route, navigation }) {
   } = event;
 
   // On défini le nombre de participants
-  const sumParticipants = participants.length + 1;
+  const sumParticipants = participants.length - 1;
 
   // 3. Functions
 
@@ -228,7 +228,7 @@ export default function EventScreen({ route, navigation }) {
               <Text style={styles.textInfos}>
                 <Text style={styles.textInfosBold}>Lieu</Text> : {place}
               </Text>
-              {seats !== 0 && (
+              {seats > 0 && (
                 <Text style={styles.textInfos}>
                   <Text style={styles.textInfosBold}>Places</Text> : {seats - sumParticipants} places restantes
                 </Text>
