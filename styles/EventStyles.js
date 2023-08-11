@@ -37,7 +37,7 @@ export default styles = StyleSheet.create({
     body: {
         flex: 1,
         alignItems: 'center',
-        flexDirection: 'column',
+        paddingTop: 20,
     },
     buddiesContainer: {
         width: "90%",
