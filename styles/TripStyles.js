@@ -59,7 +59,6 @@ export default styles = StyleSheet.create({
         zIndex: 100,
     },
     calendarBackground: {
-        zIndex: 100,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
