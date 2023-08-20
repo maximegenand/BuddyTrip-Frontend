@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "BuddyTrip",
-    "slug": "buddy-trip",
+    "name": "BuddyTrip-Frontend",
+    "slug": "BuddyTrip-Frontend",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,17 +21,10 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.yoshu69.buddytrip"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "07b50f03-468b-48f6-9922-ea455c71dd51"
-      }
-    },
-    "owner": "yoshu69"
+    }
   }
 }
