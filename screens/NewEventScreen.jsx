@@ -1,5 +1,13 @@
 import { useRef, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Keyboard, KeyboardAvoidingView } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SafeAreaView,
+  ScrollView,
+  Keyboard,
+  KeyboardAvoidingView,
+} from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { SelectList } from "react-native-dropdown-select-list";
 import { format, parse, compareDesc } from "date-fns";
@@ -62,10 +70,16 @@ export default function NewEventScreen({ route, navigation }) {
 
   // États pour gérer les valeurs des champs
   const [title, setTitle] = useState(event.name ?? "");
-  const [date, setDate] = useState(format(new Date(event.date), "dd'/'MM'/'yyyy"));
+  const [date, setDate] = useState(
+    format(new Date(event.date), "dd'/'MM'/'yyyy")
+  );
   const [description, setDescription] = useState(event.description ?? "");
-  const [timeStart, setTimeStart] = useState(event.timeStart ? timeToText(event.timeStart, ":") : "");
-  const [timeEnd, setTimeEnd] = useState(event.timeEnd ? timeToText(event.timeEnd, ":") : "");
+  const [timeStart, setTimeStart] = useState(
+    event.timeStart ? timeToText(event.timeStart, ":") : ""
+  );
+  const [timeEnd, setTimeEnd] = useState(
+    event.timeEnd ? timeToText(event.timeEnd, ":") : ""
+  );
   const [ticket, setTicket] = useState(event.ticket ?? "");
   const [seats, setSeats] = useState(event.seats ?? "");
   const [place, setPlace] = useState(event.place ?? "");
@@ -77,8 +91,12 @@ export default function NewEventScreen({ route, navigation }) {
   }, [title, date, description, timeStart, timeEnd, ticket, seats, place]);
 
   // ETAT rendu conditionnel en fonction de l'event
-  const [transport, setTransport] = useState(event.category && event.category.includes("travel"));
-  const [activity, setActivity] = useState(event.category && event.category === "activity");
+  const [transport, setTransport] = useState(
+    event.category && event.category.includes("travel")
+  );
+  const [activity, setActivity] = useState(
+    event.category && event.category === "activity"
+  );
 
   // Gestion de la selection du mode de transport
   const listSelection = [
@@ -87,17 +105,48 @@ export default function NewEventScreen({ route, navigation }) {
     { key: "plane", value: "Avion" },
   ];
   // Si on édite un transport, on récupère la key du transport depuis event.category
-  const initialTransport = event.category && event.category.includes("travel") && event.category.slice(7);
+  const initialTransport =
+    event.category &&
+    event.category.includes("travel") &&
+    event.category.slice(7);
   // On défini le state du transport avec la valeur retournée, ou vide si ce n'est pas un trajet ou que c'est un nouvel event
-  const [transportSelected, setTransportSelected] = useState(initialTransport ?? "");
+  const [transportSelected, setTransportSelected] = useState(
+    initialTransport ?? ""
+  );
   // On défini le défaultValue pour la selectionList
-  const initialObject = initialTransport ? listSelection.find((e) => e.key === transportSelected) : undefined;
+  const initialObject = initialTransport
+    ? listSelection.find((e) => e.key === transportSelected)
+    : undefined;
   //console.log(initialObject);
-  let iconTransport = <SvgCar style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
-  if (transportSelected === "train")
-    iconTransport = <SvgTrain style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
-  if (transportSelected === "plane")
-    iconTransport = <SvgPlane style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />;
+  let iconTransport = (
+    <SvgCar
+      style={{ alignSelf: "center" }}
+      width={30}
+      height={30}
+      fill={GLOBAL_COLOR.QUATERNARY}
+    />
+  );
+  if (transportSelected === "train") {
+    transportRef = "N° de train";
+    iconTransport = (
+      <SvgTrain
+        style={{ alignSelf: "center" }}
+        width={30}
+        height={30}
+        fill={GLOBAL_COLOR.QUATERNARY}
+      />
+    );
+  } else if (transportSelected === "plane") {
+    transportRef = "N° de vol";
+    iconTransport = (
+      <SvgPlane
+        style={{ alignSelf: "center" }}
+        width={30}
+        height={30}
+        fill={GLOBAL_COLOR.QUATERNARY}
+      />
+    );
+  }
 
   // 3. Functions
 
@@ -177,8 +226,14 @@ export default function NewEventScreen({ route, navigation }) {
 
     // On renseigne les infos dates et heures en format date pour l'enregistrement
     const dateSave = parse(`${date} Z`, "dd'/'MM'/'yyyy X", new Date());
-    const timeStartSave = parse(`${date}-${timeStart} Z`, "dd'/'MM'/'yyyy'-'HH':'m X", new Date());
-    const timeEndSave = transport ? parse(`${date}-${timeEnd} Z`, "dd'/'MM'/'yyyy'-'HH':'m X", new Date()) : null;
+    const timeStartSave = parse(
+      `${date}-${timeStart} Z`,
+      "dd'/'MM'/'yyyy'-'HH':'m X",
+      new Date()
+    );
+    const timeEndSave = transport
+      ? parse(`${date}-${timeEnd} Z`, "dd'/'MM'/'yyyy'-'HH':'m X", new Date())
+      : null;
     // console.log(dateSave, timeStartSave, timeEndSave);
 
     // On vérifie que la date renseignée est égale ou supérieur à celle d'aujourd'hui
@@ -201,7 +256,8 @@ export default function NewEventScreen({ route, navigation }) {
     // Gestion de la catégorie de l'évènement (activity, travel car, travel plane, travel train)
     let categorySave;
     if (activity) categorySave = "activity";
-    else if (transport && transportSelected) categorySave = `travel ${transportSelected}`;
+    else if (transport && transportSelected)
+      categorySave = `travel ${transportSelected}`;
     // On vérifie que la catégorie a bien été selectionnée et si transport qu'il ai bien été choisi
     else {
       console.log("La catégorie sélectionnée n'est pas correcte");
@@ -270,16 +326,33 @@ export default function NewEventScreen({ route, navigation }) {
   // 4. Return Component
   return (
     <>
-      <StatusBar translucent={false} backgroundColor={GLOBAL_COLOR.PRIMARY} barStyle="light-content" />
-      <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
+      <StatusBar
+        translucent={false}
+        backgroundColor={GLOBAL_COLOR.PRIMARY}
+        barStyle="light-content"
+      />
+      <SafeAreaView
+        style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }}
+      />
       <LoadingModal visible={modalLoadingVisible} />
       <SafeAreaView style={styles.screen}>
-        <TouchableOpacity style={{ flex: 1 }} activeOpacity={1} onPress={dismissKeyboard}>
+        <TouchableOpacity
+          style={{ flex: 1 }}
+          activeOpacity={1}
+          onPress={dismissKeyboard}
+        >
           <HeaderNav
-            title={event.tokenEvent ? "Mettre à jour l'événement" : "Nouvel événement"}
+            title={
+              event.tokenEvent
+                ? "Mettre à jour l'événement"
+                : "Nouvel événement"
+            }
             navigation={navigation}
           />
-          <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : null} >
+          <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === "ios" ? "padding" : null}
+          >
             <ScrollView style={styles.content}>
               <InputComponent
                 key="title"
@@ -298,7 +371,9 @@ export default function NewEventScreen({ route, navigation }) {
                 maxLength={10}
               />
               <View style={styles.categorie}>
-                <Text style={styles.textCategorie}>Selectionner une categorie :</Text>
+                <Text style={styles.textCategorie}>
+                  Selectionner une categorie :
+                </Text>
                 <View style={styles.bubblesContainer}>
                   <TouchableOpacity
                     style={[styles.bubble, { opacity: transport ? 1 : 0.5 }]}
@@ -310,7 +385,12 @@ export default function NewEventScreen({ route, navigation }) {
                     style={[styles.bubble, { opacity: activity ? 1 : 0.5 }]}
                     onPress={handleActivityPress}
                   >
-                    <SvgPeople style={{ alignSelf: "center" }} width={30} height={30} fill={GLOBAL_COLOR.QUATERNARY} />
+                    <SvgPeople
+                      style={{ alignSelf: "center" }}
+                      width={30}
+                      height={30}
+                      fill={GLOBAL_COLOR.QUATERNARY}
+                    />
                   </TouchableOpacity>
                 </View>
               </View>
@@ -404,11 +484,12 @@ export default function NewEventScreen({ route, navigation }) {
                     }
                     {
                       // input si bouton Transport = true
-                      (transportSelected === "train" || transportSelected === "plane") && (
+                      (transportSelected === "train" ||
+                        transportSelected === "plane") && (
                         <InputComponent
                           key="ticket"
                           name="ticket"
-                          placeholder="N° billet"
+                          placeholder={transportRef}
                           onInputChange={handleInputChange}
                           value={ticket}
                         />
@@ -426,7 +507,10 @@ export default function NewEventScreen({ route, navigation }) {
                 )
               }
               <Text style={styles.textError}>{textError}</Text>
-              <TouchableOpacity style={styles.btnSave} onPress={() => handleAddEvent()}>
+              <TouchableOpacity
+                style={styles.btnSave}
+                onPress={() => handleAddEvent()}
+              >
                 <Text style={styles.textSave}>Enregistrer</Text>
               </TouchableOpacity>
               <View style={styles.space} />
