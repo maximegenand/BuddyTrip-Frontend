@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,36 +7,36 @@ import {
   SafeAreaView,
   StatusBar,
   ActivityIndicator,
-} from "react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { format } from "date-fns";
-import { fr } from "date-fns/esm/locale";
-import { BACK_URL } from "@env";
+} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/esm/locale';
+import { BACK_URL } from '@env';
 
 // Import styles
-import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
-import styles from "../styles/EventStyles";
+import { globalsStyles, GLOBAL_COLOR } from '../styles/globals';
+import styles from '../styles/EventStyles';
 
 //Import components
-import BuddiesBar from "../components/BuddiesBar";
-import SvgAdd from "../components/svg/SvgAdd";
-import SvgMinus from "../components/svg/SvgMinus";
-import SvgCar from "../components/svg/SvgCar";
-import SvgPlane from "../components/svg/SvgPlane";
-import SvgTrain from "../components/svg/SvgTrain";
-import SvgActivity from "../components/svg/SvgActivity";
-import SvgPeople from "../components/svg/SvgPeople";
+import BuddiesBar from '../components/BuddiesBar';
+import SvgAdd from '../components/svg/SvgAdd';
+import SvgMinus from '../components/svg/SvgMinus';
+import SvgCar from '../components/svg/SvgCar';
+import SvgPlane from '../components/svg/SvgPlane';
+import SvgTrain from '../components/svg/SvgTrain';
+import SvgActivity from '../components/svg/SvgActivity';
+import SvgPeople from '../components/svg/SvgPeople';
 
 //Import modules
-import { formatDate, compareDate } from "../modules/dates";
-import { timeToText } from "../modules/formatTime";
-import { findCategory } from "../modules/findCategory";
+import { formatDate, compareDate } from '../modules/dates';
+import { timeToText } from '../modules/formatTime';
+import { findCategory } from '../modules/findCategory';
 
 // Import redux
-import { useDispatch, useSelector } from "react-redux";
-import {} from "../redux/reducers/user";
-import {} from "../redux/reducers/trips";
-import { addEvent, updateEvent } from "../redux/reducers/events";
+import { useDispatch, useSelector } from 'react-redux';
+import {} from '../redux/reducers/user';
+import {} from '../redux/reducers/trips';
+import { addEvent, updateEvent } from '../redux/reducers/events';
 
 export default function EventScreen({ route, navigation }) {
   // 1. Redux storage
@@ -55,7 +55,7 @@ export default function EventScreen({ route, navigation }) {
   const isCreator = event.user.tokenUser === user.tokenUser;
   // vérification si le user est participant à l'event ou pas
   const isParticipant = event.participants.find(
-    (e) => e.tokenUser === user.tokenUser
+    (e) => e.tokenUser === user.tokenUser,
   );
 
   // On destructure les données
@@ -85,28 +85,28 @@ export default function EventScreen({ route, navigation }) {
     const width = 40;
     const height = 40;
     const fill = GLOBAL_COLOR.TERTIARY;
-    if (cat === "travel car")
+    if (cat === 'travel car')
       return (
         <SvgCar
-          style={{ alignSelf: "center" }}
+          style={{ alignSelf: 'center' }}
           width={width}
           height={height}
           fill={fill}
         />
       );
-    else if (cat === "travel plane")
+    else if (cat === 'travel plane')
       return (
         <SvgPlane
-          style={{ alignSelf: "center" }}
+          style={{ alignSelf: 'center' }}
           width={width}
           height={height}
           fill={fill}
         />
       );
-    else if (cat === "travel train")
+    else if (cat === 'travel train')
       return (
         <SvgTrain
-          style={{ alignSelf: "center" }}
+          style={{ alignSelf: 'center' }}
           width={width}
           height={height}
           fill={fill}
@@ -114,7 +114,7 @@ export default function EventScreen({ route, navigation }) {
       );
     return (
       <SvgPeople
-        style={{ alignSelf: "center" }}
+        style={{ alignSelf: 'center' }}
         width={width}
         height={height}
         fill={fill}
@@ -128,8 +128,8 @@ export default function EventScreen({ route, navigation }) {
     setIsLoad(true);
     try {
       const response = await fetch(`${BACK_URL}/events/participant`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           token: user.token,
           tokenEvent: event.tokenEvent,
@@ -137,7 +137,7 @@ export default function EventScreen({ route, navigation }) {
       });
 
       const responseData = await response.json();
-      console.log("Réponse du serveur:", responseData);
+      console.log('Réponse du serveur:', responseData);
 
       if (responseData.result) {
         const newEvent = responseData.event;
@@ -155,8 +155,8 @@ export default function EventScreen({ route, navigation }) {
     setIsLoad(true);
     try {
       const response = await fetch(`${BACK_URL}/events/participant`, {
-        method: "delete",
-        headers: { "Content-Type": "application/json" },
+        method: 'delete',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           token: user.token,
           tokenEvent: event.tokenEvent,
@@ -164,7 +164,7 @@ export default function EventScreen({ route, navigation }) {
       });
 
       const responseData = await response.json();
-      console.log("Réponse du serveur:", responseData);
+      console.log('Réponse du serveur:', responseData);
 
       if (responseData.result) {
         const newEvent = responseData.event;
@@ -197,8 +197,8 @@ export default function EventScreen({ route, navigation }) {
             onPress={
               route.params?.isNew
                 ? () =>
-                    navigation.navigate("TabNavigator", {
-                      screen: "Trip",
+                    navigation.navigate('TabNavigator', {
+                      screen: 'Trip',
                       params: { tokenTrip, date },
                     })
                 : () => navigation.goBack()
@@ -281,8 +281,8 @@ export default function EventScreen({ route, navigation }) {
                     style={styles.edit}
                     activeOpacity={0.8}
                     onPress={() =>
-                      navigation.navigate("NewEvent", {
-                        screen: "NewEvent",
+                      navigation.navigate('NewEvent', {
+                        screen: 'NewEvent',
                         tokenEvent,
                       })
                     }
@@ -299,9 +299,9 @@ export default function EventScreen({ route, navigation }) {
                 <Text style={styles.textInfosBold}>Date :</Text>
                 <Text> {formatDate(new Date(date))}</Text>
               </Text>
-              {category === "activity" ? (
+              {category === 'activity' ? (
                 <Text style={styles.textInfos}>
-                  <Text style={styles.textInfosBold}>Heure :</Text>{" "}
+                  <Text style={styles.textInfosBold}>Heure :</Text>{' '}
                   {timeToText(timeStart)}
                 </Text>
               ) : (
@@ -329,11 +329,11 @@ export default function EventScreen({ route, navigation }) {
               {ticket && (
                 <Text style={styles.textInfos}>
                   <Text style={styles.textInfosBold}>
-                    {category === "travel train"
-                      ? "N° de train : "
-                      : category === "travel plane"
-                      ? "N° de  vol : "
-                      : ""}
+                    {category === 'travel train'
+                      ? 'N° de train : '
+                      : category === 'travel plane'
+                      ? 'N° de  vol : '
+                      : ''}
                   </Text>
                   {ticket}
                 </Text>

@@ -1,15 +1,27 @@
-import { View, StyleSheet, Text, Dimensions, TouchableOpacity } from "react-native";
-import { GLOBAL_COLOR } from "../styles/globals";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
+import { GLOBAL_COLOR } from '../styles/globals';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function HeaderNav({ navigation, title }) {
   return (
     <View style={styles.header}>
-      <TouchableOpacity style={styles.headerSide} onPress={() => navigation.goBack()} activeOpacity={0.8}>
-        <FontAwesome name="arrow-left" size={30} color='white' />
+      <TouchableOpacity
+        style={styles.headerSide}
+        onPress={() => navigation.goBack()}
+        activeOpacity={0.8}
+      >
+        <FontAwesome name="arrow-left" size={30} color="white" />
       </TouchableOpacity>
       <View style={styles.headerCenter}>
-        <Text numberOfLines={1} ellipsizeMode="middle" style={styles.title}>{title}</Text>
+        <Text numberOfLines={1} ellipsizeMode="middle" style={styles.title}>
+          {title}
+        </Text>
       </View>
       <View style={styles.headerSide}></View>
     </View>
@@ -17,9 +29,9 @@ export default function HeaderNav({ navigation, title }) {
 }
 const styles = StyleSheet.create({
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: GLOBAL_COLOR.PRIMARY,
   },
   headerSide: {

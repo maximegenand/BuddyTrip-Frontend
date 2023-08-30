@@ -2,7 +2,10 @@ import { GLOBAL_COLOR } from './styles/globals';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 // Import des Fonts Google : https://github.com/expo/google-fonts/tree/master/font-packages
-import { useFonts, MontserratAlternates_600SemiBold_Italic } from '@expo-google-fonts/montserrat-alternates';
+import {
+  useFonts,
+  MontserratAlternates_600SemiBold_Italic,
+} from '@expo-google-fonts/montserrat-alternates';
 
 // Import Navigation
 import { NavigationContainer } from '@react-navigation/native';
@@ -25,29 +28,30 @@ import NewTripScreen from './screens/NewTripScreen';
 
 // Import Redux persist
 import { Provider } from 'react-redux';
-import { persistStore } from "redux-persist";
+import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import store from './redux/store';
 const persistor = persistStore(store);
 
-
 const TabNavigator = () => {
   return (
-    <Tab.Navigator screenOptions={({ route }) => ({
-      tabBarIcon: ({ color, size }) => {
-        let iconName = '';
-        if      (route.name === 'Trip')       iconName = 'home';
-        else if (route.name === 'Documents')  iconName = 'file';
-        else if (route.name === 'Profil')     iconName = 'user';
-        else if (route.name === 'Chat')       iconName = 'comment';
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ color, size }) => {
+          let iconName = '';
+          if (route.name === 'Trip') iconName = 'home';
+          else if (route.name === 'Documents') iconName = 'file';
+          else if (route.name === 'Profil') iconName = 'user';
+          else if (route.name === 'Chat') iconName = 'comment';
 
-        return <FontAwesome name={iconName} size={size} color={color} />;
-      },
-      tabBarActiveTintColor: GLOBAL_COLOR.SECONDARY,
-      tabBarInactiveTintColor: '#b2b2b2',
-      headerShown: false,
-    })}>
-      <Tab.Screen name="Trip" component={TripScreen}/>
+          return <FontAwesome name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: GLOBAL_COLOR.SECONDARY,
+        tabBarInactiveTintColor: '#b2b2b2',
+        headerShown: false,
+      })}
+    >
+      <Tab.Screen name="Trip" component={TripScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Documents" component={DocumentsScreen} />
       <Tab.Screen name="Profil" component={ProfilScreen} />
@@ -55,11 +59,11 @@ const TabNavigator = () => {
   );
 };
 
-
 export default function App() {
   // Initialisation des fonts Google
   let [fontsLoaded] = useFonts({
-    'Montserrat-Alternates-SemiBold-Italic': MontserratAlternates_600SemiBold_Italic,
+    'Montserrat-Alternates-SemiBold-Italic':
+      MontserratAlternates_600SemiBold_Italic,
   });
   if (!fontsLoaded) {
     return null;
@@ -68,18 +72,18 @@ export default function App() {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Signin" component={SigninScreen} />
-          <Stack.Screen name="Signup" component={SignupScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="TabNavigator" component={TabNavigator} />
-          <Stack.Screen name="NewTrip" component={NewTripScreen}/>
-          <Stack.Screen name="Event" component={EventScreen} />
-          <Stack.Screen name="NewEvent" component={NewEventScreen} />
-          <Stack.Screen name="Profil" component={ProfilScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Signin" component={SigninScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="TabNavigator" component={TabNavigator} />
+            <Stack.Screen name="NewTrip" component={NewTripScreen} />
+            <Stack.Screen name="Event" component={EventScreen} />
+            <Stack.Screen name="NewEvent" component={NewEventScreen} />
+            <Stack.Screen name="Profil" component={ProfilScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
       </PersistGate>
     </Provider>
   );

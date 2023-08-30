@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,37 +7,37 @@ import {
   ScrollView,
   Keyboard,
   KeyboardAvoidingView,
-} from "react-native";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
-import { SelectList } from "react-native-dropdown-select-list";
-import { format, parse, compareDesc } from "date-fns";
-import { BACK_URL } from "@env";
+} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import { SelectList } from 'react-native-dropdown-select-list';
+import { format, parse, compareDesc } from 'date-fns';
+import { BACK_URL } from '@env';
 
 // Import styles
-import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
-import styles from "../styles/NewEventStyles";
+import { globalsStyles, GLOBAL_COLOR } from '../styles/globals';
+import styles from '../styles/NewEventStyles';
 
 //Import components
-import HeaderNav from "../components/HeaderNewTrip";
-import LoadingModal from "../components/LoadingModal";
-import InputComponent from "../components/Input";
-import SvgCar from "../components/svg/SvgCar";
-import SvgPlane from "../components/svg/SvgPlane";
-import SvgTrain from "../components/svg/SvgTrain";
-import SvgActivity from "../components/svg/SvgActivity";
-import SvgPeople from "../components/svg/SvgPeople";
+import HeaderNav from '../components/HeaderNewTrip';
+import LoadingModal from '../components/LoadingModal';
+import InputComponent from '../components/Input';
+import SvgCar from '../components/svg/SvgCar';
+import SvgPlane from '../components/svg/SvgPlane';
+import SvgTrain from '../components/svg/SvgTrain';
+import SvgActivity from '../components/svg/SvgActivity';
+import SvgPeople from '../components/svg/SvgPeople';
 
 //Import modules
-import { formatDate } from "../modules/formatDate";
-import { formatTime, timeToText } from "../modules/formatTime";
-import { isValidDate } from "../modules/isValidDate";
+import { formatDate } from '../modules/formatDate';
+import { formatTime, timeToText } from '../modules/formatTime';
+import { isValidDate } from '../modules/isValidDate';
 
 // Import redux
-import { useDispatch, useSelector } from "react-redux";
-import {} from "../redux/reducers/user";
-import {} from "../redux/reducers/trips";
-import { addEvent, updateEvent } from "../redux/reducers/events";
-import { StatusBar } from "expo-status-bar";
+import { useDispatch, useSelector } from 'react-redux';
+import {} from '../redux/reducers/user';
+import {} from '../redux/reducers/trips';
+import { addEvent, updateEvent } from '../redux/reducers/events';
+import { StatusBar } from 'expo-status-bar';
 
 export default function NewEventScreen({ route, navigation }) {
   // 1. Redux storage
@@ -69,21 +69,21 @@ export default function NewEventScreen({ route, navigation }) {
   const [modalLoadingVisible, setModalLoadingVisible] = useState(false);
 
   // États pour gérer les valeurs des champs
-  const [title, setTitle] = useState(event.name ?? "");
+  const [title, setTitle] = useState(event.name ?? '');
   const [date, setDate] = useState(
-    format(new Date(event.date), "dd'/'MM'/'yyyy")
+    format(new Date(event.date), "dd'/'MM'/'yyyy"),
   );
-  const [description, setDescription] = useState(event.description ?? "");
+  const [description, setDescription] = useState(event.description ?? '');
   const [timeStart, setTimeStart] = useState(
-    event.timeStart ? timeToText(event.timeStart, ":") : ""
+    event.timeStart ? timeToText(event.timeStart, ':') : '',
   );
   const [timeEnd, setTimeEnd] = useState(
-    event.timeEnd ? timeToText(event.timeEnd, ":") : ""
+    event.timeEnd ? timeToText(event.timeEnd, ':') : '',
   );
-  const [ticket, setTicket] = useState(event.ticket ?? "");
-  const [seats, setSeats] = useState(event.seats ?? "");
-  const [place, setPlace] = useState(event.place ?? "");
-  const [textError, setTextError] = useState("");
+  const [ticket, setTicket] = useState(event.ticket ?? '');
+  const [seats, setSeats] = useState(event.seats ?? '');
+  const [place, setPlace] = useState(event.place ?? '');
+  const [textError, setTextError] = useState('');
 
   // Permet de supprimer le message d'erreur dès que l'utilisateur tape un nouveau texte
   useEffect(() => {
@@ -92,26 +92,26 @@ export default function NewEventScreen({ route, navigation }) {
 
   // ETAT rendu conditionnel en fonction de l'event
   const [transport, setTransport] = useState(
-    event.category && event.category.includes("travel")
+    event.category && event.category.includes('travel'),
   );
   const [activity, setActivity] = useState(
-    event.category && event.category === "activity"
+    event.category && event.category === 'activity',
   );
 
   // Gestion de la selection du mode de transport
   const listSelection = [
-    { key: "car", value: "Voiture" },
-    { key: "train", value: "Train" },
-    { key: "plane", value: "Avion" },
+    { key: 'car', value: 'Voiture' },
+    { key: 'train', value: 'Train' },
+    { key: 'plane', value: 'Avion' },
   ];
   // Si on édite un transport, on récupère la key du transport depuis event.category
   const initialTransport =
     event.category &&
-    event.category.includes("travel") &&
+    event.category.includes('travel') &&
     event.category.slice(7);
   // On défini le state du transport avec la valeur retournée, ou vide si ce n'est pas un trajet ou que c'est un nouvel event
   const [transportSelected, setTransportSelected] = useState(
-    initialTransport ?? ""
+    initialTransport ?? '',
   );
   // On défini le défaultValue pour la selectionList
   const initialObject = initialTransport
@@ -120,27 +120,27 @@ export default function NewEventScreen({ route, navigation }) {
   //console.log(initialObject);
   let iconTransport = (
     <SvgCar
-      style={{ alignSelf: "center" }}
+      style={{ alignSelf: 'center' }}
       width={30}
       height={30}
       fill={GLOBAL_COLOR.QUATERNARY}
     />
   );
-  if (transportSelected === "train") {
-    transportRef = "N° de train";
+  if (transportSelected === 'train') {
+    transportRef = 'N° de train';
     iconTransport = (
       <SvgTrain
-        style={{ alignSelf: "center" }}
+        style={{ alignSelf: 'center' }}
         width={30}
         height={30}
         fill={GLOBAL_COLOR.QUATERNARY}
       />
     );
-  } else if (transportSelected === "plane") {
-    transportRef = "N° de vol";
+  } else if (transportSelected === 'plane') {
+    transportRef = 'N° de vol';
     iconTransport = (
       <SvgPlane
-        style={{ alignSelf: "center" }}
+        style={{ alignSelf: 'center' }}
         width={30}
         height={30}
         fill={GLOBAL_COLOR.QUATERNARY}
@@ -152,14 +152,14 @@ export default function NewEventScreen({ route, navigation }) {
 
   // Gestion des states des inputs
   const handleInputChange = (name, value) => {
-    if (name === "title") setTitle(value);
-    else if (name === "date") handleDateChange(value);
-    else if (name === "timeStart") handleTimeChange(value, "start");
-    else if (name === "timeEnd") handleTimeChange(value, "end");
-    else if (name === "place") setPlace(value);
-    else if (name === "description") setDescription(value);
-    else if (name === "ticket") setTicket(value);
-    else if (name === "seats") setSeats(value);
+    if (name === 'title') setTitle(value);
+    else if (name === 'date') handleDateChange(value);
+    else if (name === 'timeStart') handleTimeChange(value, 'start');
+    else if (name === 'timeEnd') handleTimeChange(value, 'end');
+    else if (name === 'place') setPlace(value);
+    else if (name === 'description') setDescription(value);
+    else if (name === 'ticket') setTicket(value);
+    else if (name === 'seats') setSeats(value);
   };
 
   // Fonction pour masquer le clavier lorsque l'utilisateur appuie en dehors du champ de saisie
@@ -179,8 +179,8 @@ export default function NewEventScreen({ route, navigation }) {
     // Formater le texte du time pour qu'il ait le format "HH:mm"
     const formattedTime = formatTime(text);
     // Mettre à jour l'état avec le time
-    name === "start" && setTimeStart(formattedTime);
-    name === "end" && setTimeEnd(formattedTime);
+    name === 'start' && setTimeStart(formattedTime);
+    name === 'end' && setTimeEnd(formattedTime);
   };
 
   const handleTransportPress = () => {
@@ -192,10 +192,10 @@ export default function NewEventScreen({ route, navigation }) {
     // Lorsque le bouton "Act" est pressé, on veut mettre activity à true et transport à false
     setActivity(true);
     setTransport(false);
-    setTransportSelected("");
-    setTicket("");
-    setTimeEnd("");
-    setSeats("");
+    setTransportSelected('');
+    setTicket('');
+    setTimeEnd('');
+    setSeats('');
   };
 
   // fonction handleAddEvent pour créer un nouveau event
@@ -218,9 +218,9 @@ export default function NewEventScreen({ route, navigation }) {
       // Si c'est un transport, on vérifie ensuite une heure d'arrivée
       (transportSelected && !timeEnd)
     ) {
-      console.log("Tous les champs doivent être remplis.");
+      console.log('Tous les champs doivent être remplis.');
       setModalLoadingVisible(false);
-      setTextError("Formulaire incomplet");
+      setTextError('Formulaire incomplet');
       return;
     }
 
@@ -229,7 +229,7 @@ export default function NewEventScreen({ route, navigation }) {
     const timeStartSave = parse(
       `${date}-${timeStart} Z`,
       "dd'/'MM'/'yyyy'-'HH':'m X",
-      new Date()
+      new Date(),
     );
     const timeEndSave = transport
       ? parse(`${date}-${timeEnd} Z`, "dd'/'MM'/'yyyy'-'HH':'m X", new Date())
@@ -237,7 +237,7 @@ export default function NewEventScreen({ route, navigation }) {
     // console.log(dateSave, timeStartSave, timeEndSave);
 
     // On vérifie que la date renseignée est égale ou supérieur à celle d'aujourd'hui
-    const dateNow = new Date(format(new Date(), "yyyy-MM-dd"));
+    const dateNow = new Date(format(new Date(), 'yyyy-MM-dd'));
     if (compareDesc(dateNow, dateSave) < 0) {
       console.log("Impossible d'enregistrer à une date antérieure");
       setModalLoadingVisible(false);
@@ -249,27 +249,27 @@ export default function NewEventScreen({ route, navigation }) {
     if (transport && timeEndSave < timeStartSave) {
       console.log("L'heure de fin doit être supérieure à l'heure de début.");
       setModalLoadingVisible(false);
-      setTextError("Heure de fin < Heure de début");
+      setTextError('Heure de fin < Heure de début');
       return;
     }
 
     // Gestion de la catégorie de l'évènement (activity, travel car, travel plane, travel train)
     let categorySave;
-    if (activity) categorySave = "activity";
+    if (activity) categorySave = 'activity';
     else if (transport && transportSelected)
       categorySave = `travel ${transportSelected}`;
     // On vérifie que la catégorie a bien été selectionnée et si transport qu'il ai bien été choisi
     else {
       console.log("La catégorie sélectionnée n'est pas correcte");
       setModalLoadingVisible(false);
-      setTextError("Erreur de catégorie");
+      setTextError('Erreur de catégorie');
       return;
     }
 
     // Gestion des places disponibles - On vérifie si on envoie un nombre
     const seatsSave = +seats;
     if (isNaN(seatsSave)) {
-      console.log("Mauvais input dans seat");
+      console.log('Mauvais input dans seat');
       setModalLoadingVisible(false);
       setTextError("Erreur dans l'input places");
       return;
@@ -291,8 +291,8 @@ export default function NewEventScreen({ route, navigation }) {
 
     try {
       const response = await fetch(`${BACK_URL}/events/`, {
-        method: event.tokenEvent ? "PUT" : "POST", // Si on a deja un tokenEvent on sait qu'il faut seulement mettre à jour
-        headers: { "Content-Type": "application/json" },
+        method: event.tokenEvent ? 'PUT' : 'POST', // Si on a deja un tokenEvent on sait qu'il faut seulement mettre à jour
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: user.token, event: eventData }),
       });
 
@@ -308,8 +308,8 @@ export default function NewEventScreen({ route, navigation }) {
         } else {
           dispatch(addEvent(responseData.event));
           // Redirigez l'utilisateur vers EventScreen si la réponse du backend est true
-          await navigation.navigate("Event", {
-            screen: "Event",
+          await navigation.navigate('Event', {
+            screen: 'Event',
             tokenEvent: responseData.event.tokenEvent,
             isNew: true,
           });
@@ -319,7 +319,7 @@ export default function NewEventScreen({ route, navigation }) {
     } catch (error) {
       console.error("Erreur lors de l'envoi de l'event au serveur :", error);
       setModalLoadingVisible(false);
-      setTextError("Erreur de connexion au serveur");
+      setTextError('Erreur de connexion au serveur');
     }
   }
 
@@ -345,13 +345,13 @@ export default function NewEventScreen({ route, navigation }) {
             title={
               event.tokenEvent
                 ? "Mettre à jour l'événement"
-                : "Nouvel événement"
+                : 'Nouvel événement'
             }
             navigation={navigation}
           />
           <KeyboardAvoidingView
             style={{ flex: 1 }}
-            behavior={Platform.OS === "ios" ? "padding" : null}
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
           >
             <ScrollView style={styles.content}>
               <InputComponent
@@ -386,7 +386,7 @@ export default function NewEventScreen({ route, navigation }) {
                     onPress={handleActivityPress}
                   >
                     <SvgPeople
-                      style={{ alignSelf: "center" }}
+                      style={{ alignSelf: 'center' }}
                       width={30}
                       height={30}
                       fill={GLOBAL_COLOR.QUATERNARY}
@@ -394,7 +394,7 @@ export default function NewEventScreen({ route, navigation }) {
                   </TouchableOpacity>
                 </View>
               </View>
-              <View style={[globalsStyles.lines, { alignSelf: "center" }]} />
+              <View style={[globalsStyles.lines, { alignSelf: 'center' }]} />
               {
                 // input si bouton Activity = true
                 activity && (
@@ -470,7 +470,7 @@ export default function NewEventScreen({ route, navigation }) {
                     />
                     {
                       // input si bouton Transport = true
-                      transportSelected === "car" && (
+                      transportSelected === 'car' && (
                         <InputComponent
                           key="seats"
                           name="seats"
@@ -484,8 +484,8 @@ export default function NewEventScreen({ route, navigation }) {
                     }
                     {
                       // input si bouton Transport = true
-                      (transportSelected === "train" ||
-                        transportSelected === "plane") && (
+                      (transportSelected === 'train' ||
+                        transportSelected === 'plane') && (
                         <InputComponent
                           key="ticket"
                           name="ticket"

@@ -1,10 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  value: {/*
+  value: {
+    /*
     token: "eBD1ruzHBo5CjEThIajyKnVjvy0pEWiv",
     username: "John",
-*/},
+*/
+  },
 };
 
 export const userSlice = createSlice({

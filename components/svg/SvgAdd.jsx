@@ -1,7 +1,6 @@
 // Create with https://react-svgr.com/playground/?native=true
 
-import Svg, { G, Path } from "react-native-svg";
-
+import Svg, { G, Path } from 'react-native-svg';
 
 export default SvgCar = (props) => (
   <Svg

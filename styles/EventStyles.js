@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { globalsStyles, GLOBAL_COLOR } from "./globals";
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+import { StyleSheet, Dimensions } from 'react-native';
+import { globalsStyles, GLOBAL_COLOR } from './globals';
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
   container: {
@@ -8,14 +8,14 @@ export default styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.TERTIARY,
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: GLOBAL_COLOR.PRIMARY,
   },
   headerSide: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 60,
     height: 60,
   },
@@ -25,35 +25,35 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 5,
   },
   title: {
-    color: "white",
+    color: 'white',
     fontSize: 20,
     fontWeight: 700,
   },
   titleBy: {
-    color: "white",
+    color: 'white',
     fontSize: 12,
-    fontStyle: "italic",
+    fontStyle: 'italic',
   },
   body: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     paddingTop: 20,
   },
   buddiesContainer: {
-    width: "90%",
-    alignSelf: "center",
-    alignItems: "center",
+    width: '90%',
+    alignSelf: 'center',
+    alignItems: 'center',
   },
   lineContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: 10,
   },
   textTitleBuddies: {
     marginHorizontal: 2,
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     color: GLOBAL_COLOR.SECONDARY,
   },
   Line: {
@@ -62,23 +62,23 @@ export default styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.SECONDARY,
   },
   buddiesContent: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
     height: 60,
     borderColor: GLOBAL_COLOR.SECONDARY,
   },
   bubbles: {
     flexShrink: 1,
     flexGrow: 1,
-    alignSelf: "center",
+    alignSelf: 'center',
     marginHorizontal: 20,
   },
   buttonAddBuddy: {
-    position: "relative",
+    position: 'relative',
     right: -1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 60,
     height: 60,
     borderLeftColor: GLOBAL_COLOR.SECONDARY, // Couleur de la bordure à gauche
@@ -86,16 +86,16 @@ export default styles = StyleSheet.create({
   },
   buddysWord: {
     color: GLOBAL_COLOR.TERTIARY,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 15,
     padding: 20,
   },
   containerInfos: {
     marginTop: 15,
-    height: "75%",
-    width: "90%",
-    position: "relative",
-    backgroundColor: "white",
+    height: '75%',
+    width: '90%',
+    position: 'relative',
+    backgroundColor: 'white',
     borderColor: GLOBAL_COLOR.SECONDARY,
     borderWidth: 2,
     borderRadius: 10,
@@ -105,17 +105,17 @@ export default styles = StyleSheet.create({
     elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
   infos: {
-    position: "relative",
-    justifyContent: "flex-start",
+    position: 'relative',
+    justifyContent: 'flex-start',
     marginLeft: 10,
     marginTop: 10,
     // backgroundColor: 'red',
   },
   edit: {
-    position: "absolute",
+    position: 'absolute',
     zIndex: 100,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 50,
     height: 50,
     top: -10,
@@ -130,13 +130,13 @@ export default styles = StyleSheet.create({
     // marginLeft: 5,
   },
   textInfosBold: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   line: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   lines: {
-    width: "90%",
+    width: '90%',
     marginTop: 20,
     marginBottom: 20,
     borderBottomColor: GLOBAL_COLOR.PRIMARY,
@@ -152,7 +152,7 @@ export default styles = StyleSheet.create({
     fontSize: 17,
   },
   interetText: {
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontSize: 18,
     color: GLOBAL_COLOR.SECONDARY,
     marginBottom: 10,

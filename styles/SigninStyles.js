@@ -10,17 +10,17 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 100,
-    backgroundColor: "rgba(0, 0, 0, 0.2)"
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
   },
   container: {
     flex: 1,
     paddingTop: STATUSBAR_HEIGHT,
-    backgroundColor: GLOBAL_COLOR.SECONDARY+'B3', // 0.8 d'opacity - format #rrggbbaa -> https://borderleft.com/toolbox/rrggbbaa/
+    backgroundColor: GLOBAL_COLOR.SECONDARY + 'B3', // 0.8 d'opacity - format #rrggbbaa -> https://borderleft.com/toolbox/rrggbbaa/
   },
   safeView: {
     flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   logo: {
     alignContent: 'center',

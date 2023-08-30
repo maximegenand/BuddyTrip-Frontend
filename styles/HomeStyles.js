@@ -1,7 +1,7 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { GLOBAL_COLOR, globalsStyles } from "./globals";
-import { FontDisplay } from "expo-font";
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+import { StyleSheet, Dimensions } from 'react-native';
+import { GLOBAL_COLOR, globalsStyles } from './globals';
+import { FontDisplay } from 'expo-font';
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
   container: {
@@ -9,8 +9,8 @@ export default styles = StyleSheet.create({
     backgroundColor: GLOBAL_COLOR.TERTIARY,
   },
   header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     height: 60,
     padding: 10,
     backgroundColor: GLOBAL_COLOR.PRIMARY,
@@ -18,17 +18,17 @@ export default styles = StyleSheet.create({
   },
   scrollContainer: {
     flex: 1,
-    width: "100%",
+    width: '100%',
   },
   content: {
-    width: "100%",
+    width: '100%',
     marginBottom: 100,
   },
   noTrip: {
     alignSelf: 'center',
     paddingTop: 50,
     fontSize: 20,
-    fontFamily: "Montserrat-Alternates-SemiBold-Italic",
+    fontFamily: 'Montserrat-Alternates-SemiBold-Italic',
     color: GLOBAL_COLOR.PRIMARY,
   },
   monthContainer: {
@@ -47,14 +47,14 @@ export default styles = StyleSheet.create({
   monthText: {
     color: GLOBAL_COLOR.PRIMARY,
     fontSize: 20,
-    fontFamily: "Montserrat-Alternates-SemiBold-Italic",
+    fontFamily: 'Montserrat-Alternates-SemiBold-Italic',
   },
   tripContainer: {
     position: 'relative',
     left: -1,
     flexDirection: 'row',
-    width: "95%",
-    marginRight: "5%",
+    width: '95%',
+    marginRight: '5%',
     marginVertical: 15,
     backgroundColor: 'white',
     shadowColor: 'black',
@@ -77,7 +77,7 @@ export default styles = StyleSheet.create({
   },
   tripSubContainer: {
     flex: 1,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
   },
   tripTitle: {
     color: GLOBAL_COLOR.SECONDARY,
@@ -96,7 +96,7 @@ export default styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     width: '100%',
-    alignItems: "center",
+    alignItems: 'center',
   },
   boutonAdd: {
     shadowOffset: { width: 0, height: 6 }, // Ajustez l'offset souhaité
@@ -111,36 +111,36 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 100,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalContent: {
-    width: "80%",
-    height: "30%",
+    width: '80%',
+    height: '30%',
     borderRadius: 5,
-    borderWidth:2,
+    borderWidth: 2,
     borderColor: GLOBAL_COLOR.PRIMARY,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: "space-evenly",
-    alignItems: "center",
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   },
   titleModalContainer: {
     backgroundColor: GLOBAL_COLOR.TERTIARY,
     borderRadius: 5,
     padding: 10,
-    width:'60%',
+    width: '60%',
     height: '25%',
-    alignItems: "center",
-    justifyContent: "center",
-    alignItems: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   modalTitle: {
     color: GLOBAL_COLOR.SECONDARY,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
     fontSize: 20,
   },
-  btnModal:{
+  btnModal: {
     width: '50%',
     height: '40%',
     bottom: -20,

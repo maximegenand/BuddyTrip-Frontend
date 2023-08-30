@@ -1,0 +1,5 @@
+# Ignore artifacts:
+assets
+package.json
+README.md
+yarn.lock

@@ -1,6 +1,11 @@
-import { StyleSheet, Dimensions, BackHandler, ImageBackground } from "react-native";
-import { GLOBAL_COLOR } from "./globals";
-const { width: screenWidth, height: screenHeight } = Dimensions.get("window");
+import {
+  StyleSheet,
+  Dimensions,
+  BackHandler,
+  ImageBackground,
+} from 'react-native';
+import { GLOBAL_COLOR } from './globals';
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default styles = StyleSheet.create({
   container: {
@@ -9,8 +14,8 @@ export default styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: "center",
-    width: "100%",
+    alignItems: 'center',
+    width: '100%',
     height: 60,
     backgroundColor: GLOBAL_COLOR.PRIMARY,
   },
@@ -27,8 +32,8 @@ export default styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    display: "flex",
-    alignItems: "center",
+    display: 'flex',
+    alignItems: 'center',
     paddingTop: 50,
     backgroundColor: GLOBAL_COLOR.TERTIARY,
   },
@@ -50,9 +55,9 @@ export default styles = StyleSheet.create({
     borderRadius: 25,
   },
   infos: {
-    width: "90%",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    width: '90%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   textContainer: {
     flex: 1,
@@ -75,7 +80,7 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    width: "60%",
+    width: '60%',
     height: 50,
     marginVertical: 10,
     paddingLeft: 10,
@@ -93,7 +98,7 @@ export default styles = StyleSheet.create({
     color: GLOBAL_COLOR.TERTIARY,
     fontWeight: 700,
   },
-  gestion : {
+  gestion: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -111,9 +116,9 @@ export default styles = StyleSheet.create({
     shadowRadius: 6, // Ajustez le rayon de l'ombre souhaité
     elevation: 5, // Ajoutez la valeur d'élévation souhaitée
   },
-  textGestion : {
+  textGestion: {
     color: 'white',
     fontWeight: 700,
-    textAlign: 'center'
-  }
+    textAlign: 'center',
+  },
 });

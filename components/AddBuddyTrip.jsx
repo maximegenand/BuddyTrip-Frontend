@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Modal, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Text, Modal, TouchableOpacity } from 'react-native';
 import { GLOBAL_COLOR } from '../styles/globals';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { MultipleSelectList } from 'react-native-dropdown-select-list'
+import { MultipleSelectList } from 'react-native-dropdown-select-list';
 
 export default function AddBuddyTrip(props) {
-
   return (
     <Modal
       animationType="fade"
@@ -19,7 +18,7 @@ export default function AddBuddyTrip(props) {
         </View>
         <View style={styles.body}>
           <MultipleSelectList
-            setSelected={(key) => props.setBuddiesSelected(key)} 
+            setSelected={(key) => props.setBuddiesSelected(key)}
             data={props.data}
             save="key"
             search={true}
@@ -27,9 +26,24 @@ export default function AddBuddyTrip(props) {
             searchPlaceholder="recherche"
             notFoundText="aucun buddy trouvé"
             label="Buddies"
-            boxStyles={[styles.boxStyles, {/*backgroundColor: 'yellow'*/}]}
-            inputStyles={[styles.inputStyles, {/*backgroundColor: 'green'*/}]}
-            dropdownStyles={[styles.dropdownStyles, {/*backgroundColor:'blue'*/}]}
+            boxStyles={[
+              styles.boxStyles,
+              {
+                /*backgroundColor: 'yellow'*/
+              },
+            ]}
+            inputStyles={[
+              styles.inputStyles,
+              {
+                /*backgroundColor: 'green'*/
+              },
+            ]}
+            dropdownStyles={[
+              styles.dropdownStyles,
+              {
+                /*backgroundColor:'blue'*/
+              },
+            ]}
             dropdownItemStyles={styles.dropdownItemStyles}
             badgeStyles={styles.badgeStyles}
           />
@@ -40,7 +54,7 @@ export default function AddBuddyTrip(props) {
       </View>
     </Modal>
   );
-};
+}
 
 const styles = StyleSheet.create({
   modal: {
@@ -79,7 +93,7 @@ const styles = StyleSheet.create({
     height: 26,
     fontSize: 16,
     borderBottomWidth: 1,
-    borderBottomColor : GLOBAL_COLOR.SECONDARY,
+    borderBottomColor: GLOBAL_COLOR.SECONDARY,
   },
   dropdownItemStyles: {
     //backgroundColor: 'red',

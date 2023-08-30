@@ -1,7 +1,6 @@
 // Create with https://react-svgr.com/playground/?native=true
 
-import Svg, { Path } from "react-native-svg";
-
+import Svg, { Path } from 'react-native-svg';
 
 export default SvgMinus = (props) => (
   <Svg
@@ -11,12 +10,12 @@ export default SvgMinus = (props) => (
     viewBox="0 0 24 24"
     {...props}
   >
-      <Path
-        stroke={props.fill}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M6 12h12"
-      />
+    <Path
+      stroke={props.fill}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M6 12h12"
+    />
   </Svg>
 );

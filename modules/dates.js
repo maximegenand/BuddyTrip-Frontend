@@ -4,8 +4,8 @@ import {
   isSameMonth,
   getDate,
   differenceInCalendarDays,
-} from "date-fns";
-import { fr } from "date-fns/locale";
+} from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 // Fonction pour formater une date au format 'jour mois' sans afficher le mois si le mois est identique entre les deux dates
 function formatDate(
@@ -13,13 +13,13 @@ function formatDate(
   showYear = false, // false: affiche l'année seulement si celle-ci est différente de l'actuelle ; true: l'affiche tout le temps
   short = false, // false: affiche le mois en mode "décembre" ; true: affiche le mois en mode "déc."
   range = false, // utilisé seulement par les fonctions
-  showMonth = true // utilisé seulement par les fonctions
+  showMonth = true, // utilisé seulement par les fonctions
 ) {
   // On raccourci le nom du mois si le paramètre true est ON
-  const month = short ? "MMM" : "MMMM";
+  const month = short ? 'MMM' : 'MMMM';
   // On renvoie 1er pour le jour si c'est le cas
-  let day = "d";
-  if (getDate(date) === 1) day = "do";
+  let day = 'd';
+  if (getDate(date) === 1) day = 'do';
 
   // On vérifie le year actuel pour l'afficher si ce n'est pas le même que l'année en cours, sauf si on est dans un range
   if (!showYear && !range) if (!isSameYear(date, new Date())) showYear = true;
@@ -49,7 +49,7 @@ const formatPeriod = (dates) => {
     !sameYear,
     true,
     true,
-    !sameMonth
+    !sameMonth,
   );
   const dateEndString = formatDate(dateEnd, false, true);
 
@@ -61,10 +61,10 @@ const formatPeriod = (dates) => {
 const compareDate = (dateStart, dateEnd) => {
   const diffDay = differenceInCalendarDays(
     new Date(dateEnd),
-    new Date(dateStart)
+    new Date(dateStart),
   );
 
-  if (diffDay === 0) return "";
+  if (diffDay === 0) return '';
   return `J+${diffDay}`;
 };
 

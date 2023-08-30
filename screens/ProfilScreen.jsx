@@ -1,21 +1,28 @@
-import { View, Text, TouchableOpacity, StatusBar, SafeAreaView, Dimensions, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StatusBar,
+  SafeAreaView,
+  Dimensions,
+  Image,
+} from 'react-native';
 
 // Import styles
-import { globalsStyles, GLOBAL_COLOR } from "../styles/globals";
-import styles from "../styles/ProfilStyles";
+import { globalsStyles, GLOBAL_COLOR } from '../styles/globals';
+import styles from '../styles/ProfilStyles';
 
 //Import components
-import BuddyBubble from "../components/BuddyBubble";
-import SvgArrow from "../components/svg/SvgArrow";
-import SvgHome from "../components/svg/SvgHome";
+import BuddyBubble from '../components/BuddyBubble';
+import SvgArrow from '../components/svg/SvgArrow';
+import SvgHome from '../components/svg/SvgHome';
 
 //Import modules
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 // Import redux
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../redux/reducers/user";
-
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../redux/reducers/user';
 
 export default function ProfilScreen({ navigation }) {
   // 1. Redux storage
@@ -29,11 +36,11 @@ export default function ProfilScreen({ navigation }) {
   // fonction pour se Deconnecter
   const handleLogout = () => {
     dispatch(logout());
-    navigation.navigate("Signin");
+    navigation.navigate('Signin');
   };
 
   // 4. Return Component
-  
+
   return (
     <>
       <StatusBar
@@ -41,10 +48,15 @@ export default function ProfilScreen({ navigation }) {
         backgroundColor={GLOBAL_COLOR.PRIMARY}
         barStyle="light-content"
       />
-      <SafeAreaView style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }} />
+      <SafeAreaView
+        style={{ flex: 0, backgroundColor: GLOBAL_COLOR.PRIMARY }}
+      />
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.btnHome} onPress={() => navigation.navigate("Home")}>
+          <TouchableOpacity
+            style={styles.btnHome}
+            onPress={() => navigation.navigate('Home')}
+          >
             <SvgHome width={40} height={40} fill="white" />
           </TouchableOpacity>
           <Text style={styles.headerText}>Profil</Text>
@@ -52,9 +64,17 @@ export default function ProfilScreen({ navigation }) {
         </View>
         <View style={styles.content}>
           <TouchableOpacity style={styles.imgContainer} activeOpacity={1}>
-            <BuddyBubble size={Dimensions.get("window").width / 2} i={0} buddy={user} />
+            <BuddyBubble
+              size={Dimensions.get('window').width / 2}
+              i={0}
+              buddy={user}
+            />
             <TouchableOpacity style={styles.imgEdit} activeOpacity={0.8}>
-              <FontAwesome name="edit" size={30} color={GLOBAL_COLOR.SECONDARY} />
+              <FontAwesome
+                name="edit"
+                size={30}
+                color={GLOBAL_COLOR.SECONDARY}
+              />
             </TouchableOpacity>
           </TouchableOpacity>
           <View style={globalsStyles.lines} />
@@ -72,7 +92,11 @@ export default function ProfilScreen({ navigation }) {
               </View>
             </View>
             <TouchableOpacity style={styles.imgEdit}>
-              <FontAwesome name="edit" size={30} color={GLOBAL_COLOR.SECONDARY} />
+              <FontAwesome
+                name="edit"
+                size={30}
+                color={GLOBAL_COLOR.SECONDARY}
+              />
             </TouchableOpacity>
           </View>
           <View style={globalsStyles.lines} />
@@ -88,7 +112,10 @@ export default function ProfilScreen({ navigation }) {
             <TouchableOpacity style={styles.containerGestion}>
               <Text style={styles.textGestion}>Supprimer Compte</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleLogout()} style={styles.containerGestion}>
+            <TouchableOpacity
+              onPress={() => handleLogout()}
+              style={styles.containerGestion}
+            >
               <Text style={styles.textGestion}>Déconnexion</Text>
             </TouchableOpacity>
           </View>
