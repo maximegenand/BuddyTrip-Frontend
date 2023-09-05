@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   Keyboard,
@@ -15,7 +15,6 @@ import {
 import { BACK_URL } from '@env';
 
 // Import styles
-import { globalsStyles, GLOBAL_COLOR } from '../styles/globals';
 import styles from '../styles/SigninStyles';
 
 //Import components
@@ -32,9 +31,6 @@ import {} from '../redux/reducers/events';
 
 export default function SigninScreen({ navigation }) {
   // 1. Redux storage
-  const user = useSelector((state) => state.user.value);
-  const trips = useSelector((state) => state.trips.value);
-  const events = useSelector((state) => state.events.value);
   const dispatch = useDispatch();
 
   // 2. UseEffect, UseState, UseRef
@@ -146,7 +142,7 @@ export default function SigninScreen({ navigation }) {
 
   // 4. Return Component
   const uri =
-    'https://st.depositphotos.com/2294011/3570/i/450/depositphotos_35708235-stock-photo-travel-and-trip.jpg';
+    'https://res.cloudinary.com/djjyzmssb/image/upload/v1693948830/depositphotos_35708235-stock-photo-travel-and-trip_w9p5og.webp';
 
   return (
     <ImageBackground

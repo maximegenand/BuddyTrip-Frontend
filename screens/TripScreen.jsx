@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -14,7 +14,7 @@ import { addDays, format, compareDesc } from 'date-fns';
 import { BACK_URL } from '@env';
 
 // Import styles
-import { globalsStyles, GLOBAL_COLOR } from '../styles/globals';
+import { GLOBAL_COLOR } from '../styles/globals';
 import styles from '../styles/TripStyles';
 
 //Import components
@@ -24,11 +24,10 @@ import BoutonAdd from '../components/BoutonAdd';
 import SvgArrow from '../components/svg/SvgArrow';
 
 //Import modules
-import { formatDate, formatPeriod } from '../modules/dates';
+import { formatDate } from '../modules/dates';
 
 // Import redux
 import { useDispatch, useSelector } from 'react-redux';
-import {} from '../redux/reducers/user';
 import { updateTrip } from '../redux/reducers/trips';
 import { addAllEvents } from '../redux/reducers/events';
 
@@ -72,6 +71,7 @@ export default function TripScreen({ route, navigation }) {
 
   // On récupère les infos du trip que l'on souhaite afficher
   const trip = trips.find((element) => element.tokenTrip === tokenTrip);
+  const isCreator = trip.user.tokenUser === user.tokenUser;
 
   // Déclaration des dates au bon format
   const dateStart = new Date(trip.dateStart);
@@ -144,7 +144,7 @@ export default function TripScreen({ route, navigation }) {
 
   // Affichage des 4 premiers participants du voyage dans le header
   const listParticipants = [
-    user.username,
+    trip.user.username,
     ...trip.participants.map((participant) => participant.username),
   ];
   let formattedListFour = listParticipants.slice(0, 4).join(', ');
@@ -173,24 +173,26 @@ export default function TripScreen({ route, navigation }) {
             onPress={() => setModalVisible(false)}
           >
             <View style={styles.modalInner}>
-              <TouchableOpacity
-                style={styles.modalIcon}
-                activeOpacity={0.8}
-                onPress={() => {
-                  navigation.navigate('NewTrip', {
-                    screen: 'NewTrip',
-                    tokenTrip,
-                  });
-                  setModalVisible(false);
-                }}
-              >
-                <FontAwesome
-                  style={styles.bell}
-                  name="edit"
-                  size={30}
-                  color={GLOBAL_COLOR.SECONDARY}
-                />
-              </TouchableOpacity>
+              {isCreator && (
+                <TouchableOpacity
+                  style={styles.modalIcon}
+                  activeOpacity={0.8}
+                  onPress={() => {
+                    navigation.navigate('NewTrip', {
+                      screen: 'NewTrip',
+                      tokenTrip,
+                    });
+                    setModalVisible(false);
+                  }}
+                >
+                  <FontAwesome
+                    style={styles.bell}
+                    name="edit"
+                    size={30}
+                    color={GLOBAL_COLOR.SECONDARY}
+                  />
+                </TouchableOpacity>
+              )}
               <View style={styles.modalBubble}>
                 <Text style={styles.modalTitle}>{trip.name}</Text>
               </View>

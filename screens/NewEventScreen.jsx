@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,6 @@ import {
   Keyboard,
   KeyboardAvoidingView,
 } from 'react-native';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { SelectList } from 'react-native-dropdown-select-list';
 import { format, parse, compareDesc } from 'date-fns';
 import { BACK_URL } from '@env';
@@ -24,25 +23,20 @@ import InputComponent from '../components/Input';
 import SvgCar from '../components/svg/SvgCar';
 import SvgPlane from '../components/svg/SvgPlane';
 import SvgTrain from '../components/svg/SvgTrain';
-import SvgActivity from '../components/svg/SvgActivity';
 import SvgPeople from '../components/svg/SvgPeople';
 
 //Import modules
 import { formatDate } from '../modules/formatDate';
 import { formatTime, timeToText } from '../modules/formatTime';
-import { isValidDate } from '../modules/isValidDate';
 
 // Import redux
 import { useDispatch, useSelector } from 'react-redux';
-import {} from '../redux/reducers/user';
-import {} from '../redux/reducers/trips';
 import { addEvent, updateEvent } from '../redux/reducers/events';
 import { StatusBar } from 'expo-status-bar';
 
 export default function NewEventScreen({ route, navigation }) {
   // 1. Redux storage
   const user = useSelector((state) => state.user.value);
-  const trips = useSelector((state) => state.trips.value);
   const events = useSelector((state) => state.events.value);
 
   const dispatch = useDispatch();
@@ -126,6 +120,7 @@ export default function NewEventScreen({ route, navigation }) {
       fill={GLOBAL_COLOR.QUATERNARY}
     />
   );
+  let transportRef;
   if (transportSelected === 'train') {
     transportRef = 'N° de train';
     iconTransport = (

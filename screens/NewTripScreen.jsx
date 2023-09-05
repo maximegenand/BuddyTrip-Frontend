@@ -5,8 +5,6 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
   SafeAreaView,
   Keyboard,
 } from 'react-native';
@@ -15,7 +13,7 @@ import { BACK_URL } from '@env';
 
 // Import styles
 import styles from '../styles/NewTripStyles';
-import { globalsStyles, GLOBAL_COLOR } from '../styles/globals';
+import { GLOBAL_COLOR } from '../styles/globals';
 
 //Import components
 import HeaderNav from '../components/HeaderNewTrip';
@@ -35,7 +33,6 @@ export default function NewTripScreen({ route, navigation }) {
   // 1. Redux storage
   const user = useSelector((state) => state.user.value);
   const trips = useSelector((state) => state.trips.value);
-  const events = useSelector((state) => state.events.value);
 
   const dispatch = useDispatch();
 
@@ -186,7 +183,7 @@ export default function NewTripScreen({ route, navigation }) {
       };
 
       // Envoyer la demande de création du voyage au serveur via une requête POST
-      const response = await fetch(`${BACK_URL}/trips/`, {
+      const response = await fetch(`${BACK_URL}/trips`, {
         method: trip.tokenTrip ? 'PUT' : 'POST', // Si on a deja un tokenEvent on sait qu'il faut seulement mettre à jour
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: user.token, trip: tripData }),
@@ -287,7 +284,9 @@ export default function NewTripScreen({ route, navigation }) {
             </TouchableOpacity>
             <Text style={styles.textError}>{textError}</Text>
             <TouchableOpacity style={styles.btnAdd} onPress={handleAddTrip}>
-              <Text style={styles.btnText}>Ajouter le Trip</Text>
+              <Text style={styles.btnText}>
+                {trip.tokenTrip ? 'Enregistrer' : 'Ajouter le Trip'}
+              </Text>
             </TouchableOpacity>
             <View style={styles.space}></View>
           </ScrollView>

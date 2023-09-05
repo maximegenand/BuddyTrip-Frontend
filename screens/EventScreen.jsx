@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,6 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { format } from 'date-fns';
-import { fr } from 'date-fns/esm/locale';
 import { BACK_URL } from '@env';
 
 // Import styles
@@ -19,29 +17,24 @@ import styles from '../styles/EventStyles';
 
 //Import components
 import BuddiesBar from '../components/BuddiesBar';
-import SvgAdd from '../components/svg/SvgAdd';
-import SvgMinus from '../components/svg/SvgMinus';
 import SvgCar from '../components/svg/SvgCar';
 import SvgPlane from '../components/svg/SvgPlane';
 import SvgTrain from '../components/svg/SvgTrain';
-import SvgActivity from '../components/svg/SvgActivity';
 import SvgPeople from '../components/svg/SvgPeople';
 
 //Import modules
 import { formatDate, compareDate } from '../modules/dates';
 import { timeToText } from '../modules/formatTime';
-import { findCategory } from '../modules/findCategory';
 
 // Import redux
 import { useDispatch, useSelector } from 'react-redux';
 import {} from '../redux/reducers/user';
 import {} from '../redux/reducers/trips';
-import { addEvent, updateEvent } from '../redux/reducers/events';
+import { updateEvent } from '../redux/reducers/events';
 
 export default function EventScreen({ route, navigation }) {
   // 1. Redux storage
   const user = useSelector((state) => state.user.value);
-  const trips = useSelector((state) => state.trips.value);
   const events = useSelector((state) => state.events.value);
   const dispatch = useDispatch();
 
@@ -123,7 +116,7 @@ export default function EventScreen({ route, navigation }) {
   };
   const iconHeader = useRef(findCategory(category));
 
-  // Au clique sur le plus ça envoi les info au back et met à jour l'état du fontawsome
+  // Au clique sur le plus ça envoi les info au back et met à jour l'état du fontawesome
   const handleAddMePress = async () => {
     setIsLoad(true);
     try {
@@ -137,7 +130,7 @@ export default function EventScreen({ route, navigation }) {
       });
 
       const responseData = await response.json();
-      console.log('Réponse du serveur:', responseData);
+      // console.log('Réponse du serveur:', responseData);
 
       if (responseData.result) {
         const newEvent = responseData.event;
@@ -150,7 +143,7 @@ export default function EventScreen({ route, navigation }) {
     setIsLoad(false);
   };
 
-  // Au clique sur le moins ça envoi les info au back et met à jour l'état du fontawsome
+  // Au clique sur le moins ça envoi les info au back et met à jour l'état du fontawesome
   const handleDelMePress = async () => {
     setIsLoad(true);
     try {

@@ -1,11 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  Image,
-} from 'react-native';
+import { View, StyleSheet, Text, Image } from 'react-native';
 import { GLOBAL_COLOR } from '../styles/globals';
 
 export default function BuddyBubble(props) {

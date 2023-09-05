@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, Fragment } from 'react';
+import { useState } from 'react';
 import {
   View,
   Text,
@@ -27,15 +27,12 @@ import { formatPeriod } from '../modules/dates';
 
 // Import redux
 import { useDispatch, useSelector } from 'react-redux';
-import {} from '../redux/reducers/user';
-import { addAllTrips, deleteTrip } from '../redux/reducers/trips';
-import {} from '../redux/reducers/events';
+import { deleteTrip } from '../redux/reducers/trips';
 
 export default function HomeScreen({ navigation }) {
   // 1. Redux storage
   const user = useSelector((state) => state.user.value);
   const trips = useSelector((state) => state.trips.value);
-  const events = useSelector((state) => state.events.value);
   const dispatch = useDispatch();
 
   // 2. UseEffect, UseState, UseRef
@@ -135,7 +132,7 @@ export default function HomeScreen({ navigation }) {
     ) : null;
 
     return (
-      <Fragment key={trip.tokenTrip}>
+      <View key={trip.tokenTrip}>
         {titleMonth}
         <TouchableOpacity
           style={styles.tripContainer}
@@ -158,7 +155,7 @@ export default function HomeScreen({ navigation }) {
           </View>
           <View styles={styles.chevron}></View>
         </TouchableOpacity>
-      </Fragment>
+      </View>
     );
   });
 

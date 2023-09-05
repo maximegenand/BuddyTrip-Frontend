@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import { View, StyleSheet, Text, Modal, TouchableOpacity } from 'react-native';
 import { GLOBAL_COLOR } from '../styles/globals';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { MultipleSelectList } from 'react-native-dropdown-select-list';
 
 export default function AddBuddyTrip(props) {
@@ -26,25 +24,9 @@ export default function AddBuddyTrip(props) {
             searchPlaceholder="recherche"
             notFoundText="aucun buddy trouvé"
             label="Buddies"
-            boxStyles={[
-              styles.boxStyles,
-              {
-                /*backgroundColor: 'yellow'*/
-              },
-            ]}
-            inputStyles={[
-              styles.inputStyles,
-              {
-                /*backgroundColor: 'green'*/
-              },
-            ]}
-            dropdownStyles={[
-              styles.dropdownStyles,
-              {
-                /*backgroundColor:'blue'*/
-              },
-            ]}
-            dropdownItemStyles={styles.dropdownItemStyles}
+            boxStyles={styles.boxStyles}
+            inputStyles={styles.inputStyles}
+            dropdownStyles={styles.dropdownStyles}
             badgeStyles={styles.badgeStyles}
           />
           <TouchableOpacity style={styles.btnSave} onPress={props.handleModal}>
@@ -59,7 +41,7 @@ export default function AddBuddyTrip(props) {
 const styles = StyleSheet.create({
   modal: {
     flex: 1,
-    backgroundColor: GLOBAL_COLOR.SECONDARY,
+    backgroundColor: GLOBAL_COLOR.TERTIARY,
   },
   header: {
     justifyContent: 'center',
@@ -94,9 +76,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     borderBottomWidth: 1,
     borderBottomColor: GLOBAL_COLOR.SECONDARY,
-  },
-  dropdownItemStyles: {
-    //backgroundColor: 'red',
   },
   textList: {
     fontSize: 16,

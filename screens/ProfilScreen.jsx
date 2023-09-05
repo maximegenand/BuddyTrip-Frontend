@@ -5,7 +5,6 @@ import {
   StatusBar,
   SafeAreaView,
   Dimensions,
-  Image,
 } from 'react-native';
 
 // Import styles

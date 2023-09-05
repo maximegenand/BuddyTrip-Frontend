@@ -1,10 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { GLOBAL_COLOR } from '../styles/globals';
 
 import { compareDate } from '../modules/dates';
@@ -14,7 +8,6 @@ import BuddyBubble from './BuddyBubble';
 import SvgCar from './svg/SvgCar';
 import SvgPlane from './svg/SvgPlane';
 import SvgTrain from './svg/SvgTrain';
-import SvgActivity from './svg/SvgActivity';
 import SvgPeople from './svg/SvgPeople';
 
 export default function Event({ event, handlePress }) {
@@ -65,7 +58,7 @@ export default function Event({ event, handlePress }) {
   if (event.participants.length > 1) participantsText += 's';
 
   // Gestion des trajets ne se terminant pas le même jour que leur départ
-  let timeEnd = '';
+  let timeEnd = <Text style={styles.hour}> </Text>;
   if (event.timeEnd)
     timeEnd = (
       <>
@@ -81,7 +74,7 @@ export default function Event({ event, handlePress }) {
       <View style={styles.date}>
         <Text style={styles.hour}>{timeToText(event.timeStart)}</Text>
         {icon(event.category)}
-        <View>{event.timeEnd && timeEnd}</View>
+        <View>{timeEnd}</View>
       </View>
       <View style={styles.where}>
         <Text style={styles.name}>{event.name}</Text>
@@ -101,11 +94,6 @@ export default function Event({ event, handlePress }) {
 
 const styles = StyleSheet.create({
   container: {
-    // width: "95%",
-    //width: '100%',
-    //width: screenWidth*0.92,
-    // height: '100%',
-    //height:  screenHeight*0.12,
     flexDirection: 'row',
     alignItems: 'center',
     margin: 15,

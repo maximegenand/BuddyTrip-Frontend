@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import { GLOBAL_COLOR } from '../styles/globals';
 import SvgLogo from './svg/SvgLogo';
 

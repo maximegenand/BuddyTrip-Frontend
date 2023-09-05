@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   Keyboard,
@@ -15,7 +15,6 @@ import {
 import { BACK_URL } from '@env';
 
 // Import styles
-import { globalsStyles, GLOBAL_COLOR } from '../styles/globals';
 import styles from '../styles/SigninStyles';
 
 //Import components
@@ -28,13 +27,10 @@ import InputComponent from '../components/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from '../redux/reducers/user';
 import { addAllTrips } from '../redux/reducers/trips';
-import {} from '../redux/reducers/events';
 
 export default function SigninScreen({ navigation }) {
   // 1. Redux storage
   const user = useSelector((state) => state.user.value);
-  const trips = useSelector((state) => state.trips.value);
-  const events = useSelector((state) => state.events.value);
   const dispatch = useDispatch();
 
   // 2. UseEffect, UseState, UseRef
@@ -149,19 +145,16 @@ export default function SigninScreen({ navigation }) {
 
   // Fonction provisoire pour compléter les champs automatiquement
   const autoComplete = (event) => {
-    const username = event._dispatchInstances.memoizedProps.children;
-    let defaultMail = '';
-    if (username === 'John') defaultMail = 'john@gmail.com';
-    else if (username === 'Barbie') defaultMail = 'barbie@gmail.com';
-    else if (username === 'Ken') defaultMail = 'ken@gmail.com';
-    else if (username === 'Ben') defaultMail = 'ben@gmail.com';
+    const username =
+      event._dispatchInstances.memoizedProps.children.toLowerCase();
+    const defaultMail = username + '@gmail.com';
     setEmail(defaultMail);
     setPassword('azerty');
   };
 
   // 4. Return Component
   const uri =
-    'https://st.depositphotos.com/2294011/3570/i/450/depositphotos_35708235-stock-photo-travel-and-trip.jpg';
+    'https://res.cloudinary.com/djjyzmssb/image/upload/v1693948830/depositphotos_35708235-stock-photo-travel-and-trip_w9p5og.webp';
 
   return (
     <ImageBackground
@@ -200,10 +193,11 @@ export default function SigninScreen({ navigation }) {
               <View
                 style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}
               >
-                <Text onPress={autoComplete}>John</Text>
+                <Text onPress={autoComplete}>Antoine</Text>
+                <Text onPress={autoComplete}>Maeva</Text>
+                <Text onPress={autoComplete}>Gregory</Text>
+                <Text onPress={autoComplete}>Elodie</Text>
                 <Text onPress={autoComplete}>Barbie</Text>
-                <Text onPress={autoComplete}>Ken</Text>
-                <Text onPress={autoComplete}>Ben</Text>
               </View>
               <InputComponent
                 key="email"

@@ -1,21 +1,12 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-import { GLOBAL_COLOR } from '../styles/globals';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 import BuddyBubble from '../components/BuddyBubble';
 
 // Taille par défaut des bulles
 const defaultSize = 50;
 
 export default function BuddiesBar(props) {
-  //
+  // Si on a une props size, on l'applique, sinon on utilise la valeur par défaut
   const size = props.size ? props.size : defaultSize;
-
-  const buddies = props.buddies;
 
   // Si on envoie en props la longueur max de l'affiche des buddies, on enregistre le nombre max, sinon on passe la longueur complète des buddies
   let indexMax = props.buddies.length;
@@ -26,8 +17,6 @@ export default function BuddiesBar(props) {
     substrac = props.buddies.length - indexMax;
   }
 
-  //console.log('affichés :', indexMax)
-  //console.log('boutton + :', substrac)
   return (
     <TouchableOpacity
       activeOpacity={1}

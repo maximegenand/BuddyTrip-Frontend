@@ -1,12 +1,7 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { GLOBAL_COLOR } from '../styles/globals';
 import SvgAdd from './svg/SvgAdd';
+
 export default function BoutonAdd(props) {
   return (
     <TouchableOpacity
@@ -27,31 +22,31 @@ export default function BoutonAdd(props) {
 
 const styles = StyleSheet.create({
   container: {
-    width: 90,
-    height: 90,
-    borderRadius: 100,
-    backgroundColor: GLOBAL_COLOR.QUATERNARY,
     justifyContent: 'center',
     alignItems: 'center',
+    width: 90,
+    height: 90,
+    backgroundColor: GLOBAL_COLOR.QUATERNARY,
+    borderRadius: 100,
   },
   innerCircle: {
+    position: 'absolute',
     width: 85,
     height: 85,
-    borderRadius: 100,
     backgroundColor: GLOBAL_COLOR.TERTIARY,
-    position: 'absolute',
+    borderRadius: 100,
   },
   innerCircle2: {
+    position: 'absolute',
     width: 80,
     height: 80,
-    borderRadius: 100,
     backgroundColor: GLOBAL_COLOR.QUATERNARY,
-    position: 'absolute',
+    borderRadius: 100,
   },
   plus: {
-    fontWeight: 'bold',
+    position: 'absolute',
     fontSize: 50,
     color: GLOBAL_COLOR.TERTIARY,
-    position: 'absolute',
+    fontWeight: 'bold',
   },
 });

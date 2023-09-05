@@ -1,10 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { GLOBAL_COLOR } from '../styles/globals';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -27,6 +21,7 @@ export default function HeaderNav({ navigation, title }) {
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
